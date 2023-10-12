@@ -34,19 +34,6 @@
 </body>
 
 <script>
-    //battery
-    $battery =$('.battery');
-    navigator.getBattery().then((battery) => {
-        
-        battery.addEventListener("levelchange", () => {
-            updateLevelInfo();
-        });
-        function updateLevelInfo() {
-            batteryLevel =battery.level*100;
-            $battery.text(batteryLevel+"%");
-        };
-        updateLevelInfo();
-    });
     //chat追加
     AddMessage = (text) => {
         if (!text.length) {

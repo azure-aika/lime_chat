@@ -1,0 +1,164 @@
+html {
+    height: 100%;
+}
+
+body {
+    font-family: 'Noto Sans JP', sans-serif;
+    line-height: 1;
+    margin: 0;
+    padding: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    -webkit-text-adjust-size: 100%;
+    font-weight: bold;
+}
+
+.contents {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.screen {
+    height: 100%;
+    width: 65vh;
+    max-width: 100%;
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    background: #cecece;
+    position: relative;
+    overflow: hidden;
+}
+
+.info-area {
+    position: relative;
+    display: flex;
+    height: 5vh;
+    width: 100%;
+    background: #F5D3E1;
+}
+
+.header {
+    height: 5vh;
+    width: 100%;
+    background: green;
+}
+
+.chat-area {
+    position: relative;
+    z-index: 2;
+    flex: 1 1 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 2vh 0;
+    color: #000000;
+    overflow: auto;
+}
+.chat-area::-webkit-scrollbar{
+    display: none;
+}
+.messageBox-left{
+    position: relative;
+    display: flex;
+    margin: 1vh 3vh;
+}
+.icon{
+    position: relative;
+    display: flex;
+    width: 4em;
+    height: 4em;
+    border-radius: 100%;
+    background: black;
+    flex-shrink: 0;
+}
+.message {
+    position: relative;
+    flex: 0 0 auto;
+    display: flex;
+    white-space: pre-line;
+    align-items: center;
+    word-break: break-all;
+    line-height: 1.5rem;
+    padding: 0.8rem 0.8rem;
+    border: 0;
+    max-width: 60%;
+}
+.message-right {
+    margin: 1vh 3vh;
+    margin-left: auto;
+    border-radius: 0.8rem 0 0.8rem 0.8rem;
+    background: #EE7FB7;
+    color: #ffffff;
+}
+.message-left {
+    margin: auto 3vh;
+    margin-right: auto;
+    border-radius: 0 0.8rem 0.8rem 0.8rem;
+    background: #ffffff;
+    color: #421B2F;
+}
+.message-right::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: -1rem;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 1rem 1.5rem 0 0;
+    border-color: #EE7FB7 transparent transparent transparent;
+}
+
+.message-left::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -1rem;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 1.5rem 1rem 0;
+    border-color: transparent #ffffff transparent transparent;
+}
+
+.form-area {
+    width: 100%;
+    background: #F5D3E1;
+    position: relative;
+    z-index: 2;
+    margin: 0;
+    padding: 1.5vh 3vh;
+    display: flex;
+    align-items: flex-end;
+}
+
+
+textarea {
+    font-family: inherit;
+    font-weight: inherit;
+    color: #421B2F;
+	border: none;
+	border-radius: 0.5rem;
+	min-height: 1rem;
+	outline: 0;
+	line-height: 1;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+    resize: none;
+}
+.submit {
+    position: relative;
+    display: flex;
+    padding: 0.5rem 0.8rem;
+    background: #FAEEF0;
+    color: #BC5F7E;
+    border: none;
+    border-radius: 40%;
+    outline: 0;
+    box-shadow: 0 0 0.3rem #EE7FB7;
+}

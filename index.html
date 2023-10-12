@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>LIME風メッセージ画面</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="contents">
+        <div class="screen">
+            <div class="info-area">
+                <div class="time"></div>
+                <div class="battery"></div>
+            </div>
+            <div class="header">
+            </div>
+            <div class="chat-area">
+                <div class="messageBox-left">
+                    <div class="icon"><img></div>
+                    <div class="message message-left">先ほど行きましたが、いませんでしたよ</div>
+                </div>
+            </div>
+            <form class="form-area" name="send">
+                <textarea id="text"></textarea>
+                <button type="submit" class="submit">送信</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+
+<script>
+    //battery
+    $battery =$('.battery');
+    navigator.getBattery().then((battery) => {
+        
+        battery.addEventListener("levelchange", () => {
+            updateLevelInfo();
+        });
+        function updateLevelInfo() {
+            batteryLevel =battery.level*100;
+            $battery.text(batteryLevel+"%");
+        };
+        updateLevelInfo();
+    });
+    //chat追加
+    AddMessage = (text) => {
+        if (!text.length) {
+            return;
+        }
+
+        $message = $('<div class="message message-right"></div>').text(text).appendTo($('.chat-area'));
+        $("#text").val('');
+
+    };
+    //メッセージ送信
+    const $form = $(document.forms.send);
+    $form.on('submit', (e) => {
+        e.preventDefault();
+        let messageText = $("#text").val();
+        AddMessage(messageText);
+        $(".chat-area").scrollTop($(".chat-area")[0].scrollHeight);
+
+    });
+
+    //testメッセージ
+    AddMessage("近所のカフェはどう？");
+</script>
+
+</html>

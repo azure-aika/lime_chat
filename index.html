@@ -56,27 +56,43 @@
         timeTimer = setTimeout(SetTime, (60 - now.getSeconds()) * 1000);
     };
     SetTime();
-    //battery
-    batteryLevel = () => {
-        const agent = window.navigator.userAgent.toLowerCase()
-        if (agent.indexOf("safari") == -1) {
-            return;
-        } else if (agent.indexOf("safari") != -1) {
-            $battery = $('.battery span');
-            navigator.getBattery().then((battery) => {
 
-                battery.addEventListener("levelchange", () => {
-                    updateLevelInfo();
-                });
-                function updateLevelInfo() {
-                    batteryLevel = battery.level * 100;
-                    $battery.text(batteryLevel + "%");
-                };
+    //battery
+    $battery = $('.battery span');
+
+    const batteryLevel = () => {
+        navigator.getBattery().then((battery) => {
+            battery.addEventListener("levelchange", () => {
                 updateLevelInfo();
             });
+            function updateLevelInfo() {
+                $batteryLevel = battery.level * 100;
+                $battery.text($batteryLevel + "%");
+            };
+            updateLevelInfo();
+        });
+    }
+
+    //ブラウザ判定
+    const batteryFlag = () => {
+        const userAgent = window.navigator.userAgent.toLowerCase();
+
+        if (userAgent.indexOf('msie') != -1 ||
+            userAgent.indexOf('trident') != -1) {
+            batteryLevel();
+        } else if (userAgent.indexOf('edge') != -1) {
+            batteryLevel();
+        } else if (userAgent.indexOf('chrome') != -1) {
+            batteryLevel();
+        } else if (userAgent.indexOf('safari') != -1) {
+            $battery.text("123%");
+        } else if (userAgent.indexOf('firefox') != -1) {
+            batteryLevel();
+        } else if (userAgent.indexOf('opera') != -1) {
+            batteryLevel();
         }
     }
-    batteryLevel();
+    batteryFlag();
     //chat追加
     AddMessage = (text) => {
         if (!text.length) {

@@ -3,9 +3,10 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
     <title>LIME風メッセージ画面</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/deb1d71775.js" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 
@@ -14,9 +15,13 @@
         <div class="screen">
             <div class="info-area">
                 <div class="time"></div>
-                <div class="battery"></div>
+                <div class="logo"><img></div>
+                <div class="battery"><span></span><i class="fa-solid fa-battery-full fa-lg"></i></div>
             </div>
             <div class="header">
+                <div class="menu"><i class="fa-solid fa-arrow-left"></i></div>
+                <div class="sender"><p>差出人</p></div>
+                <div class="option"><i class="fa-solid fa-gear"></i></div>
             </div>
             <div class="chat-area">
                 <div class="messageBox-left">
@@ -25,6 +30,7 @@
                 </div>
             </div>
             <form class="form-area" name="send">
+                <button type="button" class="senderSelect">自分</button>
                 <textarea id="text"></textarea>
                 <button type="submit" class="submit">送信</button>
             </form>
@@ -34,6 +40,35 @@
 </body>
 
 <script>
+    //
+    //Time
+    $time = $('.time');
+    let timer = null;
+    let timeTimer = null;
+
+    const SetTime = () => {
+        const now = new Date();
+        let hours = now.getHours().toString();
+        if (hours.length == 1) hours = '0' + hours;
+        let minutes = now.getMinutes().toString();
+        if (minutes.length == 1) minutes = '0' + minutes;
+        $time.text(hours + ':' + minutes);
+        timeTimer = setTimeout(SetTime, (60 - now.getSeconds()) * 1000);
+    };
+    SetTime();
+    //battery
+    $battery = $('.battery span');
+    navigator.getBattery().then((battery) => {
+
+        battery.addEventListener("levelchange", () => {
+            updateLevelInfo();
+        });
+        function updateLevelInfo() {
+            batteryLevel = battery.level * 100;
+            $battery.text(batteryLevel + "%");
+        };
+        updateLevelInfo();
+    });
     //chat追加
     AddMessage = (text) => {
         if (!text.length) {
@@ -42,6 +77,7 @@
 
         $message = $('<div class="message message-right"></div>').text(text).appendTo($('.chat-area'));
         $("#text").val('');
+        $(".chat-area").scrollTop($(".chat-area")[0].scrollHeight);
 
     };
     //メッセージ送信
@@ -50,7 +86,7 @@
         e.preventDefault();
         let messageText = $("#text").val();
         AddMessage(messageText);
-        $(".chat-area").scrollTop($(".chat-area")[0].scrollHeight);
+        
 
     });
 

@@ -15,12 +15,12 @@
         <div class="screen">
             <div class="info-area">
                 <div class="time"></div>
-                <div class="logo"><img></div>
                 <div class="battery"><span></span><i class="fa-solid fa-battery-full fa-lg"></i></div>
             </div>
+            <div class="logo">LIME</div>
             <div class="header">
                 <div class="menu"><i class="fa-solid fa-arrow-left"></i></div>
-                <div class="sender"><p>差出人</p></div>
+                <div class="sender">test</div>
                 <div class="option"><i class="fa-solid fa-gear"></i></div>
             </div>
             <div class="chat-area">
@@ -57,18 +57,26 @@
     };
     SetTime();
     //battery
-    $battery = $('.battery span');
-    navigator.getBattery().then((battery) => {
+    batteryLevel = () => {
+        const agent = window.navigator.userAgent.toLowerCase()
+        if (agent.indexOf("safari") == -1) {
+            return;
+        } else if (agent.indexOf("safari") != -1) {
+            $battery = $('.battery span');
+            navigator.getBattery().then((battery) => {
 
-        battery.addEventListener("levelchange", () => {
-            updateLevelInfo();
-        });
-        function updateLevelInfo() {
-            batteryLevel = battery.level * 100;
-            $battery.text(batteryLevel + "%");
-        };
-        updateLevelInfo();
-    });
+                battery.addEventListener("levelchange", () => {
+                    updateLevelInfo();
+                });
+                function updateLevelInfo() {
+                    batteryLevel = battery.level * 100;
+                    $battery.text(batteryLevel + "%");
+                };
+                updateLevelInfo();
+            });
+        }
+    }
+    batteryLevel();
     //chat追加
     AddMessage = (text) => {
         if (!text.length) {
@@ -86,12 +94,13 @@
         e.preventDefault();
         let messageText = $("#text").val();
         AddMessage(messageText);
-        
+
 
     });
 
     //testメッセージ
     AddMessage("近所のカフェはどう？");
+
 </script>
 
 </html>

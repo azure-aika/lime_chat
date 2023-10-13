@@ -58,76 +58,76 @@ input {
     color: #EE7FB7;
     position: relative;
     display: flex;
-    height: 5vh;
-    width: 100%;
     background: #F5D3E1;
+    font-size: 0.75em;
+    padding: 0.5em 1em ;
+    align-items: center;
     justify-content: space-between;
-    font-size: 0.6em;
 }
 
 .time {
     position: relative;
     display: flex;
-    height: 1em;
-    margin: 1em;
+    flex: 0 0 auto;
 }
 
 .battery {
     position: relative;
     display: flex;
-    height: 1em;
-    padding: 1em;
+    flex: 0 0 auto;
 }
 
 .battery i {
     position: relative;
     display: flex;
-    align-items: center;
-    line-height: 0.6em;
+    line-height: 0.75em;
 }
 
 .battery span {
     position: relative;
     display: flex;
-    padding: 0 0.6em;
+    padding: 0 0.5em;
+}
+.logo{
+    color: #EE7FB7;
+    background: #F5D3E1;
+    position: relative;
+    display: flex;
+    font-size: 2em;
+    justify-content: center;
+    font-weight: normal;
 }
 
 .header {
-    height: 5vh;
-    width: 100%;
     background: #F5D3E1;
     display: flex;
     justify-content: space-between;
-    font-size: 1.2em;
+    padding: 0.5em 1em;
 }
 
 .header .menu,
 .header .option {
-    position: relative;
-    display: flex;
-    line-height: 1;
-    padding: 0.2em;
-    margin: auto 1em;
+    padding: 0.5em;
+    margin: auto 0;
     background: #FDEEF1;
     border-radius: 15%;
     border: 0.1em solid #EE7FB7;
-    flex: 0 0 auto;
 }
 
 .header i {
-    position: relative;
-    display: flex;
+    font-size: 1.5em;
     align-items: center;
     color: #EE7FB7;
-
 }
+
 
 .header .sender{
-    position: relative;
+    font-size: 1.5em;
+    align-items: center;
     display: flex;
-    flex: 1 1 100%;
+    flex:1 1 100%;
+    padding: 0 0.5em;
 }
-
 .chat-area {
     position: relative;
     z-index: 2;
@@ -236,10 +236,10 @@ input {
     width: 100%;
     background: #F5D3E1;
     position: relative;
+    display: flex;
     z-index: 2;
     margin: 0;
-    padding: 1.5vh 3vh;
-    display: flex;
+    padding: 0;
     align-items: flex-end;
 }
 
@@ -248,15 +248,15 @@ input {
     position: relative;
     display: flex;
     background: red;
-    padding: 0.5em 0.8em;
     font-size: small;
     flex: 0 1 auto;
     justify-content: center;
 }
 
 textarea {
+    font-weight: bold;
+    color: #421B2F;
     font-family: inherit;
-    font-weight: inherit;
     border: none;
     border-radius: 0.5em;
     height: 1em;
@@ -265,12 +265,12 @@ textarea {
     display: flex;
     justify-content: center;
     resize: none;
-    padding: 0.5em;
     flex: 1 1 50%;
 }
 
 .submit {
     font-weight: bold;
+    font-family: inherit;
     position: relative;
     display: flex;
     justify-content: center;

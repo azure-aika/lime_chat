@@ -62,11 +62,16 @@
                 updateLevelInfo();
             });
             function updateLevelInfo() {
-                if(0.5<battery.level<=0.9){
+                if (0.5 < battery.level && battery.level <= 0.9) {
                     $('.battery i').removeClass("fa-battery-full").addClass("fa-battery-three-quarters");
-                }else
-                if(battery.level<=0.5){
+                } else if (0.25 < battery.level && battery.level <= 0.5) {
                     $('.battery i').removeClass("fa-battery-full").addClass("fa-battery-half");
+                } else if (0.2 < battery.level && battery.level <= 0.25) {
+                    $('.battery i').removeClass("fa-battery-full").addClass("fa-battery-quarter");
+                } else if (0.1 < battery.level && battery.level <= 0.2) {
+                    $('.battery i').removeClass("fa-battery-full").addClass("fa-battery-low");
+                } else if (0 < battery.level && battery.level <= 0.1) {
+                    $('.battery i').removeClass("fa-battery-full").addClass("fa-battery-empty");
                 }
                 $batteryLevel = battery.level * 100;
                 $battery.text($batteryLevel + "%");

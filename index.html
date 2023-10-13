@@ -26,13 +26,18 @@
             <div class="chat-area">
                 <div class="messageBox-left">
                     <div class="icon"><img></div>
-                    <div class="message message-left">先ほど行きましたが、いませんでしたよ</div>
+                    <div class="message message-left">これはテストメッセージです</div>
                 </div>
             </div>
             <form class="form-area" name="send">
                 <button type="button" class="senderSelect">自分</button>
-                <textarea id="text"></textarea>
-                <button type="submit" class="submit">送信</button>
+
+
+                <textarea id="text" class="textarea"></textarea>
+
+                <div class="formButton-submit">
+                    <button type="submit" class="submit">送信</button>
+                </div>
             </form>
         </div>
     </div>
@@ -62,7 +67,7 @@
                 updateLevelInfo();
             });
             function updateLevelInfo() {
-                if (0.5 < battery.level && battery.level <= 0.9) {
+                if (0.5 < battery.level && battery.level <= 0.75) {
                     $('.battery i').removeClass("fa-battery-full").addClass("fa-battery-three-quarters");
                 } else if (0.25 < battery.level && battery.level <= 0.5) {
                     $('.battery i').removeClass("fa-battery-full").addClass("fa-battery-half");
@@ -88,15 +93,57 @@
             $battery.text("123%");
         }
     }
+    //テキストエリア自動伸縮
+    const textBody = document.querySelector('.textarea');
+    fontSize = $('.textarea').css('font-size');
+    lineHeight = $('.textarea').css('line-height');
+    lineHeight = parseInt(lineHeight);
+    const defaultHeight = textBody.style.height;
+    widthCountMax = 0;
+    textBody.addEventListener('input', () => {
+        length = $('.textarea').val().length;
+        row = Math.floor(textBody.scrollHeight / lineHeight);
+        widthCount = Math.floor(length / row);
+        if (widthCount >= widthCountMax) { widthCountMax = widthCount }
+        console.log(length, widthCountMax, row, textBody.scrollHeight);
+
+        if (textBody.scrollHeight > lineHeight * 2) {
+            textBody.style.height = 'auto';
+            textBody.style.height = textBody.scrollHeight + 'px';
+            if (length <= widthCountMax) {
+                textBody.style.height = defaultHeight;
+            }
+        }
+    });
+
     //chat追加
     AddMessage = (text) => {
-        if (!text.length) {
+        text = text.replace(/\s+/g, '');
+        if (!text.length || !text.value == "") {
+            $("#text").val('');
+            textBody.style.height = defaultHeight;
             return;
         }
 
         $message = $('<div class="message message-right"></div>').text(text).appendTo($('.chat-area'));
         $("#text").val('');
+        textBody.style.height = defaultHeight;
         $(".chat-area").scrollTop($(".chat-area")[0].scrollHeight);
+        $messageEvent = $('.message');
+        $messageEvent.on('click', function () {
+            let old_text = $(this).text();
+            let new_text = window.prompt('メッセージ編集', old_text);
+            if (new_text == null) {
+                $(this).text(old_text);
+            } else if (new_text == "") {
+                if (window.confirm('削除しますか？')) {
+                    $(this).remove();
+                }
+            } else if (new_text.length) {
+                $(this).text(new_text);
+            }
+
+        });
 
     };
     //メッセージ送信
@@ -105,13 +152,15 @@
         e.preventDefault();
         let messageText = $("#text").val();
         AddMessage(messageText);
+
     });
+
 
 
     SetTime();
     batteryFlag();
     //testメッセージ
-    AddMessage("近所のカフェはどう？");
+    //AddMessage("近所のカフェはどう？");
 
 </script>
 

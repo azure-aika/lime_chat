@@ -144,6 +144,7 @@ input {
 
 
 .message {
+    z-index: 1;
     position: relative;
     flex: 0 0 auto;
     display: flex;
@@ -154,6 +155,8 @@ input {
     padding: 0.8em 0.8em;
     border: none;
     max-width: 50%;
+    pointer-events: auto;
+    margin: 0;
 }
 
 .message-right {
@@ -183,8 +186,9 @@ input {
     display: flex;
     margin: 0.5em 1em;
     white-space: pre-line;
-    align-items: center;
+    align-items: flex-start;
     word-break: break-all;
+    pointer-events: none;
 }
 
 .icon {
@@ -201,11 +205,12 @@ input {
 }
 
 .message-left {
-    margin: auto 2em;
+    margin: 0.5em 2em auto;
     margin-right: auto;
     border-radius: 0 0.8em 0.8em 0.8em;
     background: #ffffff;
     border: 0.1em solid #F5D3E1;
+    
 }
 
 .message-left::before {
@@ -233,53 +238,59 @@ input {
 }
 
 .form-area {
-    width: 100%;
     background: #F5D3E1;
     position: relative;
     display: flex;
     z-index: 2;
     margin: 0;
-    padding: 0;
+    padding: 1em;
     align-items: flex-end;
+    justify-content: space-between;
 }
 
 
 .senderSelect {
+    font-size: inherit;
     position: relative;
     display: flex;
     background: red;
-    font-size: small;
     padding: 0.5em;
-    margin: 0.5em;
-    flex: 0 1 auto;
-    justify-content: center;
 }
 
-textarea {
+
+
+.textarea {
     font-weight: bold;
+    font-size: 1em;
     color: #421B2F;
     font-family: inherit;
     border: none;
     border-radius: 0.5em;
-    height: 1em;
     outline: 0;
-    line-height: 1;
+    line-height: 2em;
     display: flex;
     justify-content: center;
     resize: none;
-    flex: 1 1 50%;
-    margin: auto 0.5em;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    position: relative;
+    flex: 1 1 auto;
+    margin: 0 1em;
+    height: 2em;
 }
-
+.formButton-submit{
+    position: relative;
+    display: flex;
+}
 .submit {
+    font-size: inherit;
     font-weight: bold;
     font-family: inherit;
     position: relative;
     display: flex;
     justify-content: center;
-    flex: 0 1 auto;
     padding: 0.5em 0.8em;
-    margin: 0.5em;
     background: #FAEEF0;
     color: #BC5F7E;
     border-radius: 40%;

@@ -1,6 +1,6 @@
 html {
     height: 100%;
-    font-size: 0.625rem;
+    font-size: 62.5%;
 }
 
 body {
@@ -18,7 +18,7 @@ body {
     -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
     font-weight: bold;
-    font-size: 1em;
+    font-size: 1rem;
     color: #421B2F;
     word-break: break-all;
 }
@@ -61,8 +61,8 @@ textarea {
     position: relative;
     display: flex;
     background: #F5D3E1;
-    font-size: 0.75em;
-    padding: 0.5em 1em;
+    font-size: 0.75rem;
+    padding: 0.5rem 1rem;
     align-items: center;
     justify-content: space-between;
 }
@@ -82,13 +82,13 @@ textarea {
 .battery i {
     position: relative;
     display: flex;
-    line-height: 0.75em;
+    line-height: 0.75rem;
 }
 
 .battery span {
     position: relative;
     display: flex;
-    padding: 0 0.5em;
+    padding: 0 0.5rem;
 }
 
 .logo {
@@ -96,7 +96,7 @@ textarea {
     background: #F5D3E1;
     position: relative;
     display: flex;
-    font-size: 2em;
+    font-size: 2rem;
     justify-content: center;
     font-weight: normal;
 }
@@ -105,31 +105,31 @@ textarea {
     background: #F5D3E1;
     display: flex;
     justify-content: space-between;
-    padding: 0.5em 1em;
+    padding: 0.5rem 1rem;
 }
 
 .header .menu,
 .header .option {
-    padding: 0.5em;
+    padding: 0.5rem;
     margin: auto 0;
     background: #FDEEF1;
     border-radius: 15%;
-    border: 0.1em solid #EE7FB7;
+    border: 0.1rem solid #EE7FB7;
 }
 
 .header i {
-    font-size: 1.5em;
+    font-size: 1.5rem;
     align-items: center;
     color: #EE7FB7;
 }
 
 
 .header .sender {
-    font-size: 1.5em;
+    font-size: 1.5rem;
     align-items: center;
     display: flex;
     flex: 1 1 100%;
-    padding: 0 0.5em;
+    padding: 0 0.5rem;
 }
 
 .chat-area {
@@ -153,9 +153,9 @@ textarea::-webkit-scrollbar {
     flex: 0 0 auto;
     display: flex;
     align-items: center; 
-    font-size: 1.2em;
+    font-size: 1.2rem;
     line-height: 1.5;
-    padding: 0.8em 0.8em;
+    padding: 0.8rem 0.8rem;
     border: none;
     max-width: 50%;
     pointer-events: auto;
@@ -164,9 +164,9 @@ textarea::-webkit-scrollbar {
 }
 
 .message-right {
-    margin: 0.5em 2em;
+    margin: 0.5rem 2rem;
     margin-left: auto;
-    border-radius: 0.8em 0 0.8em 0.8em;
+    border-radius: 0.8em 0 0.8rem 0.8rem;
     background: #EE7FB7;
     color: #ffffff;
 }
@@ -177,18 +177,18 @@ textarea::-webkit-scrollbar {
     content: "";
     position: absolute;
     top: 0;
-    right: -0.9em;
+    right: -0.9rem;
     width: 0;
     height: 0;
     border-style: solid;
-    border-width: 0.66em 1em 0 0;
+    border-width: 0.66rem 1rem 0 0;
     border-color: #EE7FB7 transparent transparent transparent;
 }
 
 .messageBox-left {
     position: relative;
     display: flex;
-    margin: 0.5em 1em;
+    margin: 0.5rem 1rem;
     white-space: pre-line;
     align-items: flex-start;
     word-break: break-all;
@@ -200,8 +200,8 @@ textarea::-webkit-scrollbar {
     display: flex;
     width: 15vw;
     height: 15vw;
-    max-width: 5em;
-    max-height: 5em;
+    max-width: 5rem;
+    max-height: 5rem;
     border-radius: 100%;
     background: gray;
     flex-shrink: 0;
@@ -209,23 +209,23 @@ textarea::-webkit-scrollbar {
 }
 
 .message-left {
-    margin: 0.5em 1em auto;
+    margin: 0.5rem 1rem auto;
     margin-right: auto;
-    border-radius: 0 0.8em 0.8em 0.8em;
+    border-radius: 0 0.8rem 0.8rem 0.8rem;
     background: #ffffff;
-    border: 0.1em solid #F5D3E1;
+    border: 0.1rem solid #F5D3E1;
 
 }
 
 .message-left::before {
     content: "";
     position: absolute;
-    top: -0.1em;
-    left: -1.15em;
+    top: -0.1rem;
+    left: -1.15rem;
     width: 0;
     height: 0;
     border-style: solid;
-    border-width: 0 1.15em 0.81em 0;
+    border-width: 0 1.15rem 0.81rem 0;
     border-color: transparent #F5D3E1 transparent transparent;
 }
 
@@ -233,11 +233,11 @@ textarea::-webkit-scrollbar {
     content: "";
     position: absolute;
     top: 0;
-    left: -0.9em;
+    left: -0.9rem;
     width: 0;
     height: 0;
     border-style: solid;
-    border-width: 0 1em 0.66em 0;
+    border-width: 0 1rem 0.66rem 0;
     border-color: transparent #ffffff transparent transparent;
 }
 
@@ -247,7 +247,7 @@ textarea::-webkit-scrollbar {
     display: flex;
     z-index: 2;
     margin: 0;
-    padding: 1em;
+    padding: 1rem;
     align-items: flex-end;
     justify-content: space-between;
 }
@@ -258,7 +258,7 @@ textarea::-webkit-scrollbar {
     position: relative;
     display: flex;
     background: red;
-    padding: 0.5em;
+    padding: 0.5rem;
 }
 
 .textarea-bg {
@@ -266,23 +266,23 @@ textarea::-webkit-scrollbar {
     flex: 0 0 auto;
     display: flex;
     align-items: center; 
-    font-size: 1.2em;
+    font-size: 1.2rem;
     line-height: 1.5;
-    padding: 0.8em 0.8em;
+    padding: 0.8rem 0.8rem;
     border: none;
     outline: 0;
     display: flex;
     justify-content: center;
     position: relative;
     flex: 1 1 auto;
-    margin: 0 1em;
-    padding: 0.8em;
+    margin: 0 1rem;
+    padding: 0.8rem;
     background: #ffffff;
-    border-radius: 0.5em;
+    border-radius: 0.5rem;
 }
 .textarea {
     font-weight: bold;
-    font-size: 1.2em;
+    font-size: 1.2rem;
     color: #421B2F;
     font-family: inherit;
     border: none;
@@ -296,7 +296,7 @@ textarea::-webkit-scrollbar {
     overflow-wrap: break-word;
     position: relative;
     width: 100%;
-    height: 1.5em;
+    height: 1.5rem;
 }
 
 .formButton-submit {
@@ -305,13 +305,13 @@ textarea::-webkit-scrollbar {
 }
 
 .submit {
-    font-size: 1em;
+    font-size: 1rem;
     font-weight: bold;
     font-family: inherit;
     position: relative;
     display: flex;
     justify-content: center;
-    padding: 0.5em 0.8em;
+    padding: 0.5rem 0.8rem;
     background: #FAEEF0;
     color: #BC5F7E;
     border-radius: 40%;

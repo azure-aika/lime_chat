@@ -138,7 +138,7 @@ input {
     overflow: auto;
 }
 
-.chat-area::-webkit-scrollbar {
+.chat-area::-webkit-scrollbar,textarea::-webkit-scrollbar{
     display: none;
 }
 
@@ -249,6 +249,8 @@ input {
     display: flex;
     background: red;
     font-size: small;
+    padding: 0.5em;
+    margin: 0.5em;
     flex: 0 1 auto;
     justify-content: center;
 }
@@ -266,6 +268,7 @@ textarea {
     justify-content: center;
     resize: none;
     flex: 1 1 50%;
+    margin: auto 0.5em;
 }
 
 .submit {
@@ -276,6 +279,7 @@ textarea {
     justify-content: center;
     flex: 0 1 auto;
     padding: 0.5em 0.8em;
+    margin: 0.5em;
     background: #FAEEF0;
     color: #BC5F7E;
     border-radius: 40%;

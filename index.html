@@ -32,8 +32,9 @@
             <form class="form-area" name="send">
                 <button type="button" class="senderSelect">自分</button>
 
-
-                <textarea id="text" class="textarea"></textarea>
+                <div class="textarea-bg">
+                    <textarea id="text" class="textarea"></textarea>
+                </div>
 
                 <div class="formButton-submit">
                     <button type="submit" class="submit">送信</button>
@@ -105,9 +106,7 @@
         row = Math.floor(textBody.scrollHeight / lineHeight);
         widthCount = Math.floor(length / row);
         if (widthCount >= widthCountMax) { widthCountMax = widthCount }
-        console.log(length, widthCountMax, row, textBody.scrollHeight);
-
-        if (textBody.scrollHeight > lineHeight * 2) {
+        if (textBody.scrollHeight >= lineHeight * 2) {
             textBody.style.height = 'auto';
             textBody.style.height = textBody.scrollHeight + 'px';
             if (length <= widthCountMax) {
@@ -118,7 +117,7 @@
 
     //chat追加
     AddMessage = (text) => {
-        text = text.replace(/\s+/g, '');
+        //text = text.replace(/\s+/g, '');
         if (!text.length || !text.value == "") {
             $("#text").val('');
             textBody.style.height = defaultHeight;
@@ -135,12 +134,15 @@
             let new_text = window.prompt('メッセージ編集', old_text);
             if (new_text == null) {
                 $(this).text(old_text);
+                return;
             } else if (new_text == "") {
                 if (window.confirm('削除しますか？')) {
                     $(this).remove();
+                    return;
                 }
             } else if (new_text.length) {
                 $(this).text(new_text);
+                return;
             }
 
         });

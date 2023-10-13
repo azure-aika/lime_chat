@@ -20,10 +20,12 @@ body {
     font-weight: bold;
     font-size: 1em;
     color: #421B2F;
+    word-break: break-all;
 }
 
 button,
-input {
+input,
+textarea {
     background: none;
     border: none;
     border-radius: 0;
@@ -60,7 +62,7 @@ input {
     display: flex;
     background: #F5D3E1;
     font-size: 0.75em;
-    padding: 0.5em 1em ;
+    padding: 0.5em 1em;
     align-items: center;
     justify-content: space-between;
 }
@@ -88,7 +90,8 @@ input {
     display: flex;
     padding: 0 0.5em;
 }
-.logo{
+
+.logo {
     color: #EE7FB7;
     background: #F5D3E1;
     position: relative;
@@ -121,13 +124,14 @@ input {
 }
 
 
-.header .sender{
+.header .sender {
     font-size: 1.5em;
     align-items: center;
     display: flex;
-    flex:1 1 100%;
+    flex: 1 1 100%;
     padding: 0 0.5em;
 }
+
 .chat-area {
     position: relative;
     z-index: 2;
@@ -138,25 +142,25 @@ input {
     overflow: auto;
 }
 
-.chat-area::-webkit-scrollbar,textarea::-webkit-scrollbar{
+.chat-area::-webkit-scrollbar,
+textarea::-webkit-scrollbar {
     display: none;
 }
 
 
 .message {
-    z-index: 1;
     position: relative;
     flex: 0 0 auto;
     display: flex;
-    white-space: pre-line;
-    align-items: center;
-    word-break: break-all;
+    align-items: center; 
+    font-size: 1.2em;
     line-height: 1.5;
     padding: 0.8em 0.8em;
     border: none;
     max-width: 50%;
     pointer-events: auto;
     margin: 0;
+    white-space: pre-line;
 }
 
 .message-right {
@@ -205,12 +209,12 @@ input {
 }
 
 .message-left {
-    margin: 0.5em 2em auto;
+    margin: 0.5em 1em auto;
     margin-right: auto;
     border-radius: 0 0.8em 0.8em 0.8em;
     background: #ffffff;
     border: 0.1em solid #F5D3E1;
-    
+
 }
 
 .message-left::before {
@@ -257,17 +261,33 @@ input {
     padding: 0.5em;
 }
 
-
-
+.textarea-bg {
+    position: relative;
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center; 
+    font-size: 1.2em;
+    line-height: 1.5;
+    padding: 0.8em 0.8em;
+    border: none;
+    outline: 0;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    flex: 1 1 auto;
+    margin: 0 1em;
+    padding: 0.8em;
+    background: #ffffff;
+    border-radius: 0.5em;
+}
 .textarea {
     font-weight: bold;
-    font-size: 1em;
+    font-size: 1.2em;
     color: #421B2F;
     font-family: inherit;
     border: none;
-    border-radius: 0.5em;
     outline: 0;
-    line-height: 2em;
+    line-height: 1.5;
     display: flex;
     justify-content: center;
     resize: none;
@@ -275,16 +295,17 @@ input {
     word-wrap: break-word;
     overflow-wrap: break-word;
     position: relative;
-    flex: 1 1 auto;
-    margin: 0 1em;
-    height: 2em;
+    width: 100%;
+    height: 1.8em;
 }
-.formButton-submit{
+
+.formButton-submit {
     position: relative;
     display: flex;
 }
+
 .submit {
-    font-size: inherit;
+    font-size: 1em;
     font-weight: bold;
     font-family: inherit;
     position: relative;

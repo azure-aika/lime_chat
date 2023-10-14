@@ -14,7 +14,7 @@
         <div class="screen">
             <div class="info-area">
                 <div class="time"></div>
-                <div class="battery"><span></span></div>
+                <div class="battery" id="battery"><span></span></div>
             </div>
             <div class="logo">LIME</div>
             <div class="header">
@@ -46,7 +46,7 @@
 
 <script>
     //Time
-    time = document.getElementsByClassName('time');
+    Time = document.getElementsByClassName('time')[0];
     let timer = null;
     let timeTimer = null;
 
@@ -56,47 +56,33 @@
         if (hours.length == 1) hours = '0' + hours;
         let minutes = now.getMinutes().toString();
         if (minutes.length == 1) minutes = '0' + minutes;
-        time.textContent = String(hours) + ':' + String(minutes);
+        Time.textContent = String(hours) + ':' + String(minutes);
         timeTimer = setTimeout(SetTime, (60 - now.getSeconds()) * 1000);
     };
     //battery
-    battery = document.querySelector('.battery span');
-    batteryIcon = document.getElementById('batteryIcon');
+    const Battery = document.getElementById('battery');
+    const BatteryIcon = document.createElement('i');
     const batteryLevel = () => {
         navigator.getBattery().then((battery) => {
             battery.addEventListener("levelchange", () => {
                 updateLevelInfo();
             });
             function updateLevelInfo() {
-                batteryicon = document.createElement('i');
-                /*
+
                 if (0.75 < battery.level && battery.level <= 1) {
-                    batteryIcon.classList.add('fa-battery-full');
+                    BatteryIcon.className = 'fa-solid fa-battery-full fa-lg';
                 } else if (0.5 < battery.level && battery.level <= 0.75) {
-                    batteryIcon.classList.remove('fa-battery-full').classList.add("fa-battery-three-quarters");
+                    BatteryIcon.className = 'fa-solid fa-battery-three-quarters fa-lg';
                 } else if (0.25 < battery.level && battery.level <= 0.5) {
-                    batteryIcon.classList.remove('fa-battery-full').classList.add("fa-battery-half");
+                    BatteryIcon.className = 'fa-solid fa-battery-half fa-lg';
                 } else if (0.2 < battery.level && battery.level <= 0.25) {
-                    batteryIcon.classList.remove('fa-battery-full').classList.add("fa-battery-quarter");
+                    BatteryIcon.className = 'fa-solid fa-battery-quarter fa-lg';
                 } else if (0.1 < battery.level && battery.level <= 0.2) {
-                    batteryIcon.classList.remove('fa-battery-full').classList.add("fa-battery-low");
+                    BatteryIcon.className = 'fa-solid fa-battery-low fa-lg';
                 } else if (0 < battery.level && battery.level <= 0.1) {
-                    batteryIcon.classList.remove('fa-battery-full').classList.add("fa-battery-empty");
-                }*/
-                if (0.75 < battery.level && battery.level <= 1) {
-                    batteryicon.className = 'fa-solid fa-battery-full fa-lg';
-                } else if (0.5 < battery.level && battery.level <= 0.75) {
-                    batteryicon.className = 'fa-solid fa-battery-three-quarters fa-lg';
-                } else if (0.25 < battery.level && battery.level <= 0.5) {
-                    batteryicon.className = 'fa-solid fa-battery-half fa-lg';
-                } else if (0.2 < battery.level && battery.level <= 0.25) {
-                    batteryicon.className = 'fa-solid fa-battery-quarter fa-lg';
-                } else if (0.1 < battery.level && battery.level <= 0.2) {
-                    batteryicon.className = 'fa-solid fa-battery-low fa-lg';
-                } else if (0 < battery.level && battery.level <= 0.1) {
-                    batteryicon.className = 'fa-solid fa-battery-empty fa-lg';
+                    BatteryIcon.className = 'fa-solid fa-battery-empty fa-lg';
                 }
-                document.querySelector('.battery').appendChild(batteryicon);
+                Battery.appendChild(BatteryIcon);
                 level = battery.level * 100;
                 document.querySelector('.battery span').textContent = String(level) + "%";
             };
@@ -109,37 +95,37 @@
         if (userAgent.indexOf('edge') != -1 || userAgent.indexOf('chrome') != -1) {
             batteryLevel();
         } else if (userAgent.indexOf('safari') != -1) {
-            battery.textContent = "123%";
+            document.querySelector('.battery span').textContent = "123%";
         }
     }
     //テキストエリア自動伸縮
-    const textBody = document.querySelector('#text');
-    fontSize = (textBody.currentStyle || document.defaultView.getComputedStyle(textBody, '')).fontSize;
-    lineHeight = (textBody.currentStyle || document.defaultView.getComputedStyle(textBody, '')).lineHeight;
+    const TextBody = document.querySelector('#text');
+    fontSize = (TextBody.currentStyle || document.defaultView.getComputedStyle(TextBody, '')).fontSize;
+    lineHeight = (TextBody.currentStyle || document.defaultView.getComputedStyle(TextBody, '')).lineHeight;
     lineHeight = parseInt(lineHeight);
-    const defaultHeight = (textBody.currentStyle || document.defaultView.getComputedStyle(textBody, '')).height;
+    const defaultHeight = (TextBody.currentStyle || document.defaultView.getComputedStyle(TextBody, '')).height;
     widthCountMax = 0;
-    textBody.addEventListener('input', () => {
-        length = textBody.value.length;
-        row = Math.floor(textBody.scrollHeight / lineHeight);
+    TextBody.addEventListener('input', () => {
+        length = TextBody.value.length;
+        row = Math.floor(TextBody.scrollHeight / lineHeight);
         widthCount = Math.floor(length / row);
         if (widthCount >= widthCountMax) { widthCountMax = widthCount }
-        if (textBody.scrollHeight >= lineHeight * 2) {
-            textBody.style.height = 'auto';
-            textBody.style.height = textBody.scrollHeight + 'px';
+        if (TextBody.scrollHeight >= lineHeight * 2) {
+            TextBody.style.height = 'auto';
+            TextBody.style.height = TextBody.scrollHeight + 'px';
             if (length <= widthCountMax) {
-                textBody.style.height = defaultHeight;
+                TextBody.style.height = defaultHeight;
             }
         }
     });
 
     //senderSelect
-    sender = document.querySelector('.senderSelect');
+    SenderSelect = document.querySelector('.senderSelect');
     senderflag = true;
-    sender.addEventListener('click', function () {
+    SenderSelect.addEventListener('click', function () {
         senderflag = !senderflag;
-        sender.classList.toggle('sender-L');
-        sender.classList.toggle('sender-R');
+        SenderSelect.classList.toggle('sender-L');
+        SenderSelect.classList.toggle('sender-R');
         console.log(senderflag);
     })
 
@@ -147,36 +133,36 @@
     AddMessage = (text, position) => {
         //text = text.replace(/\s+/g, '');
         if (!text.length || !text.value == "") {
-            textBody.textContent = "";
-            textBody.style.height = defaultHeight;
+            TextBody.textContent = "";
+            TextBody.style.height = defaultHeight;
             return;
         }
         senderflag ? position = 'right' : position = 'left';
-        chatArea = document.getElementsByClassName('chat-area')[0];
+        ChatArea = document.getElementsByClassName('chat-area')[0];
 
         let fragment = document.createDocumentFragment();
 
-        message = document.createElement('div');
-        message.className = 'message message-' + position;
-        message.textContent = text;
+        Message = document.createElement('div');
+        Message.className = 'message message-' + position;
+        Message.textContent = text;
 
 
         if (!senderflag) {
-            messageBox = document.createElement('div');
-            messageBox.className = 'messageBox-left';
-            icon = document.createElement('div');
-            icon.className = 'icon';
-            messageBox.appendChild(icon);
-            messageBox.appendChild(message);
-            fragment.append(messageBox);
+            MessageBox = document.createElement('div');
+            MessageBox.className = 'messageBox-left';
+            SenderIcon = document.createElement('div');
+            SenderIcon.className = 'icon';
+            MessageBox.appendChild(SenderIcon);
+            MessageBox.appendChild(Message);
+            fragment.append(MessageBox);
         } else if (senderflag) {
-            fragment.append(message);
+            fragment.append(Message);
         }
 
-        chatArea.appendChild(fragment);
-        textBody.value = "";
-        textBody.style.height = defaultHeight;
-        chatArea.scrollTop = chatArea.scrollHeight;
+        ChatArea.appendChild(fragment);
+        TextBody.value = "";
+        TextBody.style.height = defaultHeight;
+        ChatArea.scrollTop = ChatArea.scrollHeight;
 
         /*messageEvent = document.getElementsByClassName('message');
         messageEvent.addEventListener('click', function () {
@@ -199,10 +185,10 @@
 
     };
     //メッセージ送信
-    const form = document.querySelector('.form-area');
-    form.addEventListener('submit', (e) => {
+    const Form = document.querySelector('.form-area');
+    Form.addEventListener('submit', (e) => {
         e.preventDefault();
-        let messageText = textBody.value;
+        let messageText = TextBody.value;
         AddMessage(messageText);
 
     });

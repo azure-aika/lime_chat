@@ -24,21 +24,8 @@
                 <div class="option"><i class="fa-solid fa-gear"></i></div>
             </div>
             <div class="side-bar">
-                <div class="chara-list">
-                    <li>
-                        <div class="list-icon"><img></div>
-                        <div class="list-username">服部</div>
-                    </li>
-                    <li>
-                        <div class="list-icon"><img></div>
-                        <div class="list-username">服部</div>
-                    </li>
-                </div>
-
             </div>
-
             <div class="chat-area">
-
             </div>
             <form class="form-area" name="send">
                 <button type="button" class="senderSelect sender-R"></button>
@@ -208,18 +195,51 @@
     });
 
     let CharaData = [
+        { id: "1", name: "青山樹", username: "青山樹", cate: "マトリ", color: "#2390FF" },
+        { id: "2", name: "由井孝太郎", username: "Kotaro.Y", cate: "マトリ", color: "#FFAEC0" },
+        { id: "3", name: "関大輔", username: "関", cate: "マトリ", color: "#F95240" },
+        { id: "4", name: "夏目春", username: "hal", cate: "マトリ", color: "#59D9A5" },
+        { id: "5", name: "今大路峻", username: "shun", cate: "マトリ", color: "#F9CD00" },
+        { id: "6", name: "渡部悟", username: "ワタベ", cate: "マトリ", color: "#D43767" },
+        { id: "7", name: "朝霧司", username: "朝霧 司", cate: "警視庁", color: "#FF864A" },
         { id: "8", name: "菅野夏樹", username: "夏樹", cate: "警視庁", color: "#98DF00" },
-        { id: "10", name: "服部耀", username: "服部", cate: "警視庁", color: "#D43767" }
+        { id: "9", name: "荒木田蒼生", username: "荒木田", cate: "警視庁", color: "#8FDAC6" },
+        { id: "10", name: "服部耀", username: "服部", cate: "警視庁", color: "#D43767" },
+        { id: "11", name: "桧山貴臣", username: "桧山", cate: "Revel", color: "#98DF00" },
+        { id: "12", name: "大谷羽鳥", username: "hatori", cate: "Revel", color: "#D43767" },
+        { id: "13", name: "神楽亜貴", username: "Aki Kagura", cate: "Revel", color: "#98DF00" },
+        { id: "14", name: "槙慶太", username: "槙慶太", cate: "Revel", color: "#D43767" },
+        { id: "15", name: "都築誠", username: "都築", cate: "警視庁", color: "#98DF00" },
+        { id: "16", name: "都築京介", username: "きょーすけ", cate: "警視庁", color: "#D43767" },
+        { id: "17", name: "新堂清志", username: "新堂", cate: "警視庁", color: "#98DF00" },
+        { id: "18", name: "山崎カナメ", username: "kaname", cate: "警視庁", color: "#D43767" },
+        { id: "19", name: "桐嶋宏弥", username: "キリシマ", cate: "警視庁", color: "#98DF00" },
+        { id: "20", name: "九条壮馬", username: "九条", cate: "警視庁", color: "#D43767" },
+        { id: "21", name: "宮瀬豪", username: "宮瀬", cate: "警視庁", color: "#98DF00" },
+        { id: "22", name: "可愛ひかる", username: "かわいひかる", cate: "警視庁", color: "#D43767" },
+        { id: "23", name: "宝生潔", username: "宝生潔", cate: "警視庁", color: "#98DF00" },
+        { id: "24", name: "日向志音", username: "しー", cate: "警視庁", color: "#D43767" },
+        { id: "25", name: "早乙女郁人", username: "早乙女郁人【淑央大】", cate: "警視庁", color: "#98DF00" },
+        { id: "26", name: "瀬尾鳴海", username: "NARUMI SEO", cate: "警視庁", color: "#D43767" }
     ];
-    /*
-        let CharaList = document.createElement('ul');
-        for(i=0;i<CharaData.length;i++){
-            const chara = document.createElement('li');
-            chara.textContent=CharaData[i].username;
-            CharaList.appendChild(chara);
-        }
-        document.getElementsByClassName('header')[0].append(CharaList);
-        */
+
+    let CharaList = document.createElement('div');
+    CharaList.className = 'chara-list';
+    for (i = 0; i < CharaData.length; i++) {
+        const Chara = document.createElement('li');
+        const ListIcon = document.createElement('div');
+        ListIcon.className = 'list-icon';
+        ListIcon.style.background=CharaData[i].color;
+        const UserName = document.createElement('div');
+        UserName.textContent = CharaData[i].username;
+        UserName.className = 'list-username';
+        Chara.appendChild(ListIcon);
+        Chara.appendChild(UserName);
+
+        CharaList.appendChild(Chara);
+    }
+    document.getElementsByClassName('side-bar')[0].append(CharaList);
+
     SetTime();
     batteryFlag();
     //testメッセージ

@@ -68,7 +68,11 @@
                 updateLevelInfo();
             });
             function updateLevelInfo() {
-                if (0.5 < battery.level && battery.level <= 0.75) {
+                batteryicon = document.createElement('i');
+                /*
+                if (0.75 < battery.level && battery.level <= 1) {
+                    batteryIcon.classList.add('fa-battery-full');
+                } else if (0.5 < battery.level && battery.level <= 0.75) {
                     batteryIcon.classList.remove('fa-battery-full').classList.add("fa-battery-three-quarters");
                 } else if (0.25 < battery.level && battery.level <= 0.5) {
                     batteryIcon.classList.remove('fa-battery-full').classList.add("fa-battery-half");
@@ -78,7 +82,21 @@
                     batteryIcon.classList.remove('fa-battery-full').classList.add("fa-battery-low");
                 } else if (0 < battery.level && battery.level <= 0.1) {
                     batteryIcon.classList.remove('fa-battery-full').classList.add("fa-battery-empty");
+                }*/
+                if (0.75 < battery.level && battery.level <= 1) {
+                    batteryicon.className = 'fa-solid fa-battery-full fa-lg';
+                } else if (0.5 < battery.level && battery.level <= 0.75) {
+                    batteryicon.className = 'fa-solid fa-battery-three-quarters fa-lg';
+                } else if (0.25 < battery.level && battery.level <= 0.5) {
+                    batteryicon.className = 'fa-solid fa-battery-half fa-lg';
+                } else if (0.2 < battery.level && battery.level <= 0.25) {
+                    batteryicon.className = 'fa-solid fa-battery-quarter fa-lg';
+                } else if (0.1 < battery.level && battery.level <= 0.2) {
+                    batteryicon.className = 'fa-solid fa-battery-low fa-lg';
+                } else if (0 < battery.level && battery.level <= 0.1) {
+                    batteryicon.className = 'fa-solid fa-battery-empty fa-lg';
                 }
+                document.querySelector('.battery').appendChild(batteryicon);
                 level = battery.level * 100;
                 document.querySelector('.battery span').textContent = String(level) + "%";
             };

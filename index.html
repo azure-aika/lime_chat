@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
     <title>LIME風メッセージ画面</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/destyle.css@1.0.15/destyle.css" />
     <link rel="stylesheet" href="style.css">
     <script src="https://kit.fontawesome.com/deb1d71775.js" crossorigin="anonymous"></script>
 </head>
@@ -22,11 +23,22 @@
                 <div class="sender">test</div>
                 <div class="option"><i class="fa-solid fa-gear"></i></div>
             </div>
-            <div class="chat-area">
-                <div class="messageBox-left">
-                    <div class="icon"><img></div>
-                    <div class="message message-left">これはテストメッセージです</div>
+            <div class="side-bar">
+                <div class="chara-list">
+                    <li>
+                        <div class="list-icon"><img></div>
+                        <div class="list-username">服部</div>
+                    </li>
+                    <li>
+                        <div class="list-icon"><img></div>
+                        <div class="list-username">服部</div>
+                    </li>
                 </div>
+
+            </div>
+
+            <div class="chat-area">
+
             </div>
             <form class="form-area" name="send">
                 <button type="button" class="senderSelect sender-R"></button>
@@ -45,6 +57,7 @@
 </body>
 
 <script>
+
     //Time
     Time = document.getElementsByClassName('time')[0];
     let timer = null;
@@ -120,13 +133,13 @@
     });
 
     //senderSelect
+
     SenderSelect = document.querySelector('.senderSelect');
     senderflag = true;
     SenderSelect.addEventListener('click', function () {
         senderflag = !senderflag;
         SenderSelect.classList.toggle('sender-L');
         SenderSelect.classList.toggle('sender-R');
-        console.log(senderflag);
     })
 
     //chat追加
@@ -137,7 +150,8 @@
             TextBody.style.height = defaultHeight;
             return;
         }
-        senderflag ? position = 'right' : position = 'left';
+
+        position == 'right' ? position = 'right' : position = 'left';
         ChatArea = document.getElementsByClassName('chat-area')[0];
 
         let fragment = document.createDocumentFragment();
@@ -147,15 +161,15 @@
         Message.textContent = text;
 
 
-        if (!senderflag) {
+        if (position == 'left') {
             MessageBox = document.createElement('div');
             MessageBox.className = 'messageBox-left';
             SenderIcon = document.createElement('div');
-            SenderIcon.className = 'icon';
+            SenderIcon.className = 'message-icon';
             MessageBox.appendChild(SenderIcon);
             MessageBox.appendChild(Message);
             fragment.append(MessageBox);
-        } else if (senderflag) {
+        } else if (position == 'right') {
             fragment.append(Message);
         }
 
@@ -180,7 +194,7 @@
                 $(this).text(new_text);
                 return;
             }
-
+ 
         });*/
 
     };
@@ -189,15 +203,28 @@
     Form.addEventListener('submit', (e) => {
         e.preventDefault();
         let messageText = TextBody.value;
-        AddMessage(messageText);
-
+        senderflag ? messagePosition = 'right' : messagePosition = 'left';
+        AddMessage(messageText, messagePosition);
     });
 
-
-
+    let CharaData = [
+        { id: "8", name: "菅野夏樹", username: "夏樹", cate: "警視庁", color: "#98DF00" },
+        { id: "10", name: "服部耀", username: "服部", cate: "警視庁", color: "#D43767" }
+    ];
+    /*
+        let CharaList = document.createElement('ul');
+        for(i=0;i<CharaData.length;i++){
+            const chara = document.createElement('li');
+            chara.textContent=CharaData[i].username;
+            CharaList.appendChild(chara);
+        }
+        document.getElementsByClassName('header')[0].append(CharaList);
+        */
     SetTime();
     batteryFlag();
     //testメッセージ
+    AddMessage("これはテストメッセージです", "left")
+    AddMessage("これはテストメッセージです", "right")
 
 </script>
 

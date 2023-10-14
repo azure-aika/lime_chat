@@ -7,7 +7,6 @@
     <title>LIME風メッセージ画面</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://kit.fontawesome.com/deb1d71775.js" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -15,7 +14,7 @@
         <div class="screen">
             <div class="info-area">
                 <div class="time"></div>
-                <div class="battery"><span></span><i class="fa-solid fa-battery-full fa-lg"></i></div>
+                <div class="battery"><span></span><i class="fa-solid fa-battery-full fa-lg" id="batteryIcon"></i></div>
             </div>
             <div class="logo">LIME</div>
             <div class="header">
@@ -30,7 +29,7 @@
                 </div>
             </div>
             <form class="form-area" name="send">
-                <button type="button" class="senderSelect">自分</button>
+                <button type="button" class="senderSelect sender-R"></button>
 
                 <div class="textarea-bg">
                     <textarea id="text" class="textarea"></textarea>
@@ -47,7 +46,7 @@
 
 <script>
     //Time
-    $time = $('.time');
+    time = document.getElementsByClassName('time');
     let timer = null;
     let timeTimer = null;
 
@@ -57,11 +56,12 @@
         if (hours.length == 1) hours = '0' + hours;
         let minutes = now.getMinutes().toString();
         if (minutes.length == 1) minutes = '0' + minutes;
-        $time.text(hours + ':' + minutes);
+        time.textContent = String(hours) + ':' + String(minutes);
         timeTimer = setTimeout(SetTime, (60 - now.getSeconds()) * 1000);
     };
     //battery
-    $battery = $('.battery span');
+    battery = document.querySelector('.battery span');
+    batteryIcon = document.getElementById('batteryIcon');
     const batteryLevel = () => {
         navigator.getBattery().then((battery) => {
             battery.addEventListener("levelchange", () => {
@@ -69,18 +69,18 @@
             });
             function updateLevelInfo() {
                 if (0.5 < battery.level && battery.level <= 0.75) {
-                    $('.battery i').removeClass("fa-battery-full").addClass("fa-battery-three-quarters");
+                    batteryIcon.classList.remove('fa-battery-full').classList.add("fa-battery-three-quarters");
                 } else if (0.25 < battery.level && battery.level <= 0.5) {
-                    $('.battery i').removeClass("fa-battery-full").addClass("fa-battery-half");
+                    batteryIcon.classList.remove('fa-battery-full').classList.add("fa-battery-half");
                 } else if (0.2 < battery.level && battery.level <= 0.25) {
-                    $('.battery i').removeClass("fa-battery-full").addClass("fa-battery-quarter");
+                    batteryIcon.classList.remove('fa-battery-full').classList.add("fa-battery-quarter");
                 } else if (0.1 < battery.level && battery.level <= 0.2) {
-                    $('.battery i').removeClass("fa-battery-full").addClass("fa-battery-low");
+                    batteryIcon.classList.remove('fa-battery-full').classList.add("fa-battery-low");
                 } else if (0 < battery.level && battery.level <= 0.1) {
-                    $('.battery i').removeClass("fa-battery-full").addClass("fa-battery-empty");
+                    batteryIcon.classList.remove('fa-battery-full').classList.add("fa-battery-empty");
                 }
-                $batteryLevel = battery.level * 100;
-                $battery.text($batteryLevel + "%");
+                level = battery.level * 100;
+                document.querySelector('.battery span').textContent = String(level) + "%";
             };
             updateLevelInfo();
         });
@@ -91,18 +91,18 @@
         if (userAgent.indexOf('edge') != -1 || userAgent.indexOf('chrome') != -1) {
             batteryLevel();
         } else if (userAgent.indexOf('safari') != -1) {
-            $battery.text("123%");
+            battery.textContent = "123%";
         }
     }
     //テキストエリア自動伸縮
-    const textBody = document.querySelector('.textarea');
-    fontSize = $('.textarea').css('font-size');
-    lineHeight = $('.textarea').css('line-height');
+    const textBody = document.querySelector('#text');
+    fontSize = (textBody.currentStyle || document.defaultView.getComputedStyle(textBody, '')).fontSize;
+    lineHeight = (textBody.currentStyle || document.defaultView.getComputedStyle(textBody, '')).lineHeight;
     lineHeight = parseInt(lineHeight);
-    const defaultHeight = textBody.style.height;
+    const defaultHeight = (textBody.currentStyle || document.defaultView.getComputedStyle(textBody, '')).height;
     widthCountMax = 0;
     textBody.addEventListener('input', () => {
-        length = $('.textarea').val().length;
+        length = textBody.value.length;
         row = Math.floor(textBody.scrollHeight / lineHeight);
         widthCount = Math.floor(length / row);
         if (widthCount >= widthCountMax) { widthCountMax = widthCount }
@@ -115,21 +115,53 @@
         }
     });
 
+    //senderSelect
+    sender = document.querySelector('.senderSelect');
+    senderflag = true;
+    sender.addEventListener('click', function () {
+        senderflag = !senderflag;
+        sender.classList.toggle('sender-L');
+        sender.classList.toggle('sender-R');
+        console.log(senderflag);
+    })
+
     //chat追加
-    AddMessage = (text) => {
+    AddMessage = (text, position) => {
         //text = text.replace(/\s+/g, '');
         if (!text.length || !text.value == "") {
-            $("#text").val('');
+            textBody.textContent = "";
             textBody.style.height = defaultHeight;
             return;
         }
+        senderflag ? position = 'right' : position = 'left';
+        chatArea = document.getElementsByClassName('chat-area')[0];
 
-        $message = $('<div class="message message-right"></div>').text(text).appendTo($('.chat-area'));
-        $("#text").val('');
+        let fragment = document.createDocumentFragment();
+
+        message = document.createElement('div');
+        message.className = 'message message-' + position;
+        message.textContent = text;
+
+
+        if (!senderflag) {
+            messageBox = document.createElement('div');
+            messageBox.className = 'messageBox-left';
+            icon = document.createElement('div');
+            icon.className = 'icon';
+            messageBox.appendChild(icon);
+            messageBox.appendChild(message);
+            fragment.append(messageBox);
+        } else if (senderflag) {
+            fragment.append(message);
+        }
+
+        chatArea.appendChild(fragment);
+        textBody.value = "";
         textBody.style.height = defaultHeight;
-        $(".chat-area").scrollTop($(".chat-area")[0].scrollHeight);
-        $messageEvent = $('.message');
-        $messageEvent.on('click', function () {
+        chatArea.scrollTop = chatArea.scrollHeight;
+
+        /*messageEvent = document.getElementsByClassName('message');
+        messageEvent.addEventListener('click', function () {
             let old_text = $(this).text();
             let new_text = window.prompt('メッセージ編集', old_text);
             if (new_text == null) {
@@ -145,14 +177,14 @@
                 return;
             }
 
-        });
+        });*/
 
     };
     //メッセージ送信
-    const $form = $(document.forms.send);
-    $form.on('submit', (e) => {
+    const form = document.querySelector('.form-area');
+    form.addEventListener('submit', (e) => {
         e.preventDefault();
-        let messageText = $("#text").val();
+        let messageText = textBody.value;
         AddMessage(messageText);
 
     });
@@ -162,7 +194,6 @@
     SetTime();
     batteryFlag();
     //testメッセージ
-    //AddMessage("近所のカフェはどう？");
 
 </script>
 

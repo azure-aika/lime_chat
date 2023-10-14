@@ -139,7 +139,9 @@ textarea {
     display: flex;
     flex-direction: column;
     padding: 2vh 0;
-    overflow: auto;
+    overflow: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
 
 .chat-area::-webkit-scrollbar,
@@ -245,20 +247,43 @@ textarea::-webkit-scrollbar {
     background: #F5D3E1;
     position: relative;
     display: flex;
-    z-index: 2;
+    z-index: 3;
     margin: 0;
     padding: 1rem;
     align-items: flex-end;
     justify-content: space-between;
+    font-size: 1.2rem;
+    line-height: 1.5;
 }
 
 
 .senderSelect {
     font-size: inherit;
+    font-weight: bold;
+    font-family: inherit;
+    line-height: inherit;
     position: relative;
     display: flex;
-    background: red;
-    padding: 0.5rem;
+    justify-content: center;
+    padding: 0.6rem 0.8rem;
+    margin: 0;
+    border: 0.1rem solid #EE7FB7;
+    background: #EE7FB7;
+    color: #ffffff;
+}
+.sender-R{
+    background: #EE7FB7;
+    color: #ffffff;
+}
+.sender-R::before{
+    content: "自分";
+}
+.sender-L{
+    background: #ffffff;
+    color: #EE7FB7;
+}
+.sender-L::before{
+    content: "相手";
 }
 
 .textarea-bg {
@@ -266,8 +291,8 @@ textarea::-webkit-scrollbar {
     flex: 0 0 auto;
     display: flex;
     align-items: center; 
-    font-size: 1.2rem;
-    line-height: 1.5;
+    font-size: inherit;
+    line-height: inherit;
     padding: 0.8rem 0.8rem;
     border: none;
     outline: 0;
@@ -282,7 +307,7 @@ textarea::-webkit-scrollbar {
 }
 .textarea {
     font-weight: bold;
-    font-size: 1.2rem;
+    font-size: inherit;
     color: #421B2F;
     font-family: inherit;
     border: none;
@@ -297,6 +322,7 @@ textarea::-webkit-scrollbar {
     position: relative;
     width: 100%;
     height: 1.5rem;
+    
 }
 
 .formButton-submit {
@@ -305,15 +331,17 @@ textarea::-webkit-scrollbar {
 }
 
 .submit {
-    font-size: 1rem;
+    font-size: inherit;
     font-weight: bold;
     font-family: inherit;
+    line-height: inherit;
     position: relative;
     display: flex;
     justify-content: center;
-    padding: 0.5rem 0.8rem;
+    padding: 0.6rem 0.8rem;
+    margin: 0;
     background: #FAEEF0;
     color: #BC5F7E;
     border-radius: 40%;
-    box-shadow: 0 0 0.3rem #EE7FB7;
+    box-shadow: 0 0 0.2rem #EE7FB7;
 }

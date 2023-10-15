@@ -192,8 +192,19 @@ li {
     height: 100%;
     overflow-y: scroll;
     overflow-x: hidden;
-    scrollbar-width: 0.1rem;
 }
+.chara-list::-webkit-scrollbar{
+    width: 1.5rem;
+}
+.chara-list::-webkit-scrollbar-track{
+    background: transparent;
+}
+.chara-list::-webkit-scrollbar-thumb{
+    background: #FCEEF2;
+    border-radius: 1.5rem;
+    border: 0.5rem solid #F2A4C5;;
+}
+
 
 .chara-list li {
     background: #FCEEF2;

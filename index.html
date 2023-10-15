@@ -20,14 +20,14 @@
             <div class="logo">LIME</div>
             <div class="wrap">
                 <div class="header">
-                    <div class="sideBtn"><i class="fa-solid fa-caret-left"></i></i></div>
+                    <div class="sideBtn close" id="menu"><i class="fa-solid fa-caret-left"></i></i></div>
                     <div class="sender">test</div>
                     <div class="option"><i class="fa-solid fa-gear"></i></div>
                 </div>
 
-                <div class="side-bar">
+                <div class="side-bar close" id="sidebar">
                 </div>
-                <div class="chat-area">
+                <div class="chat-area" id="chat0">
                 </div>
             </div>
             <form class="form-area" name="send">
@@ -86,7 +86,7 @@
                     BatteryIcon.className = 'fa-solid fa-battery-empty fa-lg';
                 }
                 Battery.appendChild(BatteryIcon);
-                level = battery.level * 100;
+                level = Math.floor(battery.level * 100);
                 document.querySelector('.battery span').textContent = String(level) + "%";
             };
             updateLevelInfo();
@@ -198,6 +198,7 @@
     });
 
     let CharaData = [
+        { id: "0", name: "自分", username: "テスト", cate: "", color: "#808080" },
         { id: "1", name: "青山樹", username: "青山樹", cate: "マトリ", color: "#2390FF" },
         { id: "2", name: "由井孝太郎", username: "Kotaro.Y", cate: "マトリ", color: "#FFAEC0" },
         { id: "3", name: "関大輔", username: "関", cate: "マトリ", color: "#F95240" },
@@ -259,10 +260,26 @@
         }
 
     }
+    //メニュー開閉
+    Menu = () => {
+        menuflag = false;
+        MenuBtn = document.querySelector('#menu');
+        SideBar = document.querySelector('#sidebar');
 
+        MenuBtn.addEventListener('click', function () {
+            menuflag = !menuflag;
+            MenuBtn.classList.toggle('open');
+            MenuBtn.classList.toggle('close');
+            SideBar.classList.toggle('open');
+            SideBar.classList.toggle('close');
+        });
+    }
+
+    //タブ
 
     SetTime();
     batteryFlag();
+    Menu();
     //testメッセージ
     AddMessage("これはテストメッセージです", "left")
     AddMessage("これはテストメッセージです", "right")

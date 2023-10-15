@@ -156,7 +156,6 @@ li {
     border: 0.1rem solid #F2A4C5;
     font-size: 1.5rem;
     color: #FCEEF2;
-    margin-left: 40%;
     height: 100%;
 }
 
@@ -165,15 +164,23 @@ li {
     display: flex;
     position: absolute;
     top: 0.5rem;
-    left: 0%;
+    left: -40%;
     width: 40%;
     height: calc(100% - 1rem);
     background: #F2A4C5;
     overflow: hidden;
     padding: 1rem 0;
     border-radius: 0 0 0.5rem 0;
-
 }
+
+.open{
+    margin-left: 40%;
+}
+
+.close{
+    margin-left: 0;
+}
+
 
 .chara-list {
     display: flex;

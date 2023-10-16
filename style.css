@@ -52,7 +52,6 @@ li {
 .screen {
     height: 100%;
     width: 100vw;
-    max-width: 65vh;
     flex: 0 0 auto;
     display: flex;
     flex-direction: column;
@@ -63,7 +62,7 @@ li {
 
 .info-area {
     color: #EE7FB7;
-    position: relative;
+    position: fixed;
     display: flex;
     background: #F5D3E1;
     font-size: 0.75rem;
@@ -99,7 +98,7 @@ li {
 .logo {
     color: #EE7FB7;
     background: #F5D3E1;
-    position: relative;
+    position: fixed;
     display: flex;
     font-size: 2rem;
     justify-content: center;
@@ -111,6 +110,7 @@ li {
     display: flex;
     justify-content: space-between;
     padding: 0.5rem 1rem 0.5rem 0;
+    position: fixed;
 }
 
 .option {
@@ -138,7 +138,7 @@ li {
 }
 
 .wrap {
-    position: relative;
+    position: fixed;
     z-index: 2;
     flex: 1 1 100%;
     display: flex;
@@ -150,6 +150,7 @@ li {
     position: relative;
     display: flex;
     padding: 0.5rem;
+    width: 2.5rem;
     margin: 0;
     background: #F2A4C5;
     border-radius: 0 100% 100% 0;
@@ -173,11 +174,11 @@ li {
     border-radius: 0 0 0.5rem 0;
 }
 
-.open{
+.side-open{
     margin-left: 40%;
 }
 
-.close{
+.side-close{
     margin-left: 0;
 }
 
@@ -214,6 +215,12 @@ li {
     font-size: 1.2rem;
     border-radius: 0.5rem;
     margin: 0.2rem 0;
+    border: 0.1rem solid #FCEEF2;
+}
+
+.chara-active{
+    color: red;
+    background: #EE7FB7;
     border: 0.1rem solid #FCEEF2;
 }
 
@@ -274,15 +281,19 @@ li {
 }
 
 .chat-area {
-    position: relative;
+    position: fixed;
     z-index: 2;
     flex: 1 1 100%;
-    display: flex;
+    display: none;
     flex-direction: column;
     padding: 2vh 0;
     overflow: scroll;
     -ms-overflow-style: none;
     scrollbar-width: none;
+}
+
+.chat-active{
+display: flex;
 }
 
 .chat-area::-webkit-scrollbar,

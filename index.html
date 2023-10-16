@@ -15,19 +15,17 @@
         <div class="screen">
             <div class="info-area">
                 <div class="time"></div>
-                <div class="battery" id="battery"><span></span></div>
+                <div class="battery"><span></span></div>
             </div>
             <div class="logo">LIME</div>
             <div class="wrap">
                 <div class="header">
-                    <div class="sideBtn close" id="menu"><i class="fa-solid fa-caret-left"></i></i></div>
+                    <div class="sideBtn side-close" id="menu"><i class="fa-solid fa-caret-left"></i></i></div>
                     <div class="sender">test</div>
                     <div class="option"><i class="fa-solid fa-gear"></i></div>
                 </div>
 
-                <div class="side-bar close" id="sidebar">
-                </div>
-                <div class="chat-area" id="chat0">
+                <div class="side-bar side-close" id="sidebar">
                 </div>
             </div>
             <form class="form-area" name="send">
@@ -47,6 +45,82 @@
 </body>
 
 <script>
+    let CharaData = [
+        { id: "0", name: "自分", username: "テスト", cate: "", color: "#808080" },
+        { id: "1", name: "青山樹", username: "青山樹", cate: "マトリ", color: "#2390FF" },
+        { id: "2", name: "由井孝太郎", username: "Kotaro.Y", cate: "マトリ", color: "#FFAEC0" },
+        { id: "3", name: "関大輔", username: "関", cate: "マトリ", color: "#F95240" },
+        { id: "4", name: "夏目春", username: "hal", cate: "マトリ", color: "#59D9A5" },
+        { id: "5", name: "今大路峻", username: "shun", cate: "マトリ", color: "#F9CD00" },
+        { id: "6", name: "渡部悟", username: "ワタベ", cate: "マトリ", color: "#9173E7" },
+        { id: "7", name: "朝霧司", username: "朝霧 司", cate: "警視庁", color: "#FF864A" },
+        { id: "8", name: "菅野夏樹", username: "夏樹", cate: "警視庁", color: "#98DF00" },
+        { id: "9", name: "荒木田蒼生", username: "荒木田", cate: "警視庁", color: "#8FDAC6" },
+        { id: "10", name: "服部耀", username: "服部", cate: "警視庁", color: "#D43767" },
+        { id: "11", name: "桧山貴臣", username: "桧山", cate: "Revel", color: "#E3CC96" },
+        { id: "12", name: "大谷羽鳥", username: "hatori", cate: "Revel", color: "#F76796" },
+        { id: "13", name: "神楽亜貴", username: "Aki Kagura", cate: "Revel", color: "#76b6ed" },
+        { id: "14", name: "槙慶太", username: "槙慶太", cate: "Revel", color: "#5bcd38" },
+        { id: "15", name: "都築誠", username: "都築", cate: "都築兄弟", color: "#4c835b" },
+        { id: "16", name: "都築京介", username: "きょーすけ", cate: "都築兄弟", color: "#b9b3f4" },
+        { id: "17", name: "新堂清志", username: "新堂", cate: "九条家", color: "#a481c8" },
+        { id: "18", name: "山崎カナメ", username: "kaname", cate: "九条家", color: "#addbe3" },
+        { id: "19", name: "桐嶋宏弥", username: "キリシマ", cate: "九条家", color: "#ffa126" },
+        { id: "20", name: "九条壮馬", username: "九条", cate: "九条家", color: "#d22d38" },
+        { id: "21", name: "宮瀬豪", username: "宮瀬", cate: "九条家", color: "#f8a9f2" },
+        { id: "22", name: "可愛ひかる", username: "かわいひかる", cate: "瀬尾研究室", color: "#ff9ab5" },
+        { id: "23", name: "宝生潔", username: "宝生潔", cate: "瀬尾研究室", color: "#aeb227" },
+        { id: "24", name: "日向志音", username: "しー", cate: "瀬尾研究室", color: "#36dbf3" },
+        { id: "25", name: "早乙女郁人", username: "早乙女郁人【淑央大】", cate: "瀬尾研究室", color: "#3553af" },
+        { id: "26", name: "瀬尾鳴海", username: "NARUMI SEO", cate: "瀬尾研究室", color: "#218379" }
+    ];
+
+    let CharaList = document.createElement('div');
+    CharaList.className = 'chara-list';
+    for (i = 0; i < CharaData.length; i++) {
+        //サイドバーリスト
+        const Chara = document.createElement('li');
+        const ListIcon = document.createElement('div');
+        ListIcon.className = 'list-icon';
+        ListIcon.style.background = CharaData[i].color;
+        const UserName = document.createElement('div');
+        const UserNameText = document.createElement('span');
+        UserNameText.textContent = CharaData[i].username;
+        UserName.appendChild(UserNameText);
+        UserName.className = 'list-username';
+        Chara.appendChild(ListIcon);
+        Chara.appendChild(UserName);
+        CharaList.appendChild(Chara);
+        //chat欄
+        const ChatArea = document.createElement('div');
+        ChatArea.className = 'chat-area';
+        document.getElementsByClassName('wrap')[0].appendChild(ChatArea);
+
+    }
+
+    SelectChara = (id) => {
+        document.getElementsByClassName('chat-area')[id].classList.add('chat-active');
+        document.getElementsByClassName('chara-list')[0].children[id].classList.add('chara-active');
+    }
+
+    document.getElementsByClassName('side-bar')[0].append(CharaList);
+    for (i = 0; i < CharaData.length; i++) {
+        list = document.getElementsByClassName('list-username')[i];
+        listS = list.firstChild;
+
+        if (list.clientWidth < listS.scrollWidth) {
+
+            scrollLength = -(listS.scrollWidth - list.clientWidth) + "px";
+            document.documentElement.style.setProperty('--scrollWidth', scrollLength);
+            console.log(i, scrollLength);
+            //listS.classList.add('animation');
+            listS.style.animationName = "namescroll";
+
+        }
+
+    }
+    //tab
+
 
     //Time
     Time = document.getElementsByClassName('time')[0];
@@ -133,7 +207,7 @@
     })
 
     //chat追加
-    AddMessage = (text, position) => {
+    AddMessage = (text, position,id) => {
         //text = text.replace(/\s+/g, '');
         if (!text.length || !text.value == "") {
             TextBody.textContent = "";
@@ -142,7 +216,7 @@
         }
 
         position == 'right' ? position = 'right' : position = 'left';
-        ChatArea = document.getElementsByClassName('chat-area')[0];
+        ChatArea = document.getElementsByClassName('chat-area')[id];
 
         let fragment = document.createDocumentFragment();
 
@@ -156,6 +230,7 @@
             MessageBox.className = 'messageBox-left';
             SenderIcon = document.createElement('div');
             SenderIcon.className = 'message-icon';
+            SenderIcon.style.background=CharaData[id].color;
             MessageBox.appendChild(SenderIcon);
             MessageBox.appendChild(Message);
             fragment.append(MessageBox);
@@ -197,69 +272,7 @@
         AddMessage(messageText, messagePosition);
     });
 
-    let CharaData = [
-        { id: "0", name: "自分", username: "テスト", cate: "", color: "#808080" },
-        { id: "1", name: "青山樹", username: "青山樹", cate: "マトリ", color: "#2390FF" },
-        { id: "2", name: "由井孝太郎", username: "Kotaro.Y", cate: "マトリ", color: "#FFAEC0" },
-        { id: "3", name: "関大輔", username: "関", cate: "マトリ", color: "#F95240" },
-        { id: "4", name: "夏目春", username: "hal", cate: "マトリ", color: "#59D9A5" },
-        { id: "5", name: "今大路峻", username: "shun", cate: "マトリ", color: "#F9CD00" },
-        { id: "6", name: "渡部悟", username: "ワタベ", cate: "マトリ", color: "#9173E7" },
-        { id: "7", name: "朝霧司", username: "朝霧 司", cate: "警視庁", color: "#FF864A" },
-        { id: "8", name: "菅野夏樹", username: "夏樹", cate: "警視庁", color: "#98DF00" },
-        { id: "9", name: "荒木田蒼生", username: "荒木田", cate: "警視庁", color: "#8FDAC6" },
-        { id: "10", name: "服部耀", username: "服部", cate: "警視庁", color: "#D43767" },
-        { id: "11", name: "桧山貴臣", username: "桧山", cate: "Revel", color: "#E3CC96" },
-        { id: "12", name: "大谷羽鳥", username: "hatori", cate: "Revel", color: "#F76796" },
-        { id: "13", name: "神楽亜貴", username: "Aki Kagura", cate: "Revel", color: "#76b6ed" },
-        { id: "14", name: "槙慶太", username: "槙慶太", cate: "Revel", color: "#5bcd38" },
-        { id: "15", name: "都築誠", username: "都築", cate: "都築兄弟", color: "#4c835b" },
-        { id: "16", name: "都築京介", username: "きょーすけ", cate: "都築兄弟", color: "#b9b3f4" },
-        { id: "17", name: "新堂清志", username: "新堂", cate: "九条家", color: "#a481c8" },
-        { id: "18", name: "山崎カナメ", username: "kaname", cate: "九条家", color: "#addbe3" },
-        { id: "19", name: "桐嶋宏弥", username: "キリシマ", cate: "九条家", color: "#ffa126" },
-        { id: "20", name: "九条壮馬", username: "九条", cate: "九条家", color: "#d22d38" },
-        { id: "21", name: "宮瀬豪", username: "宮瀬", cate: "九条家", color: "#f8a9f2" },
-        { id: "22", name: "可愛ひかる", username: "かわいひかる", cate: "瀬尾研究室", color: "#ff9ab5" },
-        { id: "23", name: "宝生潔", username: "宝生潔", cate: "瀬尾研究室", color: "#aeb227" },
-        { id: "24", name: "日向志音", username: "しー", cate: "瀬尾研究室", color: "#36dbf3" },
-        { id: "25", name: "早乙女郁人", username: "早乙女郁人【淑央大】", cate: "瀬尾研究室", color: "#3553af" },
-        { id: "26", name: "瀬尾鳴海", username: "NARUMI SEO", cate: "瀬尾研究室", color: "#218379" }
-    ];
 
-    let CharaList = document.createElement('div');
-    CharaList.className = 'chara-list';
-    for (i = 0; i < CharaData.length; i++) {
-        const Chara = document.createElement('li');
-        const ListIcon = document.createElement('div');
-        ListIcon.className = 'list-icon';
-        ListIcon.style.background = CharaData[i].color;
-        const UserName = document.createElement('div');
-        const UserNameText = document.createElement('span');
-        UserNameText.textContent = CharaData[i].username;
-        UserName.appendChild(UserNameText);
-        UserName.className = 'list-username';
-        Chara.appendChild(ListIcon);
-        Chara.appendChild(UserName);
-
-        CharaList.appendChild(Chara);
-    }
-    document.getElementsByClassName('side-bar')[0].append(CharaList);
-    for (i = 0; i < CharaData.length; i++) {
-        list = document.getElementsByClassName('list-username')[i];
-        listS = list.firstChild;
-
-        if (list.clientWidth < listS.scrollWidth) {
-
-            scrollLength = -(listS.scrollWidth - list.clientWidth) + "px";
-            document.documentElement.style.setProperty('--scrollWidth', scrollLength);
-            console.log(i, scrollLength);
-            //listS.classList.add('animation');
-            listS.style.animationName = "namescroll";
-
-        }
-
-    }
     //メニュー開閉
     Menu = () => {
         menuflag = false;
@@ -268,10 +281,10 @@
 
         MenuBtn.addEventListener('click', function () {
             menuflag = !menuflag;
-            MenuBtn.classList.toggle('open');
-            MenuBtn.classList.toggle('close');
-            SideBar.classList.toggle('open');
-            SideBar.classList.toggle('close');
+            MenuBtn.classList.toggle('side-open');
+            MenuBtn.classList.toggle('side-close');
+            SideBar.classList.toggle('side-open');
+            SideBar.classList.toggle('side-close');
         });
     }
 
@@ -279,10 +292,11 @@
 
     SetTime();
     batteryFlag();
+    SelectChara(3);
     Menu();
     //testメッセージ
-    AddMessage("これはテストメッセージです", "left")
-    AddMessage("これはテストメッセージです", "right")
+    AddMessage("これはテストメッセージです", "left",3)
+    AddMessage("これはテストメッセージです", "right",3)
 
 </script>
 

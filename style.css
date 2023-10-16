@@ -62,7 +62,7 @@ li {
 
 .info-area {
     color: #EE7FB7;
-    position: fixed;
+    position: relative;
     display: flex;
     background: #F5D3E1;
     font-size: 0.75rem;
@@ -98,7 +98,7 @@ li {
 .logo {
     color: #EE7FB7;
     background: #F5D3E1;
-    position: fixed;
+    position: relative;
     display: flex;
     font-size: 2rem;
     justify-content: center;
@@ -110,7 +110,7 @@ li {
     display: flex;
     justify-content: space-between;
     padding: 0.5rem 1rem 0.5rem 0;
-    position: fixed;
+    position: relative;
 }
 
 .option {
@@ -138,7 +138,7 @@ li {
 }
 
 .wrap {
-    position: fixed;
+    position: relative;
     z-index: 2;
     flex: 1 1 100%;
     display: flex;
@@ -174,11 +174,11 @@ li {
     border-radius: 0 0 0.5rem 0;
 }
 
-.side-open{
+.side-open {
     margin-left: 40%;
 }
 
-.side-close{
+.side-close {
     margin-left: 0;
 }
 
@@ -194,16 +194,20 @@ li {
     overflow-y: scroll;
     overflow-x: hidden;
 }
-.chara-list::-webkit-scrollbar{
+
+.chara-list::-webkit-scrollbar {
     width: 1.5rem;
 }
-.chara-list::-webkit-scrollbar-track{
+
+.chara-list::-webkit-scrollbar-track {
     background: transparent;
 }
-.chara-list::-webkit-scrollbar-thumb{
+
+.chara-list::-webkit-scrollbar-thumb {
     background: #FCEEF2;
     border-radius: 1.5rem;
-    border: 0.5rem solid #F2A4C5;;
+    border: 0.5rem solid #F2A4C5;
+    ;
 }
 
 
@@ -218,7 +222,7 @@ li {
     border: 0.1rem solid #FCEEF2;
 }
 
-.chara-active{
+.chara-active {
     color: red;
     background: #EE7FB7;
     border: 0.1rem solid #FCEEF2;
@@ -281,7 +285,7 @@ li {
 }
 
 .chat-area {
-    position: fixed;
+    position: relative;
     z-index: 2;
     flex: 1 1 100%;
     display: none;
@@ -292,8 +296,8 @@ li {
     scrollbar-width: none;
 }
 
-.chat-active{
-display: flex;
+.chat-active {
+    display: flex;
 }
 
 .chat-area::-webkit-scrollbar,

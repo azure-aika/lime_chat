@@ -250,8 +250,9 @@
     AddMessage = (text, position, id) => {
         //text = text.replace(/\s+/g, '');
 
-        if (!text.length || !text.value == "") {
-            TextBody.textContent = "";
+        if (!text.match(/\S/g)||text.textContent=='') {
+            text.textContent = '';
+            console.log(text.length);
             TextBody.style.height = defaultHeight;
             return;
         }
@@ -281,9 +282,9 @@
         }
 
         ChatArea[id].appendChild(fragment);
-        TextBody.value = "";
+        TextBody.value = null;
         TextBody.style.height = defaultHeight;
-        ChatArea.scrollTop = ChatArea.scrollHeight;
+        ChatArea[id].scrollTop = ChatArea[id].scrollHeight;
 
         Message.addEventListener('click', (e) => {
             let old_text = e.target.textContent;

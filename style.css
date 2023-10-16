@@ -1,3 +1,12 @@
+:root {
+    --font: #421B2F;
+    --pink1: #EE7FB7;
+    --pink2: #F2A4C5;
+    --pink3: #FCEEF2;
+    --pink4: #F5D3E1;
+    ;
+}
+
 html {
     height: 100%;
     font-size: 62.5%;
@@ -8,8 +17,7 @@ body {
     line-height: 1;
     margin: 0;
     padding: 0;
-    position: relative;
-    height: 100vh;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
@@ -20,7 +28,7 @@ body {
     -webkit-text-size-adjust: 100%;
     font-weight: bold;
     font-size: 1rem;
-    color: #421B2F;
+    color: var(--font);
     word-break: break-all;
 }
 
@@ -53,20 +61,20 @@ li {
 .screen {
     height: 100%;
     width: 100vw;
+    max-width: 65vh;
     flex: 0 0 auto;
     display: flex;
     flex-direction: column;
-    background: #FDEEF1;
+    background: var(--pink3);
     position: relative;
-    overflow: hidden;
 }
 
-.info-area {
-    color: #EE7FB7;
+.info {
+    color: var(--pink1);
     position: relative;
     display: flex;
-    background: #F5D3E1;
-    font-size: 0.75rem;
+    background: var(--pink4);
+    font-size: 1rem;
     padding: 0.5rem 1rem;
     align-items: center;
     justify-content: space-between;
@@ -87,7 +95,7 @@ li {
 .battery i {
     position: relative;
     display: flex;
-    line-height: 0.75rem;
+    line-height: 1rem;
 }
 
 .battery span {
@@ -97,8 +105,8 @@ li {
 }
 
 .logo {
-    color: #EE7FB7;
-    background: #F5D3E1;
+    color: var(--pink1);
+    background: var(--pink4);
     position: relative;
     display: flex;
     font-size: 2rem;
@@ -107,11 +115,10 @@ li {
 }
 
 .header {
-    background: #F5D3E1;
+    background: var(--pink4);
     display: flex;
     justify-content: space-between;
     padding: 0.5rem 1rem 0.5rem 0;
-    position: relative;
 }
 
 .option {
@@ -119,17 +126,17 @@ li {
     margin: auto 0;
     background: #FDEEF1;
     border-radius: 15%;
-    border: 0.1rem solid #EE7FB7;
+    border: 0.1rem solid var(--pink1);
 }
 
 .option i {
     font-size: 1.5rem;
     align-items: center;
-    color: #EE7FB7;
+    color: var(--pink1);
 }
 
 
-.header .sender {
+.header .sender-name {
     font-size: 1.5rem;
     align-items: center;
     display: flex;
@@ -138,57 +145,57 @@ li {
     margin: auto 0;
 }
 
-.wrap {
+.chat-wrapper {
     position: relative;
     z-index: 2;
     flex: 1 1 100%;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 }
 
-.sideBtn {
+.menuBtn {
     z-index: 5;
     position: relative;
     display: flex;
-    padding: 0.5rem;
-    width: 2.5rem;
-    margin: 0;
-    background: #F2A4C5;
+    background: var(--pink2);
     border-radius: 0 100% 100% 0;
-    border: 0.1rem solid #F2A4C5;
-    font-size: 1.5rem;
-    color: #FCEEF2;
-    height: 100%;
 }
 
-.side-bar {
+.menuBtn i {
+    font-size: 1.5rem;
+    color: var(--pink3);
+    padding: 1rem;
+}
+
+.menu {
     z-index: 5;
     display: flex;
     position: absolute;
     top: 0.5rem;
     left: -40%;
     width: 40%;
-    height: calc(100% - 1rem);
-    background: #F2A4C5;
+    height: calc(100% - 3.5rem);
+    background: var(--pink2);
     overflow: hidden;
     padding: 1rem 0;
     border-radius: 0 0 0.5rem 0;
 }
 
-.side-open {
+.menu-open {
     margin-left: 40%;
 }
 
-.side-close {
+.menu-close {
     margin-left: 0;
 }
 
 
-.chara-list {
+.menu-list {
     display: flex;
     position: relative;
     flex-direction: column;
-    background: #F2A4C5;
+    background: var(--pink2);
     padding: 0rem 1rem;
     width: 100%;
     height: 100%;
@@ -196,40 +203,41 @@ li {
     overflow-x: hidden;
 }
 
-.chara-list::-webkit-scrollbar {
+.menu-list::-webkit-scrollbar {
     width: 1.5rem;
 }
 
-.chara-list::-webkit-scrollbar-track {
+.menu-list::-webkit-scrollbar-track {
     background: transparent;
 }
 
-.chara-list::-webkit-scrollbar-thumb {
-    background: #FCEEF2;
+.menu-list::-webkit-scrollbar-thumb {
+    background: var(--pink3);
     border-radius: 1.5rem;
-    border: 0.5rem solid #F2A4C5;
+    border: 0.5rem solid var(--pink2);
     ;
 }
 
 
-.chara-list li {
-    background: #FCEEF2;
+.chara {
+    z-index: 10;
+    background: var(--pink3);
     padding: 0.5rem;
     display: flex;
     position: relative;
     font-size: 1.2rem;
     border-radius: 0.5rem;
     margin: 0.2rem 0;
-    border: 0.1rem solid #FCEEF2;
+    border: 0.1rem solid var(--pink3);
 }
 
 .chara-active {
-    color: red;
-    background: #EE7FB7;
-    border: 0.1rem solid #FCEEF2;
+    color: var(--pink3);
+    background: var(--pink1);
+    border: 0.1rem solid var(--pink3);
 }
 
-.list-icon {
+.chara-icon {
     position: relative;
     display: flex;
     width: 10vw;
@@ -241,7 +249,7 @@ li {
     flex-shrink: 0;
 }
 
-.list-username {
+.chara-username {
     display: flex;
     position: relative;
     margin: auto 0.5rem;
@@ -249,7 +257,7 @@ li {
     height: 100%;
 }
 
-.list-username>span {
+.chara-username>span {
     margin: auto 0;
     display: flex;
     position: relative;
@@ -303,7 +311,7 @@ li {
 
 .chat-area::-webkit-scrollbar,
 textarea::-webkit-scrollbar,
-.list-username>span::-webkit-scrollbar {
+.chara-username>span::-webkit-scrollbar {
     display: none;
 }
 
@@ -327,7 +335,7 @@ textarea::-webkit-scrollbar,
     margin: 0.5rem 2rem;
     margin-left: auto;
     border-radius: 0.8em 0 0.8rem 0.8rem;
-    background: #EE7FB7;
+    background: var(--pink1);
     color: #ffffff;
 }
 
@@ -342,7 +350,7 @@ textarea::-webkit-scrollbar,
     height: 0;
     border-style: solid;
     border-width: 0.66rem 1rem 0 0;
-    border-color: #EE7FB7 transparent transparent transparent;
+    border-color: var(--pink1) transparent transparent transparent;
 }
 
 .messageBox-left {
@@ -365,7 +373,6 @@ textarea::-webkit-scrollbar,
     border-radius: 100%;
     background: gray;
     flex-shrink: 0;
-    /*border: 0.1em solid #F5D3E1;*/
 }
 
 .message-left {
@@ -373,7 +380,7 @@ textarea::-webkit-scrollbar,
     margin-right: auto;
     border-radius: 0 0.8rem 0.8rem 0.8rem;
     background: #ffffff;
-    border: 0.1rem solid #F5D3E1;
+    border: 0.1rem solid var(--pink4);
 
 }
 
@@ -386,7 +393,7 @@ textarea::-webkit-scrollbar,
     height: 0;
     border-style: solid;
     border-width: 0 1.15rem 0.81rem 0;
-    border-color: transparent #F5D3E1 transparent transparent;
+    border-color: transparent var(--pink4) transparent transparent;
 }
 
 .message-left::after {
@@ -401,8 +408,8 @@ textarea::-webkit-scrollbar,
     border-color: transparent #ffffff transparent transparent;
 }
 
-.form-area {
-    background: #F5D3E1;
+.form {
+    background: var(--pink4);
     position: relative;
     display: flex;
     z-index: 3;
@@ -416,7 +423,7 @@ textarea::-webkit-scrollbar,
 }
 
 
-.senderSelect {
+.form-sender {
     font-size: inherit;
     font-weight: bold;
     font-family: inherit;
@@ -426,26 +433,26 @@ textarea::-webkit-scrollbar,
     justify-content: center;
     padding: 0.6rem 0.8rem;
     margin: 0;
-    border: 0.1rem solid #EE7FB7;
-    background: #EE7FB7;
+    border: 0.1rem solid var(--pink1);
+    background: var(--pink1);
     color: #ffffff;
 }
 
-.sender-R {
-    background: #EE7FB7;
+.form-sender-R {
+    background: var(--pink1);
     color: #ffffff;
 }
 
-.sender-R::before {
+.form-sender-R::before {
     content: "自分";
 }
 
-.sender-L {
+.form-sender-L {
     background: #ffffff;
-    color: #EE7FB7;
+    color: var(--pink1);
 }
 
-.sender-L::before {
+.form-sender-L::before {
     content: "相手";
 }
 
@@ -472,13 +479,12 @@ textarea::-webkit-scrollbar,
 .textarea {
     font-weight: bold;
     font-size: inherit;
-    color: #421B2F;
+    color: var(--font);
     font-family: inherit;
     border: none;
     outline: 0;
     line-height: 1.5;
     display: flex;
-    justify-content: center;
     resize: none;
     white-space: pre-wrap;
     word-wrap: break-word;
@@ -489,12 +495,12 @@ textarea::-webkit-scrollbar,
 
 }
 
-.formButton-submit {
+.form-submit {
     position: relative;
     display: flex;
 }
 
-.submit {
+.form-submit-btn {
     font-size: inherit;
     font-weight: bold;
     font-family: inherit;
@@ -504,8 +510,9 @@ textarea::-webkit-scrollbar,
     justify-content: center;
     padding: 0.6rem 0.8rem;
     margin: 0;
-    background: #FAEEF0;
+ 
+    background: #ffffff;
     color: #BC5F7E;
     border-radius: 40%;
-    box-shadow: 0 0 0.2rem #EE7FB7;
+    box-shadow: 0 0 0.2rem var(--pink1);
 }

@@ -142,8 +142,14 @@
             }
         }
     }
-
-
+    DefaultMessage = () => {
+        for (i = 0; i < CharaData.length; i++) {
+            scenarioLength = Object.values(CharaData[i].scenario).length;
+            for (j = 0; j < scenarioLength; j++) {
+                AddMessage(CharaData[i].scenario[j], "left", i)
+            }
+        }
+    }
 
 
 
@@ -279,40 +285,64 @@
         TextBody.style.height = defaultHeight;
         ChatArea.scrollTop = ChatArea.scrollHeight;
 
+        Message.addEventListener('click', (e) => {
+            let old_text = e.target.textContent;
+            let new_text = window.prompt('メッセージ編集', old_text);
+            if (new_text == null) {
+                e.target.textContent = old_text;
+                return;
+            } else if (new_text == "") {
+                if (window.confirm('削除しますか？')) {
 
-        document.querySelectorAll('.message').forEach((el) => {
-            el.addEventListener('click', (e) => {
-                console.log(e.target.className);
-                let old_text = e.target.textContent;
-                let new_text = window.prompt('メッセージ編集', old_text);
-                if (new_text == null) {
-                    e.target.textContent = old_text;
-                    return;
-                } else if (new_text == "") {
-                    if (window.confirm('削除しますか？')) {
-
-                        if (e.target.className == 'message message-right') {
-                            e.target.remove();
-                            return;
-                        } else if (e.target.className == 'message message-left') {
-                            e.target.closest('div').remove();
-                            return;
-                        }
-
+                    if (e.target.className == 'message message-right') {
+                        e.target.remove();
+                        return;
+                    } else if (e.target.className == 'message message-left') {
+                        parent = e.target.closest('.messageBox-left');
+                        parent.remove();
+                        return;
                     }
-                } else if (new_text.length) {
-                    console.log(new_text);
-                    e.target.textContent = new_text;
-                    return;
+
                 }
-
-
-            });
+            } else if (new_text.length) {
+                e.target.textContent = new_text;
+                return;
+            }
         });
+
 
     };
 
+    document.querySelectorAll('.message').forEach((el) => {
+        console.log(el);
+        el.addEventListener('click', (e) => {
+            console.log(e.target.textContent);
 
+            let old_text = e.target.textContent;
+            let new_text = window.prompt('メッセージ編集', old_text);
+            if (new_text == null) {
+                e.target.textContent = old_text;
+                return;
+            } else if (new_text == "") {
+                if (window.confirm('削除しますか？')) {
+
+                    if (e.target.className == 'message message-right') {
+                        e.target.remove();
+                        return;
+                    } else if (e.target.className == 'message message-left') {
+                        e.target.closest('div').remove();
+                        return;
+                    }
+
+                }
+            } else if (new_text.length) {
+                e.target.textContent = new_text;
+                return;
+            }
+
+
+        });
+    });
 
 
     //メッセージ送信者を選択(左右)
@@ -363,15 +393,9 @@
     CurrentCharaID = 0;
 
     SelectChara(CurrentCharaID);
-    DefaultMessage = () => {
-        for (j = 0; j < CharaData.length; j++) {
-            scenarioLength = Object.values(CharaData[j].scenario).length;
-            for (i = 0; i < scenarioLength; i++) {
-                AddMessage(CharaData[j].scenario[i], "left", j)
-            }
-        }
-    }
     DefaultMessage();
+    //AddMessage("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","left",0)
+
 
 
 

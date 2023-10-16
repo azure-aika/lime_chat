@@ -59,7 +59,7 @@
     //キャラデータ
 
     let CharaData = [
-        { id: "0", name: "自分", username: "テスト", cate: "", color: "#808080", scenario: { 0: "スタマイに登場するチャットアプリ『LIME』を模したサイトです。\n\n左の▶ボタンを押すと表示されるリストから、メッセージ送信相手を選択できます。\n\nまた、メッセージは【相手側】【自分側】どちらから送信されるのか、フォーム横のボタンで選択できます。\n\n画面をリロードすると全会話が削除されます。" } },
+        { id: "0", name: "自分", username: "テスト", cate: "", color: "#808080", scenario: { 0: "スタマイに登場するチャットアプリ『LIME』を模したサイトです。",1:"左の▶ボタンを押すと表示されるリストから、メッセージ送信相手を選択できます。",2:"また、メッセージは【相手側】【自分側】どちらから送信されるのか、フォーム横のボタンで選択できます。",3:"送信済のメッセージは、クリックすると編集画面にて変更できます。\n\n編集画面で、メッセージが空の状態でOKボタンを押すと、メッセージの削除ができます。",4:"画面をリロードすると全会話が削除されます。" } },
         { id: "1", name: "青山樹", username: "青山樹", cate: "マトリ", color: "#2390FF", scenario: { 0: "青山樹です。登録よろしくお願いします。" } },
         { id: "2", name: "由井孝太郎", username: "Kotaro.Y", cate: "マトリ", color: "#FFAEC0", scenario: { 0: "いつでも連絡してくれ", 1: "キミからの頼みとあらばどこへでも駆けつけよう" } },
         { id: "3", name: "関大輔", username: "関", cate: "マトリ", color: "#F95240", scenario: { 0: "" } },
@@ -236,7 +236,7 @@
         length = TextBody.value.length;
         row = Math.floor(TextBody.scrollHeight / lineHeight);
         widthCount = Math.floor(length / row);
-        if (widthCount >= widthCountMax) { widthCountMax = widthCount }
+        if (widthCount >= widthCountMax) { widthCountMax = widthCount; }
         if (TextBody.scrollHeight >= lineHeight * 2) {
             TextBody.style.height = 'auto';
             TextBody.style.height = TextBody.scrollHeight + 'px';

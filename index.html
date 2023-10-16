@@ -14,7 +14,7 @@
         <div class="screen">
             <div class="info">
                 <div class="time" id="js-time"></div>
-                <div class="battery" sid="js-battery"><span></span></div>
+                <div class="battery" id="js-battery"><span></span></div>
             </div>
             <div class="logo">LIME</div>
             <div class="chat-wrapper">
@@ -124,8 +124,8 @@
 
     //キャラクターに応じて表示を変更
     SelectChara = (id) => {
-        ChatArea[id].classList.toggle('chat-active');
-        Chara[id].classList.toggle('chara-active');
+        ChatArea[id].classList.add('chat-active');
+        Chara[id].classList.add('chara-active');
         document.getElementById('js-sender-name').textContent = CharaData[id].username;
 
         for (i = 0; i < document.querySelectorAll('.chara').length; i++) {
@@ -175,6 +175,7 @@
     //battery
     let Battery = document.getElementById('js-battery');
     let BatteryIcon = document.createElement('i');
+
     const batteryLevel = () => {
         navigator.getBattery().then((battery) => {
             battery.addEventListener("levelchange", () => {
@@ -197,7 +198,7 @@
                 }
                 Battery.appendChild(BatteryIcon);
                 level = Math.floor(battery.level * 100);
-                document.querySelector('#battery span').textContent = String(level) + "%";
+                document.querySelector('#js-battery span').textContent = String(level) + "%";
             };
             updateLevelInfo();
         });
@@ -211,7 +212,11 @@
             document.querySelector('.battery span').textContent = "123%";
         }
     }
-
+    /*
+        BatteryLevel = () => {
+            document.querySelector('#js-battery span').textContent = "123%";
+        }
+    */
     //テキストエリア自動伸縮
     const TextBody = document.querySelector('#js-text');
     fontSize = (TextBody.currentStyle || document.defaultView.getComputedStyle(TextBody, '')).fontSize;
@@ -322,8 +327,11 @@
 
             MenuBtnIcon.classList.toggle('fa-caret-right');
             MenuBtnIcon.classList.toggle('fa-caret-left');
-           // ChatArea[CurrentCharaID].classList.toggle('menu-open');
-          //  ChatArea[CurrentCharaID].classList.toggle('menu-close');
+            for (i = 0; i < CharaData.length; i++) {
+                ChatArea[i].classList.toggle('menu-open');
+                ChatArea[i].classList.toggle('menu-close');
+            }
+
         });
     }
 
@@ -333,7 +341,7 @@
     batteryFlag();
     MenuToggle();
     //testメッセージ
-    CurrentCharaID=0;
+    CurrentCharaID = 0;
     AddMessage("これはテストメッセージです", "left", CurrentCharaID);
     AddMessage("これはテストメッセージです", "right", CurrentCharaID);
     SelectChara(CurrentCharaID);

@@ -52,16 +52,12 @@ li {
     list-style: none;
 }
 
-.contents {
-    height: 100%;
-    display: flex;
-    justify-content: center;
-}
+
 
 .screen {
+    justify-content: center;
     height: 100%;
     width: 100vw;
-    max-width: 65vh;
     flex: 0 0 auto;
     display: flex;
     flex-direction: column;
@@ -329,6 +325,7 @@ textarea::-webkit-scrollbar,
     pointer-events: auto;
     margin: 0;
     white-space: pre-line;
+    pointer-events: auto;
 }
 
 .message-right {
@@ -373,6 +370,7 @@ textarea::-webkit-scrollbar,
     border-radius: 100%;
     background: gray;
     flex-shrink: 0;
+    pointer-events: none;
 }
 
 .message-left {
@@ -515,4 +513,9 @@ textarea::-webkit-scrollbar,
     color: #BC5F7E;
     border-radius: 40%;
     box-shadow: 0 0 0.2rem var(--pink1);
+}
+
+.modal{
+    position: absolute;
+    width: 100vw;
 }

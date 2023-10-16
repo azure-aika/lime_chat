@@ -10,36 +10,42 @@
 </head>
 
 <body>
-    <div class="contents">
-        <div class="screen">
-            <div class="info">
-                <div class="time" id="js-time"></div>
-                <div class="battery" id="js-battery"><span></span></div>
-            </div>
-            <div class="logo">LIME</div>
-            <div class="chat-wrapper">
-                <div class="header">
-                    <div class="menuBtn menu-close" id="js-menuBtn"><i class="fa-solid fa-caret-right"></i></div>
-                    <div class="sender-name" id="js-sender-name"></div>
-                    <div class="option"><i class="fa-solid fa-gear"></i></div>
-                </div>
-                <div class="menu menu-close" id="js-menu">
-                    <div class="menu-list" id="js-menu-list">
-                    </div>
-                </div>
-            </div>
-            <form class="form" name="send" id="js-form">
-                <button type="button" class="form-sender form-sender-R"></button>
-
-                <div class="textarea-bg">
-                    <textarea class="textarea" id="js-text"></textarea>
-                </div>
-
-                <div class="form-submit">
-                    <button type="submit" class="form-submit-btn">送信</button>
-                </div>
-            </form>
+    <div class="screen">
+        <div class="info">
+            <div class="time" id="js-time"></div>
+            <div class="battery" id="js-battery"><span></span></div>
         </div>
+        <div class="logo">LIME</div>
+        <div class="chat-wrapper">
+            <div class="header">
+                <div class="menuBtn menu-close" id="js-menuBtn"><i class="fa-solid fa-caret-right"></i></div>
+                <div class="sender-name" id="js-sender-name"></div>
+                <div class="option"><i class="fa-solid fa-gear"></i></div>
+            </div>
+            <div class="menu menu-close" id="js-menu">
+                <div class="menu-list" id="js-menu-list">
+                </div>
+            </div>
+        </div>
+        <form class="form" name="send" id="js-form">
+            <button type="button" class="form-sender form-sender-R"></button>
+            <div class="textarea-bg">
+                <textarea class="textarea" id="js-text"></textarea>
+            </div>
+
+            <div class="form-submit">
+                <button type="submit" class="form-submit-btn">送信</button>
+            </div>
+        </form>
+        <!-- <div class="modal">
+            <form class="alert" name="alert" id="js-alert">
+                <textarea class="textarea-re" id="js-text-re">sannpuru</textarea>
+                <button type="button">変更</button>
+                <button type="button">削除</button>
+                <button type="button">キャンセル</button>
+
+            </form>-->
+    </div>
 
 
 </body>
@@ -51,34 +57,35 @@
 
 
     //キャラデータ
+
     let CharaData = [
-        { id: "0", name: "自分", username: "テスト", cate: "", color: "#808080" },
-        { id: "1", name: "青山樹", username: "青山樹", cate: "マトリ", color: "#2390FF" },
-        { id: "2", name: "由井孝太郎", username: "Kotaro.Y", cate: "マトリ", color: "#FFAEC0" },
-        { id: "3", name: "関大輔", username: "関", cate: "マトリ", color: "#F95240" },
-        { id: "4", name: "夏目春", username: "hal", cate: "マトリ", color: "#59D9A5" },
-        { id: "5", name: "今大路峻", username: "shun", cate: "マトリ", color: "#F9CD00" },
-        { id: "6", name: "渡部悟", username: "ワタベ", cate: "マトリ", color: "#9173E7" },
-        { id: "7", name: "朝霧司", username: "朝霧 司", cate: "警視庁", color: "#FF864A" },
-        { id: "8", name: "菅野夏樹", username: "夏樹", cate: "警視庁", color: "#98DF00" },
-        { id: "9", name: "荒木田蒼生", username: "荒木田", cate: "警視庁", color: "#8FDAC6" },
-        { id: "10", name: "服部耀", username: "服部", cate: "警視庁", color: "#D43767" },
-        { id: "11", name: "桧山貴臣", username: "桧山", cate: "Revel", color: "#E3CC96" },
-        { id: "12", name: "大谷羽鳥", username: "hatori", cate: "Revel", color: "#F76796" },
-        { id: "13", name: "神楽亜貴", username: "Aki Kagura", cate: "Revel", color: "#76b6ed" },
-        { id: "14", name: "槙慶太", username: "槙慶太", cate: "Revel", color: "#5bcd38" },
-        { id: "15", name: "都築誠", username: "都築", cate: "都築兄弟", color: "#4c835b" },
-        { id: "16", name: "都築京介", username: "きょーすけ", cate: "都築兄弟", color: "#b9b3f4" },
-        { id: "17", name: "新堂清志", username: "新堂", cate: "九条家", color: "#a481c8" },
-        { id: "18", name: "山崎カナメ", username: "kaname", cate: "九条家", color: "#addbe3" },
-        { id: "19", name: "桐嶋宏弥", username: "キリシマ", cate: "九条家", color: "#ffa126" },
-        { id: "20", name: "九条壮馬", username: "九条", cate: "九条家", color: "#d22d38" },
-        { id: "21", name: "宮瀬豪", username: "宮瀬", cate: "九条家", color: "#f8a9f2" },
-        { id: "22", name: "可愛ひかる", username: "かわいひかる", cate: "瀬尾研究室", color: "#ff9ab5" },
-        { id: "23", name: "宝生潔", username: "宝生潔", cate: "瀬尾研究室", color: "#aeb227" },
-        { id: "24", name: "日向志音", username: "しー", cate: "瀬尾研究室", color: "#36dbf3" },
-        { id: "25", name: "早乙女郁人", username: "早乙女郁人【淑央大】", cate: "瀬尾研究室", color: "#3553af" },
-        { id: "26", name: "瀬尾鳴海", username: "NARUMI SEO", cate: "瀬尾研究室", color: "#218379" }
+        { id: "0", name: "自分", username: "テスト", cate: "", color: "#808080", scenario: { 0: "スタマイに登場するチャットアプリ『LIME』を模したサイトです。\n\n左の▶ボタンを押すと表示されるリストから、メッセージ送信相手を選択できます。\n\nまた、メッセージは【相手側】【自分側】どちらから送信されるのか、フォーム横のボタンで選択できます。\n\n画面をリロードすると全会話が削除されます。" } },
+        { id: "1", name: "青山樹", username: "青山樹", cate: "マトリ", color: "#2390FF", scenario: { 0: "青山樹です。登録よろしくお願いします。" } },
+        { id: "2", name: "由井孝太郎", username: "Kotaro.Y", cate: "マトリ", color: "#FFAEC0", scenario: { 0: "いつでも連絡してくれ", 1: "キミからの頼みとあらばどこへでも駆けつけよう" } },
+        { id: "3", name: "関大輔", username: "関", cate: "マトリ", color: "#F95240", scenario: { 0: "" } },
+        { id: "4", name: "夏目春", username: "hal", cate: "マトリ", color: "#59D9A5", scenario: { 0: "あ" } },
+        { id: "5", name: "今大路峻", username: "shun", cate: "マトリ", color: "#F9CD00", scenario: { 0: "今大路です。これからよろしくお願いします" } },
+        { id: "6", name: "渡部悟", username: "ワタベ", cate: "マトリ", color: "#9173E7", scenario: { 0: "登録したよ、これから好きな時に連絡してね" } },
+        { id: "7", name: "朝霧司", username: "朝霧 司", cate: "警視庁", color: "#FF864A", scenario: { 0: "朝霧司です", 1: "登録しましたので、早めに返事がほしい時はこちらにお願いします" } },
+        { id: "8", name: "菅野夏樹", username: "夏樹", cate: "警視庁", color: "#98DF00", scenario: { 0: "送れてる？" } },
+        { id: "9", name: "荒木田蒼生", username: "荒木田", cate: "警視庁", color: "#8FDAC6", scenario: { 0: "登録した。" } },
+        { id: "10", name: "服部耀", username: "服部", cate: "警視庁", color: "#D43767", scenario: { 0: "夏樹から資料受け取った？" } },
+        { id: "11", name: "桧山貴臣", username: "桧山", cate: "Revel", color: "#E3CC96", scenario: { 0: "" } },
+        { id: "12", name: "大谷羽鳥", username: "hatori", cate: "Revel", color: "#F76796", scenario: { 0: "LIME教えてくれてありがとう。", 1: "気軽に連絡してね。" } },
+        { id: "13", name: "神楽亜貴", username: "Aki Kagura", cate: "Revel", color: "#76b6ed", scenario: { 0: "登録したから。", 1: "金曜仕事終わったらアトリエ集合ね。", 2: "分かった？", 3: "ねえ、" } },
+        { id: "14", name: "槙慶太", username: "槙慶太", cate: "Revel", color: "#5bcd38", scenario: { 0: "登録した、よろしく。" } },
+        { id: "15", name: "都築誠", username: "都築", cate: "都築兄弟", color: "#4c835b", scenario: { 0: "先日は、取材の申し込みに応じてもらい助かった。", 1: "改めて礼を言う" } },
+        { id: "16", name: "都築京介", username: "きょーすけ", cate: "都築兄弟", color: "#b9b3f4", scenario: { 0: "登録したよ、よろしく！" } },
+        { id: "17", name: "新堂清志", username: "新堂", cate: "九条家", color: "#a481c8", scenario: { 0: "新堂だ" } },
+        { id: "18", name: "山崎カナメ", username: "kaname", cate: "九条家", color: "#addbe3", scenario: { 0: "とどいてるか？" } },
+        { id: "19", name: "桐嶋宏弥", username: "キリシマ", cate: "九条家", color: "#ffa126", scenario: { 0: "連絡先、もらってから時間経っちゃってごめん。" } },
+        { id: "20", name: "九条壮馬", username: "九条", cate: "九条家", color: "#d22d38", scenario: { 0: "無事に登録できているだろうか。" } },
+        { id: "21", name: "宮瀬豪", username: "宮瀬", cate: "九条家", color: "#f8a9f2", scenario: { 0: "夜ご飯お願いします。", 1: "あれ", 2: "よろしくと打つつもりが『よ』で勝手に変換が……" } },
+        { id: "22", name: "可愛ひかる", username: "かわいひかる", cate: "瀬尾研究室", color: "#ff9ab5", scenario: { 0: "玲さん、ひかるんだよ～", 1: "早速登録させてね♪" } },
+        { id: "23", name: "宝生潔", username: "宝生潔", cate: "瀬尾研究室", color: "#aeb227", scenario: { 0: "" } },
+        { id: "24", name: "日向志音", username: "しー", cate: "瀬尾研究室", color: "#36dbf3", scenario: { 0: "さっき貰ったお菓子、おいしかった", 1: "ありがとう" } },
+        { id: "25", name: "早乙女郁人", username: "早乙女郁人【淑央大】", cate: "瀬尾研究室", color: "#3553af", scenario: { 0: "これが俺のアカウントだ、\nきちんと登録しとけ", 1: "おい", 2: "おい、見てないのか。" } },
+        { id: "26", name: "瀬尾鳴海", username: "NARUMI SEO", cate: "瀬尾研究室", color: "#218379", scenario: { 0: "これで登録できているかな？" } }
     ];
 
     //キャラデータからメニューとチャットタブを生成
@@ -106,8 +113,6 @@
         const ChatArea = document.createElement('div');
         ChatArea.className = 'chat-area menu-close';
         document.getElementsByClassName('chat-wrapper')[0].appendChild(ChatArea);
-
-
     }
 
     //キャラ選択
@@ -137,6 +142,8 @@
             }
         }
     }
+
+
 
 
 
@@ -212,11 +219,6 @@
             document.querySelector('.battery span').textContent = "123%";
         }
     }
-    /*
-        BatteryLevel = () => {
-            document.querySelector('#js-battery span').textContent = "123%";
-        }
-    */
     //テキストエリア自動伸縮
     const TextBody = document.querySelector('#js-text');
     fontSize = (TextBody.currentStyle || document.defaultView.getComputedStyle(TextBody, '')).fontSize;
@@ -241,11 +243,13 @@
     //メッセージを作成
     AddMessage = (text, position, id) => {
         //text = text.replace(/\s+/g, '');
+
         if (!text.length || !text.value == "") {
             TextBody.textContent = "";
             TextBody.style.height = defaultHeight;
             return;
         }
+
 
         position == 'right' ? position = 'right' : position = 'left';
         ChatArea[id];
@@ -275,26 +279,41 @@
         TextBody.style.height = defaultHeight;
         ChatArea.scrollTop = ChatArea.scrollHeight;
 
-        /*messageEvent = document.getElementsByClassName('message');
-        messageEvent.addEventListener('click', function () {
-            let old_text = $(this).text();
-            let new_text = window.prompt('メッセージ編集', old_text);
-            if (new_text == null) {
-                $(this).text(old_text);
-                return;
-            } else if (new_text == "") {
-                if (window.confirm('削除しますか？')) {
-                    $(this).remove();
+
+        document.querySelectorAll('.message').forEach((el) => {
+            el.addEventListener('click', (e) => {
+                console.log(e.target.className);
+                let old_text = e.target.textContent;
+                let new_text = window.prompt('メッセージ編集', old_text);
+                if (new_text == null) {
+                    e.target.textContent = old_text;
+                    return;
+                } else if (new_text == "") {
+                    if (window.confirm('削除しますか？')) {
+
+                        if (e.target.className == 'message message-right') {
+                            e.target.remove();
+                            return;
+                        } else if (e.target.className == 'message message-left') {
+                            e.target.closest('div').remove();
+                            return;
+                        }
+
+                    }
+                } else if (new_text.length) {
+                    console.log(new_text);
+                    e.target.textContent = new_text;
                     return;
                 }
-            } else if (new_text.length) {
-                $(this).text(new_text);
-                return;
-            }
- 
-        });*/
+
+
+            });
+        });
 
     };
+
+
+
 
     //メッセージ送信者を選択(左右)
     formSender = document.querySelector('.form-sender');
@@ -338,13 +357,24 @@
     //タブ
 
     SetTime();
-    batteryFlag();
+    //batteryFlag();
     MenuToggle();
     //testメッセージ
     CurrentCharaID = 0;
-    AddMessage("これはテストメッセージです", "left", CurrentCharaID);
-    AddMessage("これはテストメッセージです", "right", CurrentCharaID);
+
     SelectChara(CurrentCharaID);
+    DefaultMessage = () => {
+        for (j = 0; j < CharaData.length; j++) {
+            scenarioLength = Object.values(CharaData[j].scenario).length;
+            for (i = 0; i < scenarioLength; i++) {
+                AddMessage(CharaData[j].scenario[i], "left", j)
+            }
+        }
+    }
+    DefaultMessage();
+
+
+
 
 </script>
 

@@ -26,11 +26,13 @@
                 <div class="menu-list menu-list-active" id="js-chara-list">
                 </div>
                 <div class="menu-list" id="js-group-list">
+                    <li></li>
                 </div>
                 <div class="menu-select" id="js-menu-select">
-                    <div><button type="button">個人</button></div>
-                    <div><button type="button">グループ</button></div>
+                    <button type="button" class="menu-select-btn menu-select-active">個人</button>
+                    <button type="button" class="menu-select-btn">グループ</button>
                 </div>
+
             </div>
         </div>
         <form class="form" name="send" id="js-form">
@@ -351,7 +353,7 @@
         senderflag = !senderflag;
         formSender.classList.toggle('form-sender-L');
         formSender.classList.toggle('form-sender-R');
-    })
+    });
 
     //メッセージ送信
     let Form = document.getElementById('js-form');

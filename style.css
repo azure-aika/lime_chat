@@ -187,29 +187,19 @@ li {
     margin-left: 0;
 }
 
-.menu-select-active {
-    color: var(--pink3);
-    background: var(--pink1);
-    border: 0.1rem solid var(--pink3);
-}
+
 
 .menu-select {
-    background: blue;
     display: flex;
     position: relative;
-    width: 100%;
-    padding: 1rem 0 0 0;
+    width: calc(100% - 3rem);
+    padding: 1rem 1rem 0 1rem;
     justify-content: space-between;
 }
 
-.menu-select>div {
+.menu-select-btn {
     align-items: center;
-    justify-content: center;
-    width: 50%;
-    padding: 0 0.5rem;
-}
-
-.menu-select>div button {
+    width: calc(50% - 0.5rem);
     justify-content: center;
     word-break: normal;
     font-size: inherit;
@@ -225,9 +215,13 @@ li {
     pointer-events: auto;
     white-space: nowrap;
     padding: 1rem 0.5rem;
-    width: 100%;
-    margin: auto;
 
+}
+
+.menu-select-active {
+    color: var(--pink3);
+    background: var(--pink1);
+    border: 0.1rem solid var(--pink3);
 }
 
 
@@ -237,25 +231,26 @@ li {
     flex-direction: column;
     background: var(--pink2);
     padding: 0rem 1rem;
-    width: 100%;
+    width: calc(100% - 2.5rem);
     height: 100%;
     overflow-y: scroll;
     overflow-x: hidden;
 }
 
-.menu-list::-webkit-scrollbar {
-    width: 1.5rem;
+.menu-list::-webkit-scrollbar,
+.menu-select::-webkit-scrollbar {
+    width: 0.5rem;
 }
 
-.menu-list::-webkit-scrollbar-track {
+.menu-list::-webkit-scrollbar-track,
+.menu-select::-webkit-scrollbar-track {
     background: transparent;
 }
 
 .menu-list::-webkit-scrollbar-thumb {
     background: var(--pink3);
     border-radius: 1.5rem;
-    border: 0.5rem solid var(--pink2);
-    ;
+    /* border: 0.5rem solid var(--pink2);*/
 }
 
 .menu-list-active {

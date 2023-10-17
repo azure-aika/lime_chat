@@ -174,8 +174,9 @@ li {
     height: calc(100% - 3.5rem);
     background: var(--pink2);
     overflow: hidden;
-    padding: 1rem 0;
+    padding: 1rem 0rem;
     border-radius: 0 0 0.5rem 0;
+    flex-direction: column;
 }
 
 .menu-open {
@@ -186,9 +187,52 @@ li {
     margin-left: 0;
 }
 
+.menu-select-active {
+    color: var(--pink3);
+    background: var(--pink1);
+    border: 0.1rem solid var(--pink3);
+}
+
+.menu-select {
+    background: blue;
+    display: flex;
+    position: relative;
+    width: 100%;
+    padding: 1rem 0 0 0;
+    justify-content: space-between;
+}
+
+.menu-select>div {
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    padding: 0 0.5rem;
+}
+
+.menu-select>div button {
+    justify-content: center;
+    word-break: normal;
+    font-size: inherit;
+    font-weight: bold;
+    font-family: inherit;
+    line-height: inherit;
+    background: var(--pink3);
+    display: flex;
+    position: relative;
+    font-size: 1.2rem;
+    border-radius: 0.5rem;
+    border: 0.1rem solid var(--pink3);
+    pointer-events: auto;
+    white-space: nowrap;
+    padding: 1rem 0.5rem;
+    width: 100%;
+    margin: auto;
+
+}
+
 
 .menu-list {
-    display: flex;
+    display: none;
     position: relative;
     flex-direction: column;
     background: var(--pink2);
@@ -214,8 +258,12 @@ li {
     ;
 }
 
+.menu-list-active {
+    display: flex;
+}
 
-.chara {
+.chara,
+.group {
     z-index: 10;
     background: var(--pink3);
     padding: 0.5rem;
@@ -225,7 +273,9 @@ li {
     border-radius: 0.5rem;
     margin: 0.2rem 0;
     border: 0.1rem solid var(--pink3);
+    pointer-events: auto;
 }
+
 
 .chara-active {
     color: var(--pink3);
@@ -243,6 +293,7 @@ li {
     border-radius: 100%;
     background: gray;
     flex-shrink: 0;
+    pointer-events: none;
 }
 
 .chara-username {
@@ -251,9 +302,11 @@ li {
     margin: auto 0.5rem;
     overflow: hidden;
     height: 100%;
+    pointer-events: none;
 }
 
 .chara-username>span {
+    pointer-events: none;
     margin: auto 0;
     display: flex;
     position: relative;
@@ -508,14 +561,14 @@ textarea::-webkit-scrollbar,
     justify-content: center;
     padding: 0.6rem 0.8rem;
     margin: 0;
- 
+
     background: #ffffff;
     color: #BC5F7E;
     border-radius: 40%;
     box-shadow: 0 0 0.2rem var(--pink1);
 }
 
-.modal{
+.modal {
     position: absolute;
     width: 100vw;
 }

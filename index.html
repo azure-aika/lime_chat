@@ -16,43 +16,36 @@
             <div class="battery" id="js-battery"><span></span></div>
         </div>
         <div class="logo">LIME</div>
-        <div class="chat-wrapper">
+        <div class="wrapper">
             <div class="header">
                 <div class="menuBtn menu-close" id="js-menuBtn"><i class="fa-solid fa-caret-right"></i></div>
                 <div class="sender-name" id="js-sender-name"></div>
                 <div class="option"><i class="fa-solid fa-gear"></i></div>
             </div>
             <div class="menu menu-close" id="js-menu">
-                <div class="menu-list menu-list-active" id="js-chara-list">
+                <div class="menu-list" id="js-chara-list">
                 </div>
                 <div class="menu-list" id="js-group-list">
                     <li></li>
                 </div>
                 <div class="menu-select" id="js-menu-select">
-                    <button type="button" class="menu-select-btn menu-select-active">個人</button>
+                    <button type="button" class="menu-select-btn">個人</button>
                     <button type="button" class="menu-select-btn">グループ</button>
                 </div>
 
             </div>
+            <div class="chat-wrapper" id="chat-wrapper"></div>
+            <form class="form menu-close" name="send" id="js-form">
+                <button type="button" class="form-sender form-sender-R"></button>
+                <div class="textarea-bg">
+                    <textarea class="textarea" id="js-text"></textarea>
+                </div>
+
+                <div class="form-submit">
+                    <button type="submit" class="form-submit-btn">送信</button>
+                </div>
+            </form>
         </div>
-        <form class="form" name="send" id="js-form">
-            <button type="button" class="form-sender form-sender-R"></button>
-            <div class="textarea-bg">
-                <textarea class="textarea" id="js-text"></textarea>
-            </div>
-
-            <div class="form-submit">
-                <button type="submit" class="form-submit-btn">送信</button>
-            </div>
-        </form>
-        <!-- <div class="modal">
-            <form class="alert" name="alert" id="js-alert">
-                <textarea class="textarea-re" id="js-text-re">sannpuru</textarea>
-                <button type="button">変更</button>
-                <button type="button">削除</button>
-                <button type="button">キャンセル</button>
-
-            </form>-->
     </div>
 
 
@@ -62,7 +55,7 @@
     //キャラデータ
 
     let CharaData = [
-        { id: "0", name: "自分", username: "テスト", cate: "", color: "#808080", scenario: { 0: "スタマイに登場するチャットアプリ『LIME』を模したサイトです。", 1: "左の▶ボタンを押すと表示されるリストから、メッセージ送信相手を選択できます。", 2: "また、メッセージは【相手側】【自分側】どちらから送信されるのか、フォーム横のボタンで選択できます。", 3: "送信済のメッセージは、クリックすると編集画面にて変更できます。\n\n編集画面で、メッセージが空の状態でOKボタンを押すと、メッセージの削除ができます。", 4: "画面をリロードすると全会話が削除されます。" } },
+        { id: "0", name: "自分", username: "機能説明", cate: "", color: "#808080", scenario: { 0: "スタマイに登場するチャットアプリ『LIME』を模したサイトです。", 1: "左の▶ボタンを押すと表示されるリストから、メッセージ送信相手を選択できます。", 2: "また、メッセージは【相手側】【自分側】どちらから送信されるのか、フォーム横のボタンで選択できます。", 3: "送信済のメッセージは、クリックすると編集画面にて変更できます。\n\n編集画面で、メッセージが空の状態でOKボタンを押すと、メッセージの削除ができます。", 4: "画面をリロードすると全会話が削除されます。" } },
         { id: "1", name: "青山樹", username: "青山樹", cate: "マトリ", color: "#2390FF", scenario: { 0: "青山樹です。登録よろしくお願いします。" } },
         { id: "2", name: "由井孝太郎", username: "Kotaro.Y", cate: "マトリ", color: "#FFAEC0", scenario: { 0: "いつでも連絡してくれ", 1: "キミからの頼みとあらばどこへでも駆けつけよう" } },
         { id: "3", name: "関大輔", username: "関", cate: "マトリ", color: "#F95240", scenario: { 0: "" } },
@@ -90,13 +83,11 @@
         { id: "25", name: "早乙女郁人", username: "早乙女郁人【淑央大】", cate: "瀬尾研究室", color: "#3553af", scenario: { 0: "これが俺のアカウントだ、\nきちんと登録しとけ", 1: "おい", 2: "おい、見てないのか。" } },
         { id: "26", name: "瀬尾鳴海", username: "NARUMI SEO", cate: "瀬尾研究室", color: "#218379", scenario: { 0: "これで登録できているかな？" } }
     ];
-
-    group = CharaData.reduce((group, key) => {
+    let Group = [];
+    Group = CharaData.reduce((group, key) => {
         (group[key.cate] = group[key.cate] || []).push(key);
         return group;
     }, {});
-
-    console.log(group);
 
     //キャラデータからメニューとチャットタブを生成
     let ChatArea = document.getElementsByClassName('chat-area');
@@ -105,12 +96,13 @@
     let MenuBtn = document.getElementById('js-menuBtn');
     let CharaList = document.getElementById('js-chara-list');
     let GroupList = document.getElementById('js-group-list');
+    let ChatWrapper = document.getElementById('chat-wrapper');
 
     for (i = 0; i < CharaData.length; i++) {
         //サイドバーリスト
         const Chara = document.createElement('li');
         Chara.className = 'chara';
-        Chara.id = CharaData[i].id;
+        Chara.id = 'id' + CharaData[i].id;
         const CharaIcon = document.createElement('div');
         CharaIcon.className = 'chara-icon';
         CharaIcon.style.background = CharaData[i].color;
@@ -126,21 +118,22 @@
         //chat欄
         const Chat = document.createElement('div');
         Chat.className = 'chat-area menu-close';
-        document.getElementsByClassName('chat-wrapper')[0].appendChild(Chat);
+        ChatWrapper.appendChild(Chat);
 
     }
 
     //group
-    for (i = 0; i < 6; i++) {
+    for (i = 0; i < Object.keys(Group).length - 1; i++) {
+        console.log(i);
         //サイドバーリスト
         const Group = document.createElement('li');
         Group.className = 'group';
         const GroupIcon = document.createElement('div');
         GroupIcon.className = 'chara-icon';
-        GroupIcon.style.background = CharaData[i].color;
+        //GroupIcon.style.background = CharaData[i].color;
         const GroupName = document.createElement('div');
         const GroupNameText = document.createElement('span');
-        GroupNameText.textContent = CharaData[i].username;
+        GroupNameText.textContent = Group[i];
         GroupName.appendChild(GroupNameText);
         GroupName.className = 'chara-username';
         Group.appendChild(GroupIcon);
@@ -150,13 +143,38 @@
         //chat欄
         const Chat = document.createElement('div');
         Chat.className = 'chat-area menu-close';
-        document.getElementsByClassName('chat-wrapper')[0].appendChild(Chat);
+        ChatWrapper.appendChild(Chat);
 
     }
+    //
+    let MenuSelectBtn = document.getElementById('js-menu-select');
+    groupflag = false;
+    MenuSelectBtn.addEventListener('click', (e) => {
+        if (e.target.textContent == "個人") {
+            groupflag = false;
+        } else if (e.target.textContent == "グループ") {
+            groupflag = true;
+        }
+        group();
+    });
 
+    //
+    group = () => {
+        if (!groupflag) {
+            document.getElementsByClassName('menu-select-btn')[0].classList.add('menu-select-active');
+            document.getElementsByClassName('menu-select-btn')[1].classList.remove('menu-select-active');
+            document.getElementById('js-chara-list').classList.add('menu-list-active');
+            document.getElementById('js-group-list').classList.remove('menu-list-active');
+        } else if (groupflag) {
+            document.getElementsByClassName('menu-select-btn')[1].classList.add('menu-select-active');
+            document.getElementsByClassName('menu-select-btn')[0].classList.remove('menu-select-active');
+            document.getElementById('js-chara-list').classList.remove('menu-list-active');
+            document.getElementById('js-group-list').classList.add('menu-list-active');
+        }
+    }
     //キャラ選択
     CharaList.addEventListener('click', (e) => {
-        CurrentCharaID = e.target.id;
+        CurrentCharaID = String(e.target.id).replace('id', '');
         SelectChara(CurrentCharaID);
     });
 
@@ -183,27 +201,42 @@
             }
         }
     }
-
-
-
-    /*
-        document.getElementById('js-menu').append(CharaList);
+    NameScrollAnimation = () => {
+        for (i = 0; i < document.getElementsByClassName('namescrollstyle').length; i++) {
+            document.getElementsByClassName('namescrollstyle')[i].remove();
+        }
         for (i = 0; i < CharaData.length; i++) {
+
             list = document.getElementsByClassName('chara-username')[i];
             listS = list.firstChild;
-    
             if (list.clientWidth < listS.scrollWidth) {
-    
                 scrollLength = -(listS.scrollWidth - list.clientWidth) + "px";
-                document.documentElement.style.setProperty('--scrollWidth', scrollLength);
-                //listS.classList.add('animation');
-                listS.style.animationName = "namescroll";
-    
+
+                css = document.createElement('style');
+                css.media = 'screen';
+                css.type = 'text/css';
+                css.className = 'namescrollstyle';
+                speed = (listS.scrollWidth - list.clientWidth) * 0.3;
+                sleepTime = Math.floor((30 / speed));
+                namescroll = '@keyframes namescroll' + i + '{' + [
+                    ' 0% { left: 0;} ',
+                    sleepTime + ' % { left: 0;}',
+                    (100 - sleepTime) + '% { left: ' + scrollLength + ';}',
+                    ' 100% { left: ' + scrollLength + ';} '
+                ].join('') + '}';
+                rules = document.createTextNode([namescroll].join('\n'));
+                css.appendChild(rules);
+                document.getElementsByTagName('head')[0].appendChild(css);
+                listS.style.animationName = "namescroll" + i;
+
+                document.querySelector("#id" + i + " span").style.setProperty('animation', "namescroll" + i + ' ' + speed + 's linear 0s infinite normal none running');
+            } else {
+                document.querySelector("#id" + i + " span").style.setProperty('animation', 'none');
             }
-    
         }
-    
-    */
+    }
+
+
     //Time
     let Time = document.getElementById('js-time');
     let timer = null;
@@ -289,8 +322,6 @@
             return;
         }
 
-
-        position == 'right' ? position = 'right' : position = 'left';
         ChatArea[id];
 
         let fragment = document.createDocumentFragment();
@@ -374,10 +405,12 @@
             MenuBtn.classList.toggle('menu-close');
             Menu.classList.toggle('menu-open');
             Menu.classList.toggle('menu-close');
+            Form.classList.toggle('menu-open');
+            Form.classList.toggle('menu-close');
 
             MenuBtnIcon.classList.toggle('fa-caret-right');
             MenuBtnIcon.classList.toggle('fa-caret-left');
-            for (i = 0; i < CharaData.length; i++) {
+            for (i = 0; i < ChatArea.length; i++) {
                 ChatArea[i].classList.toggle('menu-open');
                 ChatArea[i].classList.toggle('menu-close');
             }
@@ -385,21 +418,16 @@
         });
     }
 
-    //タブ
-
+    window.onresize = NameScrollAnimation;
     SetTime();
     //batteryFlag();
     MenuToggle();
     //testメッセージ
     CurrentCharaID = 0;
-
+    group();
+    NameScrollAnimation();
     SelectChara(CurrentCharaID);
     DefaultMessage();
-    //AddMessage("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","left",0)
-
-
-
-
 
 </script>
 

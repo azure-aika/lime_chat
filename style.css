@@ -261,10 +261,10 @@ li {
 
 .menu-list-active {
     display: flex;
+    pointer-events: none;
 }
 
-.chara,
-.group {
+.menu-list-item {
     z-index: 10;
     background: var(--pink3);
     padding: 0.5rem;
@@ -277,14 +277,13 @@ li {
     pointer-events: auto;
 }
 
-
-.chara-active {
+.menu-list-item-active {
     color: var(--pink3);
     background: var(--pink1);
     border: 0.1rem solid var(--pink3);
 }
 
-.chara-icon {
+.menu-list-item-icon {
     position: relative;
     display: flex;
     width: 10vw;
@@ -297,7 +296,7 @@ li {
     pointer-events: none;
 }
 
-.chara-username {
+.room-name {
     display: flex;
     position: relative;
     margin: auto 0.5rem;
@@ -306,7 +305,7 @@ li {
     pointer-events: none;
 }
 
-.chara-username>span {
+.room-name>span {
     pointer-events: none;
     margin: auto 0;
     display: flex;
@@ -315,37 +314,7 @@ li {
     scrollbar-width: none;
     white-space: nowrap;
 }
-/*
-#id25 span{
-    animation: namescroll25 2s linear 2s infinite normal none running;  
-}
 
-
-:root {
-    --scrollWidth: 0px;
-}
-
-@keyframes namescroll {
-    0% {
-        left: 0;
-    }
-
-    50% {
-        left: var(--scrollWidth);
-    }
-
-    60% {
-        left: var(--scrollWidth);
-    }
-
-    61% {
-        left: 0;
-    }
-
-    100% {
-        left: 0;
-    }
-}*/
 .chat-wrapper {
     position: relative;
     z-index: 2;

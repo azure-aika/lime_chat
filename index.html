@@ -26,7 +26,6 @@
                 <div class="menu-list" id="js-chara-list">
                 </div>
                 <div class="menu-list" id="js-group-list">
-                    <li></li>
                 </div>
                 <div class="menu-select" id="js-menu-select">
                     <button type="button" class="menu-select-btn">個人</button>
@@ -83,8 +82,8 @@
         { id: "25", name: "早乙女郁人", username: "早乙女郁人【淑央大】", cate: "瀬尾研究室", color: "#3553af", scenario: { 0: "これが俺のアカウントだ、\nきちんと登録しとけ", 1: "おい", 2: "おい、見てないのか。" } },
         { id: "26", name: "瀬尾鳴海", username: "NARUMI SEO", cate: "瀬尾研究室", color: "#218379", scenario: { 0: "これで登録できているかな？" } }
     ];
-    let Group = [];
-    Group = CharaData.reduce((group, key) => {
+
+    let GroupData = CharaData.reduce((group, key) => {
         (group[key.cate] = group[key.cate] || []).push(key);
         return group;
     }, {});
@@ -96,24 +95,85 @@
     let MenuBtn = document.getElementById('js-menuBtn');
     let CharaList = document.getElementById('js-chara-list');
     let GroupList = document.getElementById('js-group-list');
+    let MenuList = document.querySelectorAll('.menu-list');
+    let MenuListItem = document.getElementsByClassName('menu-list-item');
     let ChatWrapper = document.getElementById('chat-wrapper');
 
-    for (i = 0; i < CharaData.length; i++) {
+    let RoomLength = CharaData.length + Object.keys(GroupData).length - 1;
+    /*
+        for (i = 0; i < CharaData.length; i++) {
+            //サイドバーリスト
+            const Chara = document.createElement('li');
+            Chara.className = 'chara';
+            Chara.id = 'id' + CharaData[i].id;
+            const CharaIcon = document.createElement('div');
+            CharaIcon.className = 'chara-icon';
+            CharaIcon.style.background = CharaData[i].color;
+            const UserName = document.createElement('div');
+            const UserNameText = document.createElement('span');
+            UserNameText.textContent = CharaData[i].username;
+            UserName.appendChild(UserNameText);
+            UserName.className = 'chara-username';
+            Chara.appendChild(CharaIcon);
+            Chara.appendChild(UserName);
+            CharaList.appendChild(Chara);
+    
+            //chat欄
+            const Chat = document.createElement('div');
+            Chat.className = 'chat-area menu-close';
+            ChatWrapper.appendChild(Chat);
+    
+        }
+    
+        //group
+        for (i = 0; i < Object.keys(GroupData).length - 1; i++) {
+            //サイドバーリスト
+            const Group = document.createElement('li');
+            Group.className = 'group';
+            const GroupIcon = document.createElement('div');
+            GroupIcon.className = 'chara-icon';
+            //GroupIcon.style.background = CharaData[i].color;
+            const GroupName = document.createElement('div');
+            const GroupNameText = document.createElement('span');
+            GroupNameText.textContent = Object.keys(GroupData)[i+1];
+            GroupName.appendChild(GroupNameText);
+            GroupName.className = 'chara-username';
+            Group.appendChild(GroupIcon);
+            Group.appendChild(GroupName);
+            GroupList.appendChild(Group);
+    
+            //chat欄
+            const Chat = document.createElement('div');
+            Chat.className = 'chat-area menu-close';
+            ChatWrapper.appendChild(Chat);
+    
+        }
+        */
+    for (i = 0; i < RoomLength; i++) {
         //サイドバーリスト
-        const Chara = document.createElement('li');
-        Chara.className = 'chara';
-        Chara.id = 'id' + CharaData[i].id;
-        const CharaIcon = document.createElement('div');
-        CharaIcon.className = 'chara-icon';
-        CharaIcon.style.background = CharaData[i].color;
-        const UserName = document.createElement('div');
-        const UserNameText = document.createElement('span');
-        UserNameText.textContent = CharaData[i].username;
-        UserName.appendChild(UserNameText);
-        UserName.className = 'chara-username';
-        Chara.appendChild(CharaIcon);
-        Chara.appendChild(UserName);
-        CharaList.appendChild(Chara);
+        const MenuListItem = document.createElement('li');
+        MenuListItem.className = 'menu-list-item';
+        MenuListItem.id = 'id' + i;
+        const MenuListItemIcon = document.createElement('div');
+        MenuListItemIcon.className = 'menu-list-item-icon';
+
+        const RoomName = document.createElement('div');
+        const RoomNameText = document.createElement('span');
+        RoomName.appendChild(RoomNameText);
+        MenuListItem.appendChild(MenuListItemIcon);
+        MenuListItem.appendChild(RoomName);
+        if (i < CharaData.length) {
+            MenuListItemIcon.style.background = CharaData[i].color;
+            RoomNameText.textContent = CharaData[i].username;
+            CharaList.appendChild(MenuListItem);
+        } else if (i >= CharaData.length && i < RoomLength) {
+            RoomNameText.textContent = Object.keys(GroupData)[i - CharaData.length + 1];
+            if (RoomNameText.textContent == "マトリ") RoomNameText.textContent = "捜査企画課";
+            if (RoomNameText.textContent == "警視庁") RoomNameText.textContent = "服部班";
+            GroupList.appendChild(MenuListItem);
+        }
+
+        RoomName.className = 'room-name';
 
         //chat欄
         const Chat = document.createElement('div');
@@ -122,74 +182,33 @@
 
     }
 
-    //group
-    for (i = 0; i < Object.keys(Group).length - 1; i++) {
-        console.log(i);
-        //サイドバーリスト
-        const Group = document.createElement('li');
-        Group.className = 'group';
-        const GroupIcon = document.createElement('div');
-        GroupIcon.className = 'chara-icon';
-        //GroupIcon.style.background = CharaData[i].color;
-        const GroupName = document.createElement('div');
-        const GroupNameText = document.createElement('span');
-        GroupNameText.textContent = Group[i];
-        GroupName.appendChild(GroupNameText);
-        GroupName.className = 'chara-username';
-        Group.appendChild(GroupIcon);
-        Group.appendChild(GroupName);
-        GroupList.appendChild(Group);
-
-        //chat欄
-        const Chat = document.createElement('div');
-        Chat.className = 'chat-area menu-close';
-        ChatWrapper.appendChild(Chat);
-
-    }
-    //
-    let MenuSelectBtn = document.getElementById('js-menu-select');
-    groupflag = false;
-    MenuSelectBtn.addEventListener('click', (e) => {
-        if (e.target.textContent == "個人") {
-            groupflag = false;
-        } else if (e.target.textContent == "グループ") {
-            groupflag = true;
-        }
-        group();
-    });
-
-    //
-    group = () => {
-        if (!groupflag) {
-            document.getElementsByClassName('menu-select-btn')[0].classList.add('menu-select-active');
-            document.getElementsByClassName('menu-select-btn')[1].classList.remove('menu-select-active');
-            document.getElementById('js-chara-list').classList.add('menu-list-active');
-            document.getElementById('js-group-list').classList.remove('menu-list-active');
-        } else if (groupflag) {
-            document.getElementsByClassName('menu-select-btn')[1].classList.add('menu-select-active');
-            document.getElementsByClassName('menu-select-btn')[0].classList.remove('menu-select-active');
-            document.getElementById('js-chara-list').classList.remove('menu-list-active');
-            document.getElementById('js-group-list').classList.add('menu-list-active');
-        }
-    }
     //キャラ選択
+    /*
     CharaList.addEventListener('click', (e) => {
         CurrentCharaID = String(e.target.id).replace('id', '');
         SelectChara(CurrentCharaID);
+    });
+    */
+    MenuList.forEach(function (list) {
+        list.addEventListener('click', (e) => {
+            CurrentCharaID = String(e.target.id).replace('id', '');
+            SelectChara(CurrentCharaID);
+
+        });
     });
 
     //キャラクターに応じて表示を変更
     SelectChara = (id) => {
         ChatArea[id].classList.add('chat-active');
-        Chara[id].classList.add('chara-active');
-        document.getElementById('js-sender-name').textContent = CharaData[id].username;
+        MenuListItem[id].classList.add('menu-list-item-active');
+        document.getElementById('js-sender-name').textContent = document.getElementsByClassName('room-name')[id].firstChild.textContent;
 
-        for (i = 0; i < document.querySelectorAll('.chara').length; i++) {
+        for (i = 0; i < RoomLength; i++) {
             if (i != id && ChatArea[i].classList.contains('chat-active')) {
                 ChatArea[i].classList.remove('chat-active');
             }
-            if (i != id && Chara[i].classList.contains('chara-active')) {
-                Chara[i].classList.remove('chara-active');
+            if (i != id && MenuListItem[i].classList.contains('menu-list-item-active')) {
+                MenuListItem[i].classList.remove('menu-list-item-active');
             }
         }
     }
@@ -205,9 +224,9 @@
         for (i = 0; i < document.getElementsByClassName('namescrollstyle').length; i++) {
             document.getElementsByClassName('namescrollstyle')[i].remove();
         }
-        for (i = 0; i < CharaData.length; i++) {
+        for (i = 0; i < RoomLength; i++) {
 
-            list = document.getElementsByClassName('chara-username')[i];
+            list = document.getElementsByClassName('room-name')[i];
             listS = list.firstChild;
             if (list.clientWidth < listS.scrollWidth) {
                 scrollLength = -(listS.scrollWidth - list.clientWidth) + "px";
@@ -235,7 +254,34 @@
             }
         }
     }
+    //
+    let MenuSelectBtn = document.getElementById('js-menu-select');
+    groupflag = false;
+    MenuSelectBtn.addEventListener('click', (e) => {
+        if (e.target.textContent == "個人") {
+            groupflag = false;
+        } else if (e.target.textContent == "グループ") {
+            groupflag = true;
+        }
+        group();
+        NameScrollAnimation();
+    });
 
+    //
+    group = () => {
+        if (!groupflag) {
+            document.getElementsByClassName('menu-select-btn')[0].classList.add('menu-select-active');
+            document.getElementsByClassName('menu-select-btn')[1].classList.remove('menu-select-active');
+            document.getElementById('js-chara-list').classList.add('menu-list-active');
+            document.getElementById('js-group-list').classList.remove('menu-list-active');
+        } else if (groupflag) {
+            document.getElementsByClassName('menu-select-btn')[1].classList.add('menu-select-active');
+            document.getElementsByClassName('menu-select-btn')[0].classList.remove('menu-select-active');
+            document.getElementById('js-chara-list').classList.remove('menu-list-active');
+            document.getElementById('js-group-list').classList.add('menu-list-active');
+        }
+
+    }
 
     //Time
     let Time = document.getElementById('js-time');

@@ -342,7 +342,7 @@ li {
 
 .chat-area::-webkit-scrollbar,
 textarea::-webkit-scrollbar,
-.chara-username>span::-webkit-scrollbar {
+.room-name>span::-webkit-scrollbar {
     display: none;
 }
 

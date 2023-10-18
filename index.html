@@ -183,17 +183,10 @@
     }
 
     //キャラ選択
-    /*
-    CharaList.addEventListener('click', (e) => {
-        CurrentCharaID = String(e.target.id).replace('id', '');
-        SelectChara(CurrentCharaID);
-    });
-    */
     MenuList.forEach(function (list) {
         list.addEventListener('click', (e) => {
             CurrentCharaID = String(e.target.id).replace('id', '');
             SelectChara(CurrentCharaID);
-
         });
     });
 

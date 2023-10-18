@@ -137,6 +137,9 @@
         MenuListItem.addEventListener('click', (e) => {
             CurrentRoomID = String(e.target.id).replace('id', '');
             SelectRoom(CurrentRoomID);
+            senderflag=true;
+            click=-1;
+            SelectSender(CurrentRoomID, click, senderflag);
         })
         //初回メッセージ
         if (i < CharaData.length) {
@@ -405,7 +408,8 @@
                     formSender.style.background = CharaData[roomid].color;
                 }
             }
-        senderflag ? formSender.textContent = "自分" : formSender.textContent = "相手";
+        flag ? formSender.textContent = "自分" : formSender.textContent = "相手";
+        console.log(count,flag)
 
     }
     formSender.addEventListener('click', (e) => {

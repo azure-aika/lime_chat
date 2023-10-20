@@ -13,7 +13,7 @@
     <div class="screen">
         <div class="info">
             <div class="time" id="js-time"></div>
-            <div class="battery" id="js-battery"><span></span></div>
+            <div class="battery" id="js-battery"><span>123%</span><i class="fa-solid fa-battery-full fa-lg"></i></div>
         </div>
         <div class="logo">LIME</div>
         <div class="wrapper">
@@ -60,26 +60,8 @@
         <div class="lock-clock">
             <i class="fa-solid fa-lock"></i>
             <div class="lock-clockTime" id="js-clock"></div>
-            <div class="lock-clockDay" id="js-day">Monday 04 September</div>
+            <div class="lock-clockDay" id="js-day" lang="en">&nbsp;</div>
         </div>
-        <!--
-        <div class="=lock-noticeList">
-            <div class="lock-noticeBox">
-                <div class="lock-noticeBox-app">
-                    <i class="fa-solid fa-comment"></i><span>LIME</span>
-                </div>
-                <div class="lock-noticeBox-messageBox">
-                    <div class="lock-messageBox-icon"></div>
-                    <div class="lock-messageBox-message">
-                        <div class="lock-messageBox-name">夏樹</div>
-                        <div class="lock-messageBox-text">キミからの頼みとあらばどこへでも駆けつけよう</div>
-                    </div>
-                </div>
-
-
-            </div>
-        </div>
-        -->
     </div>
 
 </body>
@@ -145,7 +127,7 @@
         const MenuListItem = document.createElement('li');
         MenuListItem.className = 'menu-list-item';
         MenuListItem.id = 'id' + i;
-        MenuListItem.dataset.roomid=i;
+        MenuListItem.dataset.roomid = i;
         const MenuListItemIcon = document.createElement('div');
         MenuListItemIcon.className = 'menu-list-item-icon';
 
@@ -198,7 +180,7 @@
             groupflag = true;
         }
         TabBtn(groupflag);
-        
+
     });
 
     //メニュータブ選択
@@ -289,6 +271,7 @@
     let timeTimer = null;
 
     let Clock = document.getElementById('js-clock');
+    let Day = document.getElementById('js-day');
 
     const SetTime = () => {
         const now = new Date();
@@ -296,8 +279,16 @@
         if (hours.length == 1) hours = '0' + hours;
         let minutes = now.getMinutes().toString();
         if (minutes.length == 1) minutes = '0' + minutes;
+        let month = now.getMonth() + 1;
+        let monthStr = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        let day = now.getDate();
+        if (day.length == 1) day = '0' + day;
+        let dayOfWeek = now.getDay();
+        let dayOfWeekStr = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
         Time.textContent = String(hours) + ':' + String(minutes);
         Clock.textContent = String(hours) + ':' + String(minutes);
+        Day.textContent = String(dayOfWeekStr[dayOfWeek]) + ' ' + day + ' ' + String(monthStr[month]);
+        Day.textContent.replace(' ', /\s|&nbsp;/g)
         timeTimer = setTimeout(SetTime, (60 - now.getSeconds()) * 1000);
     };
     //battery
@@ -342,7 +333,7 @@
     }
     //テキストエリア自動伸縮
     const TextBody = document.querySelector('#js-text');
-    fontSize = (TextBody.currentStyle || document.defaultView.getComputedStyle(TextBody, '')).fontSize;
+    // fontSize = (TextBody.currentStyle || document.defaultView.getComputedStyle(TextBody, '')).fontSize;
     lineHeight = (TextBody.currentStyle || document.defaultView.getComputedStyle(TextBody, '')).lineHeight;
     lineHeight = parseInt(lineHeight);
     const defaultHeight = (TextBody.currentStyle || document.defaultView.getComputedStyle(TextBody, '')).height;
@@ -542,24 +533,18 @@
     LockScreenModal = document.getElementById('js-lockscreen');
     LockScreenToggole = () => {
         LockBtn.addEventListener('click', function () {
-            //document.getElementsByClassName('lock-messageBox-icon')[0].style.backgroundImage = "url(" + CharaData[CurrentRoomID].icon + ")";
-            // document.getElementsByClassName('lock-messageBox-name')[0].textContent = CharaData[CurrentRoomID].username;
             LockScreenModal.classList.add('modal-open');
             LoskScreenMessageList();
-
         });
 
         LockScreenModal.addEventListener('click', function () {
             LockScreenModal.classList.remove('modal-open');
         });
-
     }
 
     LoskScreenMessageList = () => {
         CurrentRoomMessage = document.querySelectorAll('.chat-active .message');
         CurrentRoomMessageLength = document.querySelectorAll('.chat-active .message').length
-
-
 
         if (document.getElementsByClassName("lock-noticeList").length > 0) {
             document.getElementsByClassName("lock-noticeList")[0].remove();
@@ -595,8 +580,10 @@
             NoticeBoxMessageBoxName.textContent = CharaData[id].username;
             NoticeBoxMessageBoxText = document.createElement('div');
             NoticeBoxMessageBoxText.className = "lock-messageBox-text";
-            NoticeBoxMessageBoxText.textContent = CurrentRoomMessage[i].textContent;
+            NoticeBoxMessageBoxTextSpan = document.createElement('span');
+            NoticeBoxMessageBoxTextSpan.textContent = CurrentRoomMessage[i].textContent;
 
+            NoticeBoxMessageBoxText.appendChild(NoticeBoxMessageBoxTextSpan);
             NoticeBoxMessageBoxMessage.appendChild(NoticeBoxMessageBoxName);
             NoticeBoxMessageBoxMessage.appendChild(NoticeBoxMessageBoxText);
             NoticeBoxMessageBox.appendChild(NoticeBoxMessageBoxIcon);
@@ -610,20 +597,32 @@
             NoticeList.appendChild(NoticeBox);
 
             LockScreenModal.appendChild(NoticeList);
+
+            if (NoticeBoxMessageBoxTextSpan.clientWidth > NoticeBoxMessageBoxMessage.clientWidth) {
+
+                fontSize = (NoticeBoxMessageBoxTextSpan.currentStyle || document.defaultView.getComputedStyle(NoticeBoxMessageBoxTextSpan, '')).fontSize;
+                fontSize = parseInt(fontSize);
+                lastTextNum = Math.floor(NoticeBoxMessageBoxMessage.clientWidth / fontSize) - 1;
+                console.log(NoticeBoxMessageBoxTextSpan.clientWidth, NoticeBoxMessageBoxMessage.clientWidth, fontSize, lastTextNum);
+                newText = CurrentRoomMessage[i].textContent.substring(0, lastTextNum) + "…";
+                NoticeBoxMessageBoxTextSpan.textContent = newText;
+            }
+
         }
     }
 
 
 
+
+
     //実行
     window.onresize = NameScrollAnimation;
+    window.onresize = LoskScreenMessageList;
     SetTime();
     //batteryFlag();
     MenuToggle();
-    NameScrollAnimation();
     TelephoneToggle();
     LockScreenToggole();
-
     SelectRoom(DefaultRoomID);
     DefaultMessage(DefaultRoomID);
 </script>

@@ -10,7 +10,7 @@
 html {
     height: 100%;
     font-size: 62.5%;
-    font-size: 1.6vh;
+    /*font-size: 1.6vh;*/
 }
 
 body {
@@ -28,7 +28,7 @@ body {
     -moz-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
-    font-weight: bold;
+    font-weight: 600;
     font-size: 1rem;
     color: var(--font);
     word-break: break-all;
@@ -344,7 +344,8 @@ li {
 .chat-area::-webkit-scrollbar,
 textarea::-webkit-scrollbar,
 .menu-list-item-name>span::-webkit-scrollbar,
-.room-name>span::-webkit-scrollbar {
+.room-name>span::-webkit-scrollbar,
+.lock-noticeList::-webkit-scrollbar {
     display: none;
 }
 
@@ -646,6 +647,7 @@ textarea::-webkit-scrollbar,
     flex-direction: column;
     align-items: center;
     color: #ffffff;
+
 }
 
 .lock-clock {
@@ -689,6 +691,8 @@ textarea::-webkit-scrollbar,
     flex-direction: column;
     width: 80%;
     margin-bottom: 5%;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 
 .lock-noticeBox {
@@ -697,7 +701,6 @@ textarea::-webkit-scrollbar,
     font-size: 1.2rem;
     display: flex;
     position: relative;
-    font-weight: normal;
     padding: 1rem;
     border-radius: 0.8rem;
     flex-direction: column;
@@ -728,6 +731,7 @@ textarea::-webkit-scrollbar,
     display: flex;
     flex-direction: row;
     margin-top: 0.5rem;
+
 }
 
 .lock-messageBox-icon {
@@ -742,17 +746,30 @@ textarea::-webkit-scrollbar,
 }
 
 .lock-messageBox-message {
+    display: flex;
+    flex-direction: column;
     margin-left: 0.5rem;
+    overflow: hidden;
 }
 
 .lock-messageBox-name {
+    display: flex;
     font-size: 1.2rem;
-    font-weight: bold;
     padding: 0.6rem 0;
+    color: #421B2F;
 }
 
 .lock-messageBox-text {
+    display: flex;
+
+}
+
+.lock-messageBox-text>span {
+    display: flex;
     white-space: nowrap;
+    font-size: 1rem;
+    color: gray;
+    height: 100%;
 }
 
 .modal-open {

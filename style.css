@@ -10,11 +10,12 @@
 html {
     height: 100%;
     font-size: 62.5%;
-   font-size: 1.6vh;
+    font-size: 1.6vh;
 }
 
 body {
     font-family: 'Noto Sans JP', sans-serif;
+    font-family: "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", "sans-serif";
     line-height: 1;
     margin: 0;
     padding: 0;
@@ -118,15 +119,15 @@ li {
     padding: 0.5rem 1rem 0.5rem 0;
 }
 
-.option {
+.option-btn {
     padding: 0.5rem;
-    margin: auto 0;
+    margin: auto 0 auto 0.5rem;
     background: #FDEEF1;
     border-radius: 15%;
     border: 0.1rem solid var(--pink1);
 }
 
-.option i {
+.option-btn i {
     font-size: 1.5rem;
     align-items: center;
     color: var(--pink1);
@@ -140,6 +141,13 @@ li {
     flex: 1 1 100%;
     padding: 0 0.5rem;
     margin: auto 0;
+    overflow: hidden;
+    height: 100%;
+}
+
+.room-name>span {
+    white-space: nowrap;
+    overflow-x: scroll;
 }
 
 .wrapper {
@@ -285,6 +293,7 @@ li {
     background: gray;
     flex-shrink: 0;
     pointer-events: none;
+    background-size: contain;
 }
 
 .menu-list-item-name {
@@ -334,7 +343,8 @@ li {
 
 .chat-area::-webkit-scrollbar,
 textarea::-webkit-scrollbar,
-.menu-list-item-name>span::-webkit-scrollbar {
+.menu-list-item-name>span::-webkit-scrollbar,
+.room-name>span::-webkit-scrollbar {
     display: none;
 }
 
@@ -352,6 +362,7 @@ textarea::-webkit-scrollbar,
     margin: 0;
     white-space: pre-line;
     pointer-events: auto;
+    width: fit-content;
 }
 
 .message-right {
@@ -400,8 +411,9 @@ textarea::-webkit-scrollbar,
 
 .message-sender {
     position: relative;
-    font-size: 0.8rem;
-    padding-top: 0.4rem;
+    font-size: 1rem;
+    padding-top: 0.2rem;
+    white-space: nowrap;
 }
 
 
@@ -414,8 +426,9 @@ textarea::-webkit-scrollbar,
     max-height: 5rem;
     flex-shrink: 0;
     border-radius: 100%;
-    background: gray;
+    background-color: gray;
     pointer-events: none;
+    background-size: contain;
 }
 
 .message-left {
@@ -544,7 +557,204 @@ textarea::-webkit-scrollbar,
     box-shadow: 0 0 0.2rem var(--pink1);
 }
 
-.modal {
+.telephone {
     position: absolute;
-    width: 100vw;
+    display: none;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 99;
+    background: rgb(94, 94, 94);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+.tel-icon {
+    position: relative;
+    display: flex;
+    width: 12rem;
+    height: 12rem;
+    flex-shrink: 0;
+    border-radius: 100%;
+    background: #ffffff;
+    max-width: 50vw;
+    max-height: 50vw;
+    margin: 5rem auto;
+    background-size: contain;
+}
+
+
+.tel-name {
+    display: flex;
+    position: relative;
+    font-size: 1.5rem;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 2rem;
+    margin: 0 auto;
+    min-width: 12rem;
+    background: #ffff;
+    border-radius: 1rem;
+    white-space: nowrap;
+
+}
+
+.tel-loding {
+    display: flex;
+    position: relative;
+    font-size: 1rem;
+    white-space: nowrap;
+    align-items: center;
+    padding: 1rem;
+    margin: auto;
+    width: 12rem;
+    color: #ffff;
+    justify-content: center;
+}
+
+.tel-closeBtn {
+    margin: 5rem auto;
+    pointer-events: auto;
+}
+
+.tel-closeBtn i {
+    position: relative;
+    display: flex;
+    border-radius: 100%;
+    justify-content: center;
+    padding: 2rem;
+    width: 2rem;
+    height: 2rem;
+    font-size: 2rem;
+    background: red;
+    color: #ffffff;
+}
+
+.lock-screen {
+    position: absolute;
+    display: none;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 150;
+    background: var(--pink2);
+    flex-direction: column;
+    align-items: center;
+    color: #ffffff;
+}
+
+.lock-clock {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-weight: normal;
+    height: 40vh;
+    flex: 0 0 auto;
+}
+
+.lock-clock i {
+    display: flex;
+    font-size: 3rem;
+    padding: 2rem;
+    justify-content: center;
+}
+
+.lock-clockTime {
+    position: relative;
+    display: flex;
+    color: #ffffff;
+    font-size: 5rem;
+    justify-content: center;
+    margin: 1rem;
+
+}
+
+.lock-clockDay {
+    display: flex;
+    justify-content: center;
+    font-size: 1rem;
+}
+
+.lock-noticeList {
+    position: relative;
+    display: flex;
+    flex: 1 1 auto;
+    overflow: scroll;
+    flex-direction: column;
+    width: 80%;
+    margin-bottom: 5%;
+}
+
+.lock-noticeBox {
+    background: rgba(255, 255, 255, 0.8);
+    color: #333333;
+    font-size: 1.2rem;
+    display: flex;
+    position: relative;
+    font-weight: normal;
+    padding: 1rem;
+    border-radius: 0.8rem;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+
+.lock-noticeBox-app {
+    align-items: center;
+    justify-content: center;
+}
+
+.lock-noticeBox-app i {
+    font-size: 1.5rem;
+    margin: auto 0;
+    vertical-align: middle;
+    color: var(--pink1);
+}
+
+.lock-noticeBox-app span {
+    font-weight: bold;
+    font-size: 1rem;
+    margin: auto 0.5rem;
+    vertical-align: middle;
+    color: gray;
+}
+
+.lock-noticeBox-messageBox {
+    display: flex;
+    flex-direction: row;
+    margin-top: 0.5rem;
+}
+
+.lock-messageBox-icon {
+    width: 2.4rem;
+    height: 2.4rem;
+    background-color: gray;
+    display: flex;
+    position: relative;
+    flex-shrink: 0;
+    border-radius: 100%;
+    background-size: contain;
+}
+
+.lock-messageBox-message {
+    margin-left: 0.5rem;
+}
+
+.lock-messageBox-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 0.6rem 0;
+}
+
+.lock-messageBox-text {
+    white-space: nowrap;
+}
+
+.modal-open {
+    display: flex;
 }

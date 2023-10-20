@@ -19,8 +19,9 @@
         <div class="wrapper">
             <div class="header">
                 <div class="menuBtn menu-close" id="js-menuBtn"><i class="fa-solid fa-caret-right"></i></div>
-                <div class="room-name" id="js-room-name"></div>
-                <div class="option"><i class="fa-solid fa-gear"></i></div>
+                <div class="room-name" id="js-room-name"><span></span></div>
+                <div class="option-btn" id="js-tel-openBtn"><i class="fa-solid fa-phone"></i></div>
+                <div class="option-btn" id="js-lockBtn"><i class="fa-solid fa-lock"></i></div>
             </div>
             <div class="menu menu-close" id="js-menu">
                 <div class="menu-list" id="js-chara-list">
@@ -46,7 +47,40 @@
             </form>
         </div>
     </div>
+    <div class="telephone" id="js-telephone">
+        <div class="tel-icon"></div>
+        <div class="tel-name"></div>
+        <div class="tel-loding">・・・通話中・・・</div>
+        <div class="tel-closeBtn" id="js-tel-closeBtn">
+            <i class="fa-solid fa-xmark"></i>
+        </div>
+    </div>
+    <div class="lock-screen" id="js-lockscreen">
 
+        <div class="lock-clock">
+            <i class="fa-solid fa-lock"></i>
+            <div class="lock-clockTime" id="js-clock"></div>
+            <div class="lock-clockDay" id="js-day">Monday 04 September</div>
+        </div>
+        <!--
+        <div class="=lock-noticeList">
+            <div class="lock-noticeBox">
+                <div class="lock-noticeBox-app">
+                    <i class="fa-solid fa-comment"></i><span>LIME</span>
+                </div>
+                <div class="lock-noticeBox-messageBox">
+                    <div class="lock-messageBox-icon"></div>
+                    <div class="lock-messageBox-message">
+                        <div class="lock-messageBox-name">夏樹</div>
+                        <div class="lock-messageBox-text">キミからの頼みとあらばどこへでも駆けつけよう</div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        -->
+    </div>
 
 </body>
 
@@ -54,33 +88,33 @@
     //キャラデータ
 
     let CharaData = [
-        { id: "0", name: "自分", username: "機能説明", color: "#808080", scenario: { 0: "スタマイに登場するチャットアプリ『LIME』を模したサイトです。", 1: "左の▶ボタンを押すと表示されるリストから、メッセージ送信相手を選択できます。", 2: "また、メッセージは【相手側】【自分側】どちらから送信されるのか、フォーム横のボタンで選択できます。", 3: "送信済のメッセージは、クリックすると編集画面にて変更できます。\n\n編集画面で、メッセージが空の状態でOKボタンを押すと、メッセージの削除ができます。", 4: "画面をリロードすると全会話が削除されます。" } },
-        { id: "1", name: "青山樹", username: "青山樹", cate: "マトリ", color: "#2390FF", scenario: { 0: "青山樹です。登録よろしくお願いします。" } },
-        { id: "2", name: "由井孝太郎", username: "Kotaro.Y", cate: "マトリ", color: "#FFAEC0", scenario: { 0: "いつでも連絡してくれ", 1: "キミからの頼みとあらばどこへでも駆けつけよう" } },
-        { id: "3", name: "関大輔", username: "関", cate: "マトリ", color: "#F95240", scenario: { 0: "" } },
-        { id: "4", name: "夏目春", username: "hal", cate: "マトリ", color: "#59D9A5", scenario: { 0: "あ" } },
-        { id: "5", name: "今大路峻", username: "shun", cate: "マトリ", color: "#F9CD00", scenario: { 0: "今大路です。これからよろしくお願いします" } },
-        { id: "6", name: "渡部悟", username: "ワタベ", cate: "マトリ", color: "#9173E7", scenario: { 0: "登録したよ、これから好きな時に連絡してね" } },
-        { id: "7", name: "朝霧司", username: "朝霧 司", cate: "警視庁", color: "#FF864A", scenario: { 0: "朝霧司です", 1: "登録しましたので、早めに返事がほしい時はこちらにお願いします" } },
-        { id: "8", name: "菅野夏樹", username: "夏樹", cate: "警視庁", color: "#98DF00", scenario: { 0: "送れてる？" } },
-        { id: "9", name: "荒木田蒼生", username: "荒木田", cate: "警視庁", color: "#8FDAC6", scenario: { 0: "登録した。" } },
-        { id: "10", name: "服部耀", username: "服部", cate: "警視庁", color: "#D43767", scenario: { 0: "夏樹から資料受け取った？" } },
-        { id: "11", name: "桧山貴臣", username: "桧山", cate: "Revel", color: "#E3CC96", scenario: { 0: "" } },
-        { id: "12", name: "大谷羽鳥", username: "hatori", cate: "Revel", color: "#F76796", scenario: { 0: "LIME教えてくれてありがとう。", 1: "気軽に連絡してね。" } },
-        { id: "13", name: "神楽亜貴", username: "Aki Kagura", cate: "Revel", color: "#76b6ed", scenario: { 0: "登録したから。", 1: "金曜仕事終わったらアトリエ集合ね。", 2: "分かった？", 3: "ねえ、" } },
-        { id: "14", name: "槙慶太", username: "槙慶太", cate: "Revel", color: "#5bcd38", scenario: { 0: "登録した、よろしく。" } },
-        { id: "15", name: "都築誠", username: "都築", cate: "都築兄弟", color: "#4c835b", scenario: { 0: "先日は、取材の申し込みに応じてもらい助かった。", 1: "改めて礼を言う" } },
-        { id: "16", name: "都築京介", username: "きょーすけ", cate: "都築兄弟", color: "#b9b3f4", scenario: { 0: "登録したよ、よろしく！" } },
-        { id: "17", name: "新堂清志", username: "新堂", cate: "九条家", color: "#a481c8", scenario: { 0: "新堂だ" } },
-        { id: "18", name: "山崎カナメ", username: "kaname", cate: "九条家", color: "#addbe3", scenario: { 0: "とどいてるか？" } },
-        { id: "19", name: "桐嶋宏弥", username: "キリシマ", cate: "九条家", color: "#ffa126", scenario: { 0: "連絡先、もらってから時間経っちゃってごめん。" } },
-        { id: "20", name: "九条壮馬", username: "九条", cate: "九条家", color: "#d22d38", scenario: { 0: "無事に登録できているだろうか。" } },
-        { id: "21", name: "宮瀬豪", username: "宮瀬", cate: "九条家", color: "#f8a9f2", scenario: { 0: "夜ご飯お願いします。", 1: "あれ", 2: "よろしくと打つつもりが『よ』で勝手に変換が……" } },
-        { id: "22", name: "可愛ひかる", username: "かわいひかる", cate: "瀬尾研究室", color: "#ff9ab5", scenario: { 0: "玲さん、ひかるんだよ～", 1: "早速登録させてね♪" } },
-        { id: "23", name: "宝生潔", username: "宝生潔", cate: "瀬尾研究室", color: "#aeb227", scenario: { 0: "" } },
-        { id: "24", name: "日向志音", username: "しー", cate: "瀬尾研究室", color: "#36dbf3", scenario: { 0: "さっき貰ったお菓子、おいしかった", 1: "ありがとう" } },
-        { id: "25", name: "早乙女郁人", username: "早乙女郁人【淑央大】", cate: "瀬尾研究室", color: "#3553af", scenario: { 0: "これが俺のアカウントだ、\nきちんと登録しとけ", 1: "おい", 2: "おい、見てないのか。" } },
-        { id: "26", name: "瀬尾鳴海", username: "NARUMI SEO", cate: "瀬尾研究室", color: "#218379", scenario: { 0: "これで登録できているかな？" } }
+        { id: "0", name: "自分", username: "機能説明", color: "#808080", scenario: { 0: "スタマイに登場するチャットアプリ『LIME』を模したサイトです。", 1: "左の▶ボタンを押すと表示されるリストから、メッセージ送信相手を選択できます。", 2: "また、メッセージは【相手側】【自分側】どちらから送信されるのか、フォーム横のボタンで選択できます。", 3: "送信済のメッセージは、クリックすると編集画面にて変更できます。\n\n編集画面で、メッセージが空の状態でOKボタンを押すと、メッセージの削除ができます。", 4: "画面をリロードすると全会話がリセットされます。" } },
+        { id: "1", name: "青山樹", username: "青山樹", cate: "マトリ", icon: "img/icon_default_aoyama.png", color: "#2390FF", scenario: { 0: "青山樹です。登録よろしくお願いします。" } },
+        { id: "2", name: "由井孝太郎", username: "Kotaro.Y", cate: "マトリ", icon: "img/icon_default_yui.png", color: "#FFAEC0", scenario: { 0: "いつでも連絡してくれ", 1: "キミからの頼みとあらばどこへでも駆けつけよう" } },
+        { id: "3", name: "関大輔", username: "関", cate: "マトリ", icon: "img/icon_default_seki.png", color: "#F95240", scenario: { 0: "" } },
+        { id: "4", name: "夏目春", username: "hal", cate: "マトリ", icon: "img/icon_default_natsume.png", color: "#59D9A5", scenario: { 0: "あ" } },
+        { id: "5", name: "今大路峻", username: "shun", cate: "マトリ", icon: "img/icon_default_imaoji.png", color: "#F9CD00", scenario: { 0: "今大路です。これからよろしくお願いします" } },
+        { id: "6", name: "渡部悟", username: "ワタベ", cate: "マトリ", icon: "img/icon_default_watabe.png", color: "#9173E7", scenario: { 0: "登録したよ、これから好きな時に連絡してね" } },
+        { id: "7", name: "朝霧司", username: "朝霧 司", cate: "警視庁", icon: "img/icon_default_asagiri.png", color: "#FF864A", scenario: { 0: "朝霧司です", 1: "登録しましたので、早めに返事がほしい時はこちらにお願いします" } },
+        { id: "8", name: "菅野夏樹", username: "夏樹", cate: "警視庁", icon: "img/icon_default_sugano.png", color: "#98DF00", scenario: { 0: "送れてる？" } },
+        { id: "9", name: "荒木田蒼生", username: "荒木田", cate: "警視庁", icon: "img/icon_default_arakida.png", color: "#8FDAC6", scenario: { 0: "登録した。" } },
+        { id: "10", name: "服部耀", username: "服部", cate: "警視庁", icon: "img/icon_default_hattori.png", color: "#D43767", scenario: { 0: "夏樹から資料受け取った？" } },
+        { id: "11", name: "桧山貴臣", username: "桧山", cate: "Revel", icon: "img/icon_default_hiyama.png", color: "#E3CC96", scenario: { 0: "" } },
+        { id: "12", name: "大谷羽鳥", username: "hatori", cate: "Revel", icon: "img/icon_default_otani.png", color: "#F76796", scenario: { 0: "LIME教えてくれてありがとう。", 1: "気軽に連絡してね。" } },
+        { id: "13", name: "神楽亜貴", username: "Aki Kagura", cate: "Revel", icon: "img/icon_default_kagura.png", color: "#76b6ed", scenario: { 0: "登録したから。", 1: "金曜仕事終わったらアトリエ集合ね。", 2: "分かった？", 3: "ねえ、" } },
+        { id: "14", name: "槙慶太", username: "槙慶太", cate: "Revel", icon: "img/icon_default_maki.png", color: "#5bcd38", scenario: { 0: "登録した、よろしく。" } },
+        { id: "15", name: "都築誠", username: "都築", cate: "都築兄弟", icon: "img/icon_default_makoto.png", color: "#4c835b", scenario: { 0: "先日は、取材の申し込みに応じてもらい助かった。", 1: "改めて礼を言う" } },
+        { id: "16", name: "都築京介", username: "きょーすけ", cate: "都築兄弟", icon: "img/icon_default_kyosuke.png", color: "#b9b3f4", scenario: { 0: "登録したよ、よろしく！" } },
+        { id: "17", name: "新堂清志", username: "新堂", cate: "九条家", icon: "img/icon_default_shindo.png", color: "#a481c8", scenario: { 0: "新堂だ" } },
+        { id: "18", name: "山崎カナメ", username: "kaname", cate: "九条家", icon: "img/icon_default_kaname.png", color: "#addbe3", scenario: { 0: "連絡先、もらってから時間経っちゃってごめん。" } },
+        { id: "19", name: "桐嶋宏弥", username: "キリシマ", cate: "九条家", icon: "img/icon_default_kirishima.png", color: "#ffa126", scenario: { 0: "とどいてるか？" } },
+        { id: "20", name: "九条壮馬", username: "九条", cate: "九条家", icon: "img/icon_default_kujo.png", color: "#d22d38", scenario: { 0: "無事に登録できているだろうか。" } },
+        { id: "21", name: "宮瀬豪", username: "宮瀬", cate: "九条家", icon: "img/icon_default_miyase.png", color: "#f8a9f2", scenario: { 0: "夜ご飯お願いします。", 1: "あれ", 2: "よろしくと打つつもりが『よ』で勝手に変換が……" } },
+        { id: "22", name: "可愛ひかる", username: "かわいひかる", cate: "瀬尾研究室", icon: "img/icon_default_kawai.png", color: "#ff9ab5", scenario: { 0: "玲さん、ひかるんだよ～", 1: "早速登録させてね♪" } },
+        { id: "23", name: "宝生潔", username: "宝生潔", cate: "瀬尾研究室", icon: "img/icon_default_hosho.png", color: "#aeb227", scenario: { 0: "" } },
+        { id: "24", name: "日向志音", username: "しー", cate: "瀬尾研究室", icon: "img/icon_default_hinata.png", color: "#36dbf3", scenario: { 0: "さっき貰ったお菓子、おいしかった", 1: "ありがとう" } },
+        { id: "25", name: "早乙女郁人", username: "早乙女郁人【淑央大】", cate: "瀬尾研究室", icon: "img/icon_default_saotome.png", color: "#3553af", scenario: { 0: "これが俺のアカウントだ、\nきちんと登録しとけ", 1: "おい", 2: "おい、見てないのか。" } },
+        { id: "26", name: "瀬尾鳴海", username: "NARUMI SEO", cate: "瀬尾研究室", icon: "img/icon_default_seo.png", color: "#218379", scenario: { 0: "これで登録できているかな？" } }
     ];
 
     let GroupData = CharaData.reduce((group, key) => {
@@ -91,6 +125,7 @@
 
     //キャラデータからメニューとチャットタブを生成
     CurrentRoomID = 0;
+    DefaultRoomID = 0;
     let ChatArea = document.getElementsByClassName('chat-area');
     let Chara = document.getElementsByClassName('chara');
     let Menu = document.getElementById('js-menu');
@@ -103,11 +138,14 @@
 
     let RoomLength = CharaData.length + Object.keys(GroupData).length - 1;
 
+
+
     for (i = 0; i < RoomLength; i++) {
         //サイドバーリスト
         const MenuListItem = document.createElement('li');
         MenuListItem.className = 'menu-list-item';
         MenuListItem.id = 'id' + i;
+        MenuListItem.dataset.roomid=i;
         const MenuListItemIcon = document.createElement('div');
         MenuListItemIcon.className = 'menu-list-item-icon';
 
@@ -117,13 +155,14 @@
         MenuListItem.appendChild(MenuListItemIcon);
         MenuListItem.appendChild(RoomName);
         if (i < CharaData.length) {
-            MenuListItemIcon.style.background = CharaData[i].color;
+            MenuListItemIcon.style.backgroundColor = CharaData[i].color;
+            MenuListItemIcon.style.backgroundImage = "url(" + CharaData[i].icon + ")";
             RoomNameText.textContent = CharaData[i].username;
             CharaList.appendChild(MenuListItem);
         } else if (i >= CharaData.length && i < RoomLength) {
             RoomNameText.textContent = Object.keys(GroupData)[i - CharaData.length + 1];
-            if (RoomNameText.textContent == "マトリ") RoomNameText.textContent = "捜査企画課";
-            if (RoomNameText.textContent == "警視庁") RoomNameText.textContent = "服部班";
+            //if (RoomNameText.textContent == "マトリ") RoomNameText.textContent = "捜査企画課";
+            // if (RoomNameText.textContent == "警視庁") RoomNameText.textContent = "服部班";
             GroupList.appendChild(MenuListItem);
         }
 
@@ -135,14 +174,14 @@
         ChatWrapper.appendChild(Chat);
         //選択ルーム取得
         MenuListItem.addEventListener('click', (e) => {
-            CurrentRoomID = String(e.target.id).replace('id', '');
+            CurrentRoomID = MenuListItem.dataset.roomid;
             SelectRoom(CurrentRoomID);
-            senderflag=true;
-            click=-1;
+            senderflag = true;
+            click = -1;
             SelectSender(CurrentRoomID, click, senderflag);
         })
         //初回メッセージ
-        if (i < CharaData.length) {
+        if (i < CharaData.length && i != DefaultRoomID) {
             MenuListItem.addEventListener('click', (e) => {
                 DefaultMessage(CurrentRoomID);
             }, { once: true });
@@ -158,8 +197,8 @@
         } else if (e.target.textContent == "グループ") {
             groupflag = true;
         }
-        TabBtn();
-        NameScrollAnimation();
+        TabBtn(groupflag);
+        
     });
 
     //メニュータブ選択
@@ -175,13 +214,14 @@
             document.getElementById('js-chara-list').classList.remove('menu-list-active');
             document.getElementById('js-group-list').classList.add('menu-list-active');
         }
+        NameScrollAnimation();
     }
 
     //キャラクターに応じて表示を変更
     SelectRoom = (id) => {
         ChatArea[id].classList.add('chat-active');
         MenuListItem[id].classList.add('menu-list-item-active');
-        document.getElementById('js-room-name').textContent = document.getElementsByClassName('menu-list-item-name')[id].firstChild.textContent;
+        document.querySelector('#js-room-name span').textContent = document.getElementsByClassName('menu-list-item-name')[id].firstChild.textContent;
 
         for (i = 0; i < MenuListItem.length; i++) {
             if (i != id && ChatArea[i].classList.contains('chat-active')) {
@@ -190,6 +230,11 @@
             if (i != id && MenuListItem[i].classList.contains('menu-list-item-active')) {
                 MenuListItem[i].classList.remove('menu-list-item-active');
             }
+        }
+        if (id >= CharaData.length) {
+            TelOpenBtn.style.display = "none";
+        } else {
+            TelOpenBtn.style.display = "flex";
         }
     }
 
@@ -233,6 +278,8 @@
                 document.querySelector("#id" + i + " span").style.setProperty('animation', 'none');
             }
         }
+
+
     }
 
 
@@ -241,6 +288,8 @@
     let timer = null;
     let timeTimer = null;
 
+    let Clock = document.getElementById('js-clock');
+
     const SetTime = () => {
         const now = new Date();
         let hours = now.getHours().toString();
@@ -248,6 +297,7 @@
         let minutes = now.getMinutes().toString();
         if (minutes.length == 1) minutes = '0' + minutes;
         Time.textContent = String(hours) + ':' + String(minutes);
+        Clock.textContent = String(hours) + ':' + String(minutes);
         timeTimer = setTimeout(SetTime, (60 - now.getSeconds()) * 1000);
     };
     //battery
@@ -328,6 +378,7 @@
         Message = document.createElement('div');
         Message.className = 'message message-' + position;
         Message.textContent = text;
+        Message.dataset.senderid = senderid;
 
 
         if (position == 'left') {
@@ -339,7 +390,8 @@
             MessageSender.className = 'message-sender';
             MessageBoxInner = document.createElement('div');
 
-            SenderIcon.style.background = CharaData[senderid].color;
+            SenderIcon.style.backgroundColor = CharaData[senderid].color;
+            SenderIcon.style.backgroundImage = "url(" + CharaData[senderid].icon + ")";
             MessageSender.textContent = CharaData[senderid].username;
             MessageSender.style.color = CharaData[senderid].color;
 
@@ -406,11 +458,10 @@
                     CurrentSenderID = Object.values(GroupData)[roomid - CharaData.length + 1][count].id;
                 } else {
                     formSender.style.background = CharaData[roomid].color;
+                    CurrentSenderID = CharaData[roomid].id;
                 }
             }
         flag ? formSender.textContent = "自分" : formSender.textContent = "相手";
-        console.log(count,flag)
-
     }
     formSender.addEventListener('click', (e) => {
         click++;
@@ -443,10 +494,8 @@
 
     //メニュー開閉
     MenuToggle = () => {
-        menuflag = false;
         MenuBtnIcon = document.querySelector('#js-menuBtn i');
         MenuBtn.addEventListener('click', function () {
-            menuflag = !menuflag;
             MenuBtn.classList.toggle('menu-open');
             MenuBtn.classList.toggle('menu-close');
             Menu.classList.toggle('menu-open');
@@ -459,22 +508,124 @@
             for (i = 0; i < ChatArea.length; i++) {
                 ChatArea[i].classList.toggle('menu-open');
                 ChatArea[i].classList.toggle('menu-close');
-            }
 
+
+            }
+            if (CurrentRoomID < CharaData.length) {
+                groupflag = false;
+            } else {
+                groupflag = true;
+            }
+            TabBtn();
+            document.getElementById("js-chara-list").scrollTop = document.getElementById("id" + CurrentRoomID).scrollHeight * CurrentRoomID;
+        });
+    }
+    //通話画面
+    TelOpenBtn = document.getElementById('js-tel-openBtn');
+    TelCloseBtn = document.getElementById('js-tel-closeBtn');
+    TelModal = document.getElementById('js-telephone');
+    TelephoneToggle = () => {
+        TelOpenBtn.addEventListener('click', function () {
+            document.getElementsByClassName('tel-icon')[0].style.backgroundImage = "url(" + CharaData[CurrentRoomID].icon + ")";
+            document.getElementsByClassName('tel-icon')[0].style.backgroundColor = CharaData[CurrentRoomID].color;
+            document.getElementsByClassName('tel-name')[0].textContent = CharaData[CurrentRoomID].username;
+            TelModal.classList.add('modal-open');
+        });
+
+        TelCloseBtn.addEventListener('click', function () {
+            TelModal.classList.remove('modal-open');
         });
     }
 
+    //ロック画面
+    LockBtn = document.getElementById('js-lockBtn');
+    LockScreenModal = document.getElementById('js-lockscreen');
+    LockScreenToggole = () => {
+        LockBtn.addEventListener('click', function () {
+            //document.getElementsByClassName('lock-messageBox-icon')[0].style.backgroundImage = "url(" + CharaData[CurrentRoomID].icon + ")";
+            // document.getElementsByClassName('lock-messageBox-name')[0].textContent = CharaData[CurrentRoomID].username;
+            LockScreenModal.classList.add('modal-open');
+            LoskScreenMessageList();
+
+        });
+
+        LockScreenModal.addEventListener('click', function () {
+            LockScreenModal.classList.remove('modal-open');
+        });
+
+    }
+
+    LoskScreenMessageList = () => {
+        CurrentRoomMessage = document.querySelectorAll('.chat-active .message');
+        CurrentRoomMessageLength = document.querySelectorAll('.chat-active .message').length
+
+
+
+        if (document.getElementsByClassName("lock-noticeList").length > 0) {
+            document.getElementsByClassName("lock-noticeList")[0].remove();
+        }
+
+        NoticeList = document.createElement('div');
+        NoticeList.className = "lock-noticeList"
+
+        for (i = CurrentRoomMessageLength - 1; i >= 0; i--) {
+            if (CurrentRoomMessage[i].classList.contains('message-right')) {
+                return
+            }
+            id = CurrentRoomMessage[i].dataset.senderid;
+
+            NoticeBox = document.createElement('div');
+            NoticeBox.className = "lock-noticeBox"
+            NoticeBoxApp = document.createElement('div');
+            NoticeBoxApp.className = "lock-noticeBox-app";
+            NoticeBoxAppIcon = document.createElement('i');
+            NoticeBoxAppIcon.className = "fa-solid fa-comment";
+            NoticeBoxAppName = document.createElement('span');
+            NoticeBoxAppName.textContent = "LIME";
+            NoticeBoxMessageBox = document.createElement('div');
+            NoticeBoxMessageBox.className = "lock-noticeBox-messageBox";
+            NoticeBoxMessageBoxIcon = document.createElement('div');
+            NoticeBoxMessageBoxIcon.className = "lock-messageBox-icon";
+            NoticeBoxMessageBoxIcon.style.backgroundImage = "url(" + CharaData[id].icon + ")";
+            NoticeBoxMessageBoxIcon.style.backgroundColor = CharaData[id].color;
+            NoticeBoxMessageBoxMessage = document.createElement('div');
+            NoticeBoxMessageBoxMessage.className = "lock-messageBox-message";
+            NoticeBoxMessageBoxName = document.createElement('div');
+            NoticeBoxMessageBoxName.className = "lock-messageBox-name";
+            NoticeBoxMessageBoxName.textContent = CharaData[id].username;
+            NoticeBoxMessageBoxText = document.createElement('div');
+            NoticeBoxMessageBoxText.className = "lock-messageBox-text";
+            NoticeBoxMessageBoxText.textContent = CurrentRoomMessage[i].textContent;
+
+            NoticeBoxMessageBoxMessage.appendChild(NoticeBoxMessageBoxName);
+            NoticeBoxMessageBoxMessage.appendChild(NoticeBoxMessageBoxText);
+            NoticeBoxMessageBox.appendChild(NoticeBoxMessageBoxIcon);
+            NoticeBoxMessageBox.appendChild(NoticeBoxMessageBoxMessage);
+            NoticeBoxApp.appendChild(NoticeBoxAppIcon);
+            NoticeBoxApp.appendChild(NoticeBoxAppName);
+
+            NoticeBox.appendChild(NoticeBoxApp);
+            NoticeBox.appendChild(NoticeBoxMessageBox);
+
+            NoticeList.appendChild(NoticeBox);
+
+            LockScreenModal.appendChild(NoticeList);
+        }
+    }
+
+
+
+    //実行
     window.onresize = NameScrollAnimation;
     SetTime();
     //batteryFlag();
     MenuToggle();
-    TabBtn();
     NameScrollAnimation();
+    TelephoneToggle();
+    LockScreenToggole();
 
-    CurrentSenderID = 0;
-    CurrentRoomID = 0;
-    SelectRoom(CurrentRoomID);
-    DefaultMessage(CurrentRoomID);
+    SelectRoom(DefaultRoomID);
+    DefaultMessage(DefaultRoomID);
 </script>
 
 </html>

@@ -465,6 +465,19 @@ textarea::-webkit-scrollbar,
     border-color: transparent #ffffff transparent transparent;
 }
 
+@keyframes messageanime {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.message .is-show {
+    animation: messageanime 1s ease-out 2 forwards;
+}
+
 
 .form {
     background: var(--pink4);
@@ -761,6 +774,7 @@ textarea::-webkit-scrollbar,
 
 .lock-messageBox-text {
     display: flex;
+
 
 }
 

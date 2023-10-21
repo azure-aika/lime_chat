@@ -42,7 +42,7 @@
                 </div>
 
                 <div class="form-submit">
-                    <button type="submit" class="form-submit-btn">送信</button>
+                    <button type="submit" class="form-submit-btn" id="js-form-submit">送信</button>
                 </div>
             </form>
         </div>
@@ -70,7 +70,7 @@
     //キャラデータ
 
     let CharaData = [
-        { id: "0", name: "自分", username: "機能説明", color: "#808080", scenario: { 0: "スタマイに登場するチャットアプリ『LIME』を模したサイトです。", 1: "左の▶ボタンを押すと表示されるリストから、メッセージ送信相手を選択できます。", 2: "また、メッセージは【相手側】【自分側】どちらから送信されるのか、フォーム横のボタンで選択できます。", 3: "送信済のメッセージは、クリックすると編集画面にて変更できます。\n\n編集画面で、メッセージが空の状態でOKボタンを押すと、メッセージの削除ができます。", 4: "画面をリロードすると全会話がリセットされます。" } },
+        { id: "0", name: "自分", username: "機能説明", color: "#808080", scenario: { 0: "スタマイに登場するチャットアプリ『LIME』風webアプリです", 1: "【ルーム選択】\n左の▶ボタンを押すと表示されるリストからチャットルームを選択できます", 2: "【メッセージ送信】\nフォーム横のボタンでメッセージの送信者を選択できます", 3: "【メッセージ編集・削除】\n送信済のメッセージをクリックすると編集できます。\nメッセージが空の状態でOKボタンを押すと、メッセージの削除ができます", 4: "【通話画面・ロック画面】\n右上のアイコンからそれぞれ画面が開きます。\nロック画面では対象ルームの未読メッセージのみ表示されます", 5: "画面をリロードすると全ルームの会話がリセットされます" } },
         { id: "1", name: "青山樹", username: "青山樹", cate: "マトリ", icon: "img/icon_default_aoyama.png", color: "#2390FF", scenario: { 0: "青山樹です。登録よろしくお願いします。" } },
         { id: "2", name: "由井孝太郎", username: "Kotaro.Y", cate: "マトリ", icon: "img/icon_default_yui.png", color: "#FFAEC0", scenario: { 0: "いつでも連絡してくれ", 1: "キミからの頼みとあらばどこへでも駆けつけよう" } },
         { id: "3", name: "関大輔", username: "関", cate: "マトリ", icon: "img/icon_default_seki.png", color: "#F95240", scenario: { 0: "" } },
@@ -153,44 +153,49 @@
         //chat欄
         const Chat = document.createElement('div');
         Chat.className = 'chat-area menu-close';
+        Chat.id = "chat" + i;
+        Chat.dataset.chatid = i;
         ChatWrapper.appendChild(Chat);
         //選択ルーム取得
         MenuListItem.addEventListener('click', (e) => {
             CurrentRoomID = MenuListItem.dataset.roomid;
             SelectRoom(CurrentRoomID);
-            senderflag = true;
+            isSenderSelf = true;
             click = -1;
-            SelectSender(CurrentRoomID, click, senderflag);
+            SelectSender(CurrentRoomID, click, isSenderSelf);
         })
         //初回メッセージ
-        if (i < CharaData.length && i != DefaultRoomID) {
+        if (i < CharaData.length) {
             MenuListItem.addEventListener('click', (e) => {
+                clearInterval(IntervalID);
                 DefaultMessage(CurrentRoomID);
-            }, { once: true });
+
+            }
+            /*, { once: true }*/);
         }
     }
     //
     let MenuSelectBtn = document.getElementById('js-menu-select');
-    groupflag = false;
+    isGroup = false;
 
     MenuSelectBtn.addEventListener('click', (e) => {
         if (e.target.textContent == "個人") {
-            groupflag = false;
+            isGroup = false;
         } else if (e.target.textContent == "グループ") {
-            groupflag = true;
+            isGroup = true;
         }
-        TabBtn(groupflag);
+        TabBtn(isGroup);
 
     });
 
     //メニュータブ選択
     TabBtn = () => {
-        if (!groupflag) {
+        if (!isGroup) {
             document.getElementsByClassName('menu-select-btn')[0].classList.add('menu-select-active');
             document.getElementsByClassName('menu-select-btn')[1].classList.remove('menu-select-active');
             document.getElementById('js-chara-list').classList.add('menu-list-active');
             document.getElementById('js-group-list').classList.remove('menu-list-active');
-        } else if (groupflag) {
+        } else if (isGroup) {
             document.getElementsByClassName('menu-select-btn')[1].classList.add('menu-select-active');
             document.getElementsByClassName('menu-select-btn')[0].classList.remove('menu-select-active');
             document.getElementById('js-chara-list').classList.remove('menu-list-active');
@@ -222,11 +227,84 @@
 
     DefaultMessage = (roomid) => {
         scenarioLength = Object.values(CharaData[roomid].scenario).length;
-        for (j = 0; j < scenarioLength; j++) {
-            AddMessage(CharaData[roomid].scenario[j], "left", roomid, roomid)
+        IntervalCount = 0;
+        IntervalID = 0;
+        if (ChatArea[roomid].children.length > 0) {
+            IntervalCount = ChatArea[roomid].children.length;
         }
+        if (ChatArea[roomid].children.length >= scenarioLength) {
+            return;
+        }
+        /*
+        if (document.querySelectorAll('#chat' + [roomid] + ' .message span').length > 0) {
+            console.log("a-");
+            document.querySelectorAll('#chat' + [roomid] + ' .message span')[2].addEventListener('animationend', function () {
+                //  console.log("a");
+                messageAnime(CharaData[roomid].scenario[IntervalCount], "left", roomid, roomid);
+            })
+
+
+        } else {
+            messageAnime(CharaData[roomid].scenario[IntervalCount], "left", roomid, roomid);
+
+            //console.log("b");
+        }*/
+        if (document.querySelectorAll('#chat' + [roomid] + ' .message span').length == 0) {
+            messageAnime(CharaData[roomid].scenario[IntervalCount], "left", roomid, roomid);
+        }
+        //messageAnime(CharaData[roomid].scenario[IntervalCount], "left", roomid, roomid);
+        //AddMessage(CharaData[roomid].scenario[IntervalCount], "left", roomid, roomid);
+
+        IntervalID = setInterval(function () {
+            IntervalCount++;
+            if (IntervalCount >= scenarioLength) {
+                clearInterval(IntervalID);
+                return;
+            }
+            if (roomid != CurrentRoomID) {
+                clearInterval(IntervalID);
+                return;
+            }
+
+
+            messageAnime(CharaData[roomid].scenario[IntervalCount], "left", roomid, roomid);
+            console.log(IntervalCount);
+
+            //AddMessage(CharaData[roomid].scenario[IntervalCount], "left", roomid, roomid);
+        }, 3000);
+
+    }
+    /*
+DefaultMessage = () => {
+    scenarioLength = Object.values(CharaData[CurrentRoomID].scenario).length;
+    console.log("scenario", scenarioLength, ChatArea[CurrentRoomID].children.length);
+    IntervalCount = 0;
+    IntervalID = 0;
+    if (ChatArea[CurrentRoomID].children.length > 0) {
+        IntervalCount = ChatArea[CurrentRoomID].children.length;
+    }
+    console.log("id", IntervalCount);
+    if (ChatArea[CurrentRoomID].children.length >= scenarioLength) {
+        return;
     }
 
+    messageAnime(CharaData[CurrentRoomID].scenario[IntervalCount], "left", CurrentRoomID, CurrentRoomID);
+    //AddMessage(CharaData[CurrentRoomID].scenario[IntervalCount], "left", CurrentRoomID, CurrentRoomID);
+    IntervalID = setInterval(function () {
+        IntervalCount++;
+        if (IntervalCount >= scenarioLength) {
+            clearInterval(IntervalID);
+            return;
+        }
+
+        messageAnime(CharaData[CurrentRoomID].scenario[IntervalCount], "left", CurrentRoomID, CurrentRoomID);
+        //AddMessage(CharaData[CurrentRoomID].scenario[IntervalCount], "left", CurrentRoomID, CurrentRoomID);
+        //console.log(CurrentRoomID, "Length", ChatArea[CurrentRoomID].children.length);
+
+    }, 3000);
+
+}
+*/
     NameScrollAnimation = () => {
         for (i = 0; i < document.getElementsByClassName('namescrollstyle').length; i++) {
             document.getElementsByClassName('namescrollstyle')[i].remove();
@@ -288,7 +366,7 @@
         Time.textContent = String(hours) + ':' + String(minutes);
         Clock.textContent = String(hours) + ':' + String(minutes);
         Day.textContent = String(dayOfWeekStr[dayOfWeek]) + ' ' + day + ' ' + String(monthStr[month]);
-        Day.textContent.replace(' ', /\s|&nbsp;/g)
+        Day.textContent.replace(/\s|&nbsp;/g, '')
         timeTimer = setTimeout(SetTime, (60 - now.getSeconds()) * 1000);
     };
     //battery
@@ -352,6 +430,7 @@
         }
     });
 
+
     //メッセージを作成
     AddMessage = (text, position, roomid, senderid) => {
         //text = text.replace(/\s+/g, '');
@@ -361,8 +440,11 @@
             TextBody.style.height = defaultHeight;
             return;
         }
-
-        ChatArea[senderid];
+        text = text.replace(/^<div><br><\/div><div>/i, "\n");
+        text = text.replace(/<div><br><\/div>/ig, "\n");
+        text = text.replace(/<div.*?>/ig, "\n");
+        text = text.replace(/<br>/ig, "\n");
+        text = text.replace(/<.+?>/ig, '');
 
         let fragment = document.createDocumentFragment();
 
@@ -402,6 +484,7 @@
 
         Message.addEventListener('click', (e) => {
             let old_text = e.target.textContent;
+            // old_text = old_text.replace(/\n/g, '\\n');
             let new_text = window.prompt('メッセージ編集', old_text);
             if (new_text == null) {
                 e.target.textContent = old_text;
@@ -428,13 +511,74 @@
 
     };
 
+    //メッセージアニメーション
+    /*
+    messageAnime = (text, position, roomid, senderid) => {
+        document.getElementById('js-form-submit').disabled = true;
 
+        if (!text.match(/\S/g) || text.textContent == '') {
+            document.getElementById('js-form-submit').disabled = false;
+            return;
+        }
+        AddMessage("・・・", position, roomid, senderid);
+        l = document.querySelectorAll('.chat-active .message').length;
+        animetext = document.querySelectorAll('.chat-active .message')[l - 1];
+
+        let html = '';
+        strs = animetext.textContent.split('');
+
+        for (i = 0; i < strs.length; i++) {
+            html += '<span class="is-show">' + strs[i] + '</span>';
+            animetext.innerHTML = html;
+            document.querySelectorAll('.chat-active .message span')[i].style.setProperty('animation-delay', i * 0.1 + 's');
+        }
+
+        document.querySelectorAll('.chat-active .message span')[strs.length - 1].addEventListener('animationend', () => {
+            if (position == 'right') { document.querySelectorAll('.chat-active .message')[l - 1].remove(); }
+            if (position == 'left') { document.querySelectorAll('.chat-active .message')[l - 1].closest('.messageBox-left').remove(); }
+            AddMessage(text, position, roomid, senderid);
+        });
+        document.getElementById('js-form-submit').disabled = false;
+
+    }*/
+    //メッセージアニメーション
+    messageAnime = (text, position, roomid, senderid) => {
+
+        document.getElementById('js-form-submit').disabled = true;
+
+        if (!text.match(/\S/g) || text.textContent == '') {
+            document.getElementById('js-form-submit').disabled = false;
+            return;
+        }
+        AddMessage("・・・", position, roomid, senderid);
+        l = document.querySelectorAll('#chat' + [roomid] + ' .message').length;
+        console.log(l);
+        animetext = document.querySelectorAll('#chat' + [roomid] + ' .message')[l - 1];
+        //console.log(animetext);
+
+        let html = '';
+        strs = animetext.textContent.split('');
+
+        for (i = 0; i < strs.length; i++) {
+            html += '<span class="is-show">' + strs[i] + '</span>';
+            animetext.innerHTML = html;
+            document.querySelectorAll('#chat' + [roomid] + ' .message')[l - 1].children[i].style.setProperty('animation-delay', i * 0.1 + 's');
+        }
+
+        document.querySelectorAll('#chat' + [roomid] + ' .message')[l - 1].children[strs.length - 1].addEventListener('animationend', () => {
+            if (position == 'right') { document.querySelectorAll('#chat' + [roomid] + ' .message span')[0].closest('.message-right').remove() }
+            if (position == 'left') { document.querySelectorAll('#chat' + [roomid] + ' .message span')[0].closest('.messageBox-left').remove(); }
+            AddMessage(text, position, roomid, senderid);
+        });
+        document.getElementById('js-form-submit').disabled = false;
+
+    }
 
 
     //メッセージ送信者を選択(左右)
 
     formSender = document.querySelector('.form-sender');
-    senderflag = true;
+    isSenderSelf = true;
     let click = -1;
     let CurrentSenderID = -1;
     defaultcolor = formSender.style.background;
@@ -444,7 +588,7 @@
             CurrentSenderID = -1;
         } else
             if (count > -1) {
-                if (groupflag) {
+                if (isGroup) {
                     formSender.style.background = Object.values(GroupData)[roomid - CharaData.length + 1][count].color;
                     CurrentSenderID = Object.values(GroupData)[roomid - CharaData.length + 1][count].id;
                 } else {
@@ -456,31 +600,34 @@
     }
     formSender.addEventListener('click', (e) => {
         click++;
-        if (groupflag) {
+        if (isGroup) {
             if (click > Object.values(GroupData)[CurrentRoomID - CharaData.length + 1].length - 1) {
                 click = -1;
-                senderflag = true;
+                isSenderSelf = true;
             } else if (click >= 0) {
-                senderflag = false;
+                isSenderSelf = false;
             }
-        } else if (!groupflag) {
+        } else if (!isGroup) {
             if (click == 0) {
-                senderflag = false;
+                isSenderSelf = false;
             } else if (click > 0) {
                 click = -1;
-                senderflag = true;
+                isSenderSelf = true;
             }
 
         }
-        SelectSender(CurrentRoomID, click, senderflag);
+        SelectSender(CurrentRoomID, click, isSenderSelf);
     });
     //メッセージ送信
     let Form = document.getElementById('js-form');
     Form.addEventListener('submit', (e) => {
         e.preventDefault();
         let messageText = TextBody.value;
-        senderflag ? messagePosition = 'right' : messagePosition = 'left';
-        AddMessage(messageText, messagePosition, CurrentRoomID, CurrentSenderID);
+
+        isSenderSelf ? messagePosition = 'right' : messagePosition = 'left';
+
+        messageAnime(messageText, messagePosition, CurrentRoomID, CurrentSenderID);
+
     });
 
     //メニュー開閉
@@ -503,9 +650,9 @@
 
             }
             if (CurrentRoomID < CharaData.length) {
-                groupflag = false;
+                isGroup = false;
             } else {
-                groupflag = true;
+                isGroup = true;
             }
             TabBtn();
             document.getElementById("js-chara-list").scrollTop = document.getElementById("id" + CurrentRoomID).scrollHeight * CurrentRoomID;
@@ -603,7 +750,6 @@
                 fontSize = (NoticeBoxMessageBoxTextSpan.currentStyle || document.defaultView.getComputedStyle(NoticeBoxMessageBoxTextSpan, '')).fontSize;
                 fontSize = parseInt(fontSize);
                 lastTextNum = Math.floor(NoticeBoxMessageBoxMessage.clientWidth / fontSize) - 1;
-                console.log(NoticeBoxMessageBoxTextSpan.clientWidth, NoticeBoxMessageBoxMessage.clientWidth, fontSize, lastTextNum);
                 newText = CurrentRoomMessage[i].textContent.substring(0, lastTextNum) + "…";
                 NoticeBoxMessageBoxTextSpan.textContent = newText;
             }
@@ -612,12 +758,15 @@
     }
 
 
+    window.onresize = function () {
+        NameScrollAnimation();
+        LoskScreenMessageList();
+    }
+
 
 
 
     //実行
-    window.onresize = NameScrollAnimation;
-    window.onresize = LoskScreenMessageList;
     SetTime();
     //batteryFlag();
     MenuToggle();

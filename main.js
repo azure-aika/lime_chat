@@ -293,7 +293,7 @@
             }
             messageAnime(CharaData[roomid].scenario[IntervalCount], "left", roomid, roomid);
 
-        }, 3000);
+        }, 1500);
 
     }
 

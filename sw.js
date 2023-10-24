@@ -1,5 +1,6 @@
 var CACHE_NAME = 'lime-chat';
 var urlsToCache = [
+    '/lime_chat/index.html',
     '/lime_chat/main.js',
     '/lime_chat/style.css'
 ];

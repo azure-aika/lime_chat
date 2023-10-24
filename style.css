@@ -7,6 +7,11 @@
     ;
 }
 
+@font-face {
+    font-family: "LINE Seed JP";
+    src: url(font/WOFF2/LINESeedJP_OTF_Bd.woff2) format("woff2");
+}
+
 html {
     height: 100%;
     font-size: 62.5%;
@@ -14,8 +19,10 @@ html {
 }
 
 body {
-    font-family: 'Noto Sans JP', sans-serif;
+    /*  font-family: 'Noto Sans JP', sans-serif;
     font-family: "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", "sans-serif";
+    */
+    font-family: "LINE Seed JP";
     line-height: 1;
     margin: 0;
     padding: 0;

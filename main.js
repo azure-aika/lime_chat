@@ -421,10 +421,8 @@ Battery.addEventListener('click', (e) => {
     let old_text = document.querySelector('#js-battery span').textContent;
     let new_text = window.prompt('バッテリーレベル編集', old_text);
     if (new_text == null) {
-        e.target.textContent = old_text;
         return;
     } else if (new_text == "") {
-        e.target.textContent = old_text;
         return;
     } else if (new_text.length) {
         document.querySelector('#js-battery i').remove()

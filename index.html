@@ -75,19 +75,19 @@
             <div class="lock-clockDay" id="js-day" lang="en"></div>
         </div>
     </div>
-
-</body>
-<script src="main.js"></script>
-<script>
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', function () {
-            navigator.serviceWorker.register('/lime_chat/sw.js').then(function (registration) {
-                console.log('ServiceWorker registration successful with scope: ', registration.scope);
-            }, function (err) {
-                console.log('ServiceWorker registration failed: ', err);
+    <script src="main.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function () {
+                navigator.serviceWorker.register('/lime_chat/sw.js').then(function (registration) {
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                }, function (err) {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
             });
-        });
-    }
-</script>
+        }
+    </script>
+</body>
+
 
 </html>

@@ -531,7 +531,6 @@ AddMessage = (text, position, roomid, senderid) => {
         old_text = old_text.replace(/\n/g, '\\n');
         let new_text = window.prompt('メッセージ編集', old_text);
         if (new_text == null) {
-            e.target.textContent = old_text;
             return;
         } else if (new_text == "") {
             if (window.confirm('削除しますか？')) {

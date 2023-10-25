@@ -12,7 +12,7 @@ let CharaData = [
     { id: "8", name: "菅野夏樹", username: "夏樹", cate: "警視庁", icon: "img/icon_default_sugano.png", color: "#98DF00", scenario: { 0: "送れてる？" } },
     { id: "9", name: "荒木田蒼生", username: "荒木田", cate: "警視庁", icon: "img/icon_default_arakida.png", color: "#8FDAC6", scenario: { 0: "登録した。" } },
     { id: "10", name: "服部耀", username: "服部", cate: "警視庁", icon: "img/icon_default_hattori.png", color: "#D43767", scenario: { 0: "夏樹から資料受け取った？" } },
-    { id: "11", name: "桧山貴臣", username: "桧山", cate: "Revel", icon: "img/icon_default_hiyama.png", color: "#E3CC96", scenario: { 0: "" } },
+    { id: "11", name: "桧山貴臣", username: "桧山", cate: "Revel", icon: "img/icon_default_hiyama.png", color: "#E3CC96", scenario: { 0: "先ほどは手間をかけたな。", 1:"急ぎの要件があれば、今後はこちらに連絡してくれ。"} },
     { id: "12", name: "大谷羽鳥", username: "hatori", cate: "Revel", icon: "img/icon_default_otani.png", color: "#F76796", scenario: { 0: "LIME教えてくれてありがとう。", 1: "気軽に連絡してね。" } },
     { id: "13", name: "神楽亜貴", username: "Aki Kagura", cate: "Revel", icon: "img/icon_default_kagura.png", color: "#76b6ed", scenario: { 0: "登録したから。", 1: "金曜仕事終わったらアトリエ集合ね。", 2: "分かった？", 3: "ねえ、" } },
     { id: "14", name: "槙慶太", username: "槙慶太", cate: "Revel", icon: "img/icon_default_maki.png", color: "#5bcd38", scenario: { 0: "登録した、よろしく。" } },

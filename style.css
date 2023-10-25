@@ -502,8 +502,16 @@ textarea::-webkit-scrollbar,
         opacity: 0;
     }
 
-    100% {
+    40% {
         opacity: 1;
+    }
+
+    60% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
     }
 }
 

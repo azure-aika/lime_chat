@@ -764,7 +764,6 @@ window.onresize = function () {
 
 
 //実行
-isPWA();
 SetTime();
 AddGroup();
 MenuToggle();

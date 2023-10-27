@@ -624,16 +624,16 @@ textarea::-webkit-scrollbar,
 }
 
 .add-group-modal {
-    width: 80%;
+    width: 100%;
     max-height: 80%;
-    margin: auto;
+    margin-top: auto;
     display: flex;
     position: relative;
     flex-direction: column;
     align-items: center;
-    background: var(--pink1);
-    border: 0.5rem solid var(--pink1);
-    border-radius: 0.5rem;
+    background: var(--pink3);
+    /*border: 0.5rem solid var(--pink1);*/
+    border-radius: 1rem 1rem 0 0;
 }
 
 
@@ -641,8 +641,9 @@ textarea::-webkit-scrollbar,
     display: flex;
     position: relative;
     width: 100%;
-    padding: 0.5rem;
-    color: #ffffff;
+    padding: 1rem;
+    font-size: 1.5rem;
+    color: var(--pink1);
     justify-content: space-between;
 }
 
@@ -653,7 +654,7 @@ textarea::-webkit-scrollbar,
     justify-content: center;
     align-items: center;
 }
-
+/*
 .add-group-header button {
     position: relative;
     display: flex;
@@ -662,18 +663,20 @@ textarea::-webkit-scrollbar,
     justify-content: center;
     align-items: center;
 }
-
+*/
 .add-group-form {
-    width: calc(100%);
     display: flex;
     background: #ffffff;
-    margin-bottom: 1rem;
+    /*margin-bottom: 1rem;*/
     border-radius: 1rem;
+    margin: 0 0.5rem 1rem 0.5rem;
+    padding: 0;
+    width: calc(100% - 2rem)
 }
 
 .add-group-form input {
     display: flex;
-    width: 80%;
+    width: 100%;
     margin: 0 1rem;
 }
 
@@ -695,7 +698,6 @@ textarea::-webkit-scrollbar,
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: var(--pink1);
     overflow-y: scroll;
     overflow-x: hidden;
     scrollbar-width: 0;
@@ -707,7 +709,6 @@ textarea::-webkit-scrollbar,
 }
 
 .add-group-list {
-    background: var(--pink3);
     padding: 0.5rem;
     display: flex;
     position: relative;
@@ -751,8 +752,15 @@ textarea::-webkit-scrollbar,
 
 .add-group-list input {
     -webkit-appearance: auto;
+    margin: 0 1rem;
 }
 
+.add-group-list:has(input[type="checkbox"]:checked) {
+    background: var(--pink1)
+}
+.add-group-list:has(input[type="checkbox"]:checked) .add-group-list-name>span{
+    color: #ffffff;
+}
 
 .telephone {
     position: absolute;

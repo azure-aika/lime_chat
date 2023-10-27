@@ -177,11 +177,11 @@ AddGroup = () => {
     AddGroupSetForm.addEventListener('click', (e) => {
         e.preventDefault();
         checkboxes = document.querySelectorAll('input[name=selectlist]:checked');
-        name = document.querySelector("input[name='group-name']").value;
-        if (checkboxes.length == 0 || name == "") {
+        groupname = document.querySelector("input[name='group-name']").value;
+        if (checkboxes.length == 0 || groupname == "") {
             alert("グループ名が入力されていない、もしくはキャラが選択されていません")
             return;
-        } else if (GroupData[name] != null) {
+        } else if (GroupData[groupname] != null) {
             alert("同名のグループが既にあります")
             return;
         } else {
@@ -192,16 +192,16 @@ AddGroup = () => {
                     array.push(CharaData[id]);
                 }
             }
-            GroupData[name] = array;
+            GroupData[groupname] = array;
             AddList(RoomLength);
             ChatArea[RoomLength].classList.toggle('menu-open');
             ChatArea[RoomLength].classList.toggle('menu-close');
-            document.querySelectorAll('.menu-list-item-name span')[RoomLength].textContent = name;
+            document.querySelectorAll('.menu-list-item-name span')[RoomLength].textContent = groupname;
             GroupSelectPop.classList.toggle('modal-open');
             CurrentRoomID = RoomLength;
-
-            RoomLength = CharaData.length + Object.keys(GroupData).length - 1;
             SelectRoom(CurrentRoomID);
+            RoomLength = CharaData.length + Object.keys(GroupData).length - 1;
+            
             isSenderSelf = true;
             click = -1;
             SelectSender(CurrentRoomID, click, isSenderSelf);

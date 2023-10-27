@@ -11,7 +11,6 @@
 html {
     height: 100%;
     font-size: 62.5%;
-    /*font-size: 1.6vh;*/
 }
 
 body {
@@ -56,6 +55,7 @@ li {
 
 
 
+
 .screen {
     justify-content: center;
     height: 100%;
@@ -84,22 +84,27 @@ li {
     flex: 0 0 auto;
 }
 
+
 .battery {
     position: relative;
     display: flex;
     flex: 0 0 auto;
+    height: 100%;
+    align-items: center;
 }
 
 .battery i {
     position: relative;
     display: flex;
-    line-height: 1rem;
+    height: 100%;
+    align-items: center;
 }
 
 .battery span {
     position: relative;
     display: flex;
     padding: 0 0.5rem;
+    height: 100%;
 }
 
 .logo {
@@ -632,7 +637,6 @@ textarea::-webkit-scrollbar,
     flex-direction: column;
     align-items: center;
     background: var(--pink3);
-    /*border: 0.5rem solid var(--pink1);*/
     border-radius: 1rem 1rem 0 0;
 }
 
@@ -654,24 +658,15 @@ textarea::-webkit-scrollbar,
     justify-content: center;
     align-items: center;
 }
-/*
-.add-group-header button {
-    position: relative;
-    display: flex;
-    color: #ffffff;
-    font-size: 2rem;
-    justify-content: center;
-    align-items: center;
-}
-*/
+
 .add-group-form {
     display: flex;
     background: #ffffff;
-    /*margin-bottom: 1rem;*/
     border-radius: 1rem;
     margin: 0 0.5rem 1rem 0.5rem;
     padding: 0;
-    width: calc(100% - 2rem)
+    width: calc(100% - 2rem);
+    border: 0.1rem solid var(--pink2);
 }
 
 .add-group-form input {
@@ -751,14 +746,17 @@ textarea::-webkit-scrollbar,
 }
 
 .add-group-list input {
+    display: flex;
     -webkit-appearance: auto;
-    margin: 0 1rem;
+    margin: auto 1rem;
+    align-items: center;
 }
 
 .add-group-list:has(input[type="checkbox"]:checked) {
     background: var(--pink1)
 }
-.add-group-list:has(input[type="checkbox"]:checked) .add-group-list-name>span{
+
+.add-group-list:has(input[type="checkbox"]:checked) .add-group-list-name>span {
     color: #ffffff;
 }
 

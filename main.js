@@ -163,28 +163,13 @@ AddGroup = () => {
     AddGroupBtn.addEventListener('click', (e) => {
         e.preventDefault(); GroupSelectPop.classList.toggle('modal-open');
     });
-    /*
-        AddGroupCloseBtn = document.querySelector('.add-group-header button')
-        AddGroupCloseBtn.addEventListener('click', (e) => {
-            e.preventDefault(); GroupSelectPop.classList.toggle('modal-open');
-            checkboxes = document.querySelectorAll('input[name=selectlist]:checked');
-            for (i = 0; i < checkboxes.length; i++) {
-                checkboxes[i].checked = false;
-            }
-            document.querySelector("input[name='group-name']").value = "";
-        });*/
-    AddGroupClose = document.querySelector('#js-group-form')
 
-        GroupSelectPop.addEventListener('click', (e) => {
-            if (!e.target.closest('#js-group-form')) {
-                e.preventDefault(); GroupSelectPop.classList.toggle('modal-open');
-                checkboxes = document.querySelectorAll('input[name=selectlist]:checked');
-                for (i = 0; i < checkboxes.length; i++) {
-                    checkboxes[i].checked = false;
-                }
-                document.querySelector("input[name='group-name']").value = "";
-            }
-        });
+    GroupSelectPop.addEventListener('click', (e) => {
+        if (!e.target.closest('#js-group-form')) {
+            e.preventDefault(); GroupSelectPop.classList.toggle('modal-open');
+            document.getElementById("js-group-form").reset();
+        }
+    });
 
 
 
@@ -222,35 +207,32 @@ AddGroup = () => {
             SelectSender(CurrentRoomID, click, isSenderSelf);
             NameScrollAnimation();
 
-            for (i = 0; i < checkboxes.length; i++) {
-                checkboxes[i].checked = false;
-            }
-            document.querySelector("input[name='group-name']").value = "";
+            document.getElementById("js-group-form").reset();
         }
     });
 }
 
 let MenuSelectBtn = document.getElementById('js-menu-select');
-isGroup = false;
+isGroupTab = false;
 
 MenuSelectBtn.addEventListener('click', (e) => {
     if (e.target.textContent == "個人") {
-        isGroup = false;
+        isGroupTab = false;
     } else if (e.target.textContent == "グループ") {
-        isGroup = true;
+        isGroupTab = true;
     }
-    TabBtn(isGroup);
+    TabBtn(isGroupTab);
 
 });
 
 //メニュータブ選択
 TabBtn = () => {
-    if (!isGroup) {
+    if (!isGroupTab) {
         document.getElementsByClassName('menu-select-btn')[0].classList.add('menu-select-active');
         document.getElementsByClassName('menu-select-btn')[1].classList.remove('menu-select-active');
         document.getElementById('js-chara-list').classList.add('menu-list-active');
         document.getElementById('js-group-list').classList.remove('menu-list-active');
-    } else if (isGroup) {
+    } else if (isGroupTab) {
         document.getElementsByClassName('menu-select-btn')[1].classList.add('menu-select-active');
         document.getElementsByClassName('menu-select-btn')[0].classList.remove('menu-select-active');
         document.getElementById('js-chara-list').classList.remove('menu-list-active');
@@ -275,8 +257,10 @@ SelectRoom = (id) => {
     }
     if (id >= CharaData.length) {
         TelOpenBtn.style.display = "none";
+        isGroup = true;
     } else {
         TelOpenBtn.style.display = "flex";
+        isGroup = false;
     }
 }
 
@@ -354,127 +338,6 @@ NameScrollAnimation = () => {
 
 }
 
-
-//Time
-let Time = document.getElementById('js-time');
-let timer = null;
-let timeTimer = null;
-
-let Clock = document.getElementById('js-clock');
-let Day = document.getElementById('js-day');
-
-let CurrentTime;
-let CurrentDay;
-
-const GetTime = () => {
-    const now = new Date();
-    let hours = now.getHours().toString();
-    if (hours.length == 1) hours = '0' + hours;
-    let minutes = now.getMinutes().toString();
-    if (minutes.length == 1) minutes = '0' + minutes;
-    let month = now.getMonth() + 1;
-    let monthStr = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    let day = now.getDate();
-    if (day.length == 1) day = '0' + day;
-    let dayOfWeek = now.getDay();
-    let dayOfWeekStr = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
-    CurrentTime = String(hours) + ':' + String(minutes);
-    Day.textContent = String(dayOfWeekStr[dayOfWeek]) + ' ' + day + ' ' + String(monthStr[month]);
-    Day.textContent.replace(/\s|&nbsp;/g, '')
-    timeTimer = setTimeout(SetTime, (60 - now.getSeconds()) * 1000);
-};
-
-SetTime = () => {
-    GetTime();
-    Time.textContent = CurrentTime;
-    Clock.textContent = CurrentTime;
-}
-
-Time.addEventListener('click', (e) => {
-    ResetTime(e);
-
-})
-Clock.addEventListener('click', (e) => {
-    ResetTime(e);
-})
-
-ResetTime = (e) => {
-    let old_text = e.target.textContent;
-    let new_text = window.prompt('時刻編集', old_text);
-    if (new_text == null) {
-        Time.textContent = old_text;
-        Clock.textContent = old_text;
-        return;
-    } else if (new_text == "") {
-        if (window.confirm('現在時刻に変更しますか？')) {
-            SetTime();
-        }
-        return;
-    } else if (new_text.length) {
-        clearTimeout(timeTimer);
-        Time.textContent = new_text;
-        Clock.textContent = new_text;
-        return;
-    }
-}
-Day.addEventListener('click', (e) => {
-    let old_text = e.target.textContent;
-    let new_text = window.prompt('日付編集', old_text);
-    if (new_text == null) {
-        e.target.textContent = old_text;
-        return;
-    } else if (new_text == "") {
-        if (window.confirm('現在の日付に変更しますか？')) {
-            SetTime();
-        }
-        return;
-    } else if (new_text.length) {
-        clearTimeout(timeTimer);
-        e.target.textContent = new_text;
-        return;
-    }
-})
-
-//battery
-let Battery = document.getElementById('js-battery');
-Battery.addEventListener('click', (e) => {
-    let old_text = document.querySelector('#js-battery span').textContent;
-    let new_text = window.prompt('バッテリーレベル編集', old_text);
-    if (new_text == null) {
-        return;
-    } else if (new_text == "") {
-        return;
-    } else if (new_text.length) {
-        document.querySelector('#js-battery i').remove()
-        document.querySelector('#js-battery span').textContent = new_text;
-
-        level = new_text.replace('%', '');
-        let BatteryIcon = document.createElement('i');
-        if (75 < level) {
-            BatteryIcon.className = 'fa-solid fa-battery-full fa-lg';
-        } else if (50 < level && level <= 75) {
-            BatteryIcon.className = 'fa-solid fa-battery-three-quarters fa-lg';
-        } else if (25 < level && level <= 50) {
-            BatteryIcon.className = 'fa-solid fa-battery-half fa-lg';
-        } else if (10 < level && level <= 25) {
-            BatteryIcon.className = 'fa-solid fa-battery-quarter fa-lg';
-        } else if (0 < level && level <= 10) {
-            BatteryIcon.className = 'fa-solid fa-battery-empty fa-lg';
-        }
-        Battery.appendChild(BatteryIcon);
-        return;
-    }
-})
-
-//ブラウザ判定
-const batteryFlag = () => {
-    const userAgent = window.navigator.userAgent.toLowerCase();
-    if (userAgent.indexOf('edge') != -1 || userAgent.indexOf('chrome') != -1) {
-        batteryLevel();
-    } else if (userAgent.indexOf('safari') != -1) {
-        document.querySelector('.battery span').textContent = "123%";
-    }
-}
 //テキストエリア自動伸縮
 const TextBody = document.querySelector('#js-text');
 lineHeight = (TextBody.currentStyle || document.defaultView.getComputedStyle(TextBody, '')).lineHeight;
@@ -780,6 +643,116 @@ LoskScreenMessageList = () => {
 
     }
 }
+//Time
+let Time = document.getElementById('js-time');
+let timer = null;
+let timeTimer = null;
+
+let Clock = document.getElementById('js-clock');
+let Day = document.getElementById('js-day');
+
+let CurrentTime;
+let CurrentDay;
+
+const GetTime = () => {
+    const now = new Date();
+    let hours = now.getHours().toString();
+    if (hours.length == 1) hours = '0' + hours;
+    let minutes = now.getMinutes().toString();
+    if (minutes.length == 1) minutes = '0' + minutes;
+    let month = now.getMonth() + 1;
+    let monthStr = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    let day = now.getDate();
+    if (day.length == 1) day = '0' + day;
+    let dayOfWeek = now.getDay();
+    let dayOfWeekStr = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+    CurrentTime = String(hours) + ':' + String(minutes);
+    Day.textContent = String(dayOfWeekStr[dayOfWeek]) + ' ' + day + ' ' + String(monthStr[month]);
+    Day.textContent.replace(/\s|&nbsp;/g, '')
+    timeTimer = setTimeout(SetTime, (60 - now.getSeconds()) * 1000);
+};
+
+SetTime = () => {
+    GetTime();
+    Time.textContent = CurrentTime;
+    Clock.textContent = CurrentTime;
+}
+
+Time.addEventListener('click', (e) => {
+    ResetTime(e);
+})
+Clock.addEventListener('click', (e) => {
+    ResetTime(e);
+})
+
+ResetTime = (e) => {
+    let old_text = e.target.textContent;
+    let new_text = window.prompt('時刻編集', old_text);
+    if (new_text == null) {
+        Time.textContent = old_text;
+        Clock.textContent = old_text;
+        return;
+    } else if (new_text == "") {
+        if (window.confirm('現在時刻に変更しますか？')) {
+            SetTime();
+        }
+        return;
+    } else if (new_text.length) {
+        clearTimeout(timeTimer);
+        Time.textContent = new_text;
+        Clock.textContent = new_text;
+        return;
+    }
+}
+
+Day.addEventListener('click', (e) => {
+    let old_text = e.target.textContent;
+    let new_text = window.prompt('日付編集', old_text);
+    if (new_text == null) {
+        e.target.textContent = old_text;
+        return;
+    } else if (new_text == "") {
+        if (window.confirm('現在の日付に変更しますか？')) {
+            SetTime();
+        }
+        return;
+    } else if (new_text.length) {
+        clearTimeout(timeTimer);
+        e.target.textContent = new_text;
+        return;
+    }
+})
+
+//battery
+let Battery = document.getElementById('js-battery');
+Battery.addEventListener('click', (e) => {
+    let old_text = document.querySelector('#js-battery span').textContent;
+    let new_text = window.prompt('バッテリーレベル編集', old_text);
+    if (new_text == null) {
+        return;
+    } else if (new_text == "") {
+        return;
+    } else if (new_text.length) {
+        document.querySelector('#js-battery i').remove()
+        document.querySelector('#js-battery span').textContent = new_text;
+
+        level = new_text.replace('%', '');
+        let BatteryIcon = document.createElement('i');
+        if (75 < level) {
+            BatteryIcon.className = 'fa-solid fa-battery-full fa-lg';
+        } else if (50 < level && level <= 75) {
+            BatteryIcon.className = 'fa-solid fa-battery-three-quarters fa-lg';
+        } else if (25 < level && level <= 50) {
+            BatteryIcon.className = 'fa-solid fa-battery-half fa-lg';
+        } else if (10 < level && level <= 25) {
+            BatteryIcon.className = 'fa-solid fa-battery-quarter fa-lg';
+        } else if (0 < level && level <= 10) {
+            BatteryIcon.className = 'fa-solid fa-battery-empty fa-lg';
+        }
+        Battery.appendChild(BatteryIcon);
+        return;
+    }
+})
 
 
 window.onresize = function () {
@@ -791,8 +764,8 @@ window.onresize = function () {
 
 
 //実行
+isPWA();
 SetTime();
-//batteryFlag();
 AddGroup();
 MenuToggle();
 TelephoneToggle();

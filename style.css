@@ -774,9 +774,14 @@ textarea::-webkit-scrollbar,
     align-items: center;
 }
 
-
-
 .tel-icon {
+    position: relative;
+    display: flex;
+    flex: 0 0 auto;
+}
+
+
+.tel-icon>div{
     position: relative;
     display: flex;
     width: 12rem;
@@ -811,15 +816,15 @@ textarea::-webkit-scrollbar,
     position: relative;
     font-size: 1rem;
     white-space: nowrap;
-    align-items: center;
     padding: 1rem;
-    margin: auto;
+    margin: 5rem auto;
     width: 12rem;
     color: #ffff;
     justify-content: center;
 }
 
 .tel-closeBtn {
+    display: flex;
     margin: 5rem auto;
     pointer-events: auto;
 }

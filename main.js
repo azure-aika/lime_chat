@@ -549,8 +549,8 @@ TelCloseBtn = document.getElementById('js-tel-closeBtn');
 TelModal = document.getElementById('js-telephone');
 TelephoneToggle = () => {
     TelOpenBtn.addEventListener('click', function () {
-        document.getElementsByClassName('tel-icon')[0].style.backgroundImage = "url(" + CharaData[CurrentRoomID].icon + ")";
-        document.getElementsByClassName('tel-icon')[0].style.backgroundColor = CharaData[CurrentRoomID].color;
+        document.querySelector('.tel-icon div').style.backgroundImage = "url(" + CharaData[CurrentRoomID].icon + ")";
+        document.querySelector('.tel-icon div').style.backgroundColor = CharaData[CurrentRoomID].color;
         document.getElementsByClassName('tel-name')[0].textContent = CharaData[CurrentRoomID].username;
         TelModal.classList.add('modal-open');
     });

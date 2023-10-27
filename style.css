@@ -759,7 +759,6 @@ textarea::-webkit-scrollbar,
 .add-group-list:has(input[type="checkbox"]:checked) .add-group-list-name>span {
     color: #ffffff;
 }
-
 .telephone {
     position: absolute;
     display: none;
@@ -774,14 +773,9 @@ textarea::-webkit-scrollbar,
     align-items: center;
 }
 
+
+
 .tel-icon {
-    position: relative;
-    display: flex;
-    flex: 0 0 auto;
-}
-
-
-.tel-icon>div{
     position: relative;
     display: flex;
     width: 12rem;
@@ -816,15 +810,15 @@ textarea::-webkit-scrollbar,
     position: relative;
     font-size: 1rem;
     white-space: nowrap;
+    align-items: center;
     padding: 1rem;
-    margin: 5rem auto;
+    margin: auto;
     width: 12rem;
     color: #ffff;
     justify-content: center;
 }
 
 .tel-closeBtn {
-    display: flex;
     margin: 5rem auto;
     pointer-events: auto;
 }
@@ -841,6 +835,7 @@ textarea::-webkit-scrollbar,
     background: red;
     color: #ffffff;
 }
+
 
 .lock-screen {
     position: absolute;

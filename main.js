@@ -34,6 +34,12 @@ let GroupData = CharaData.reduce((group, key) => {
     (group[key.cate] = group[key.cate] || []).push(key);
     return group;
 }, {});
+/*
+GroupData["捜査企画課"] = GroupData["マトリ"];
+delete GroupData["マトリ"];
+GroupData["服部班"] = GroupData["警視庁"];
+delete GroupData["警視庁"];
+*/
 
 //キャラデータからメニューとチャットタブを生成
 CurrentRoomID = 0;
@@ -71,8 +77,8 @@ AddList = (i) => {
         CharaList.appendChild(MenuListItem);
     } else if (i >= CharaData.length && i < RoomLength) {
         RoomNameText.textContent = Object.keys(GroupData)[i - CharaData.length + 1];
-        if (RoomNameText.textContent == "マトリ") RoomNameText.textContent = "捜査企画課";
-        if (RoomNameText.textContent == "警視庁") RoomNameText.textContent = "服部班";
+        //if (RoomNameText.textContent == "マトリ") RoomNameText.textContent = "捜査企画課";
+        //if (RoomNameText.textContent == "警視庁") RoomNameText.textContent = "服部班";
         GroupList.appendChild(MenuListItem);
     } else if (i >= RoomLength) {
         RoomNameText.textContent = "";
@@ -91,9 +97,6 @@ AddList = (i) => {
     MenuListItem.addEventListener('click', (e) => {
         CurrentRoomID = MenuListItem.dataset.roomid;
         SelectRoom(CurrentRoomID);
-        isSenderSelf = true;
-        click = -1;
-        SelectSender(CurrentRoomID, click, isSenderSelf);
     })
     //初回メッセージ
     if (i < CharaData.length) {
@@ -177,7 +180,7 @@ AddGroup = () => {
     AddGroupSetForm.addEventListener('click', (e) => {
         e.preventDefault();
         checkboxes = document.querySelectorAll('input[name=selectlist]:checked');
-        groupname = document.querySelector("input[name='group-name']").value;
+        groupname = String(document.querySelector("input[name='group-name']").value);
         if (checkboxes.length == 0 || groupname == "") {
             alert("グループ名が入力されていない、もしくはキャラが選択されていません")
             return;
@@ -199,14 +202,12 @@ AddGroup = () => {
             document.querySelectorAll('.menu-list-item-name span')[RoomLength].textContent = groupname;
             GroupSelectPop.classList.toggle('modal-open');
             CurrentRoomID = RoomLength;
-            SelectRoom(CurrentRoomID);
             RoomLength = CharaData.length + Object.keys(GroupData).length - 1;
-            
+            SelectRoom(CurrentRoomID);
             isSenderSelf = true;
             click = -1;
             SelectSender(CurrentRoomID, click, isSenderSelf);
             NameScrollAnimation();
-
             document.getElementById("js-group-form").reset();
         }
     });
@@ -258,10 +259,16 @@ SelectRoom = (id) => {
     if (id >= CharaData.length) {
         TelOpenBtn.style.display = "none";
         isGroup = true;
+        CurrentGroupName = document.querySelector('[data-roomid="' + id + '"] span').textContent;
+
     } else {
         TelOpenBtn.style.display = "flex";
         isGroup = false;
     }
+
+    isSenderSelf = true;
+    click = -1;
+    SelectSender(id, click, isSenderSelf);
 }
 
 DefaultMessage = (roomid) => {
@@ -480,8 +487,9 @@ SelectSender = (roomid, count, flag) => {
     } else
         if (count > -1) {
             if (isGroup) {
-                formSender.style.background = Object.values(GroupData)[roomid - CharaData.length + 1][count].color;
-                CurrentSenderID = Object.values(GroupData)[roomid - CharaData.length + 1][count].id;
+                CurrentGroupName = document.querySelector('[data-roomid="' + roomid + '"] span').textContent;
+                formSender.style.background = GroupData[CurrentGroupName][count].color;
+                CurrentSenderID = GroupData[CurrentGroupName][count].id;
             } else {
                 formSender.style.background = CharaData[roomid].color;
                 CurrentSenderID = CharaData[roomid].id;
@@ -492,7 +500,8 @@ SelectSender = (roomid, count, flag) => {
 formSender.addEventListener('click', (e) => {
     click++;
     if (isGroup) {
-        if (click > Object.values(GroupData)[CurrentRoomID - CharaData.length + 1].length - 1) {
+        CurrentGroupName = document.querySelector('[data-roomid="' + CurrentRoomID + '"] span').textContent;
+        if (click > GroupData[CurrentGroupName].length - 1) {
             click = -1;
             isSenderSelf = true;
         } else if (click >= 0) {
@@ -508,14 +517,28 @@ formSender.addEventListener('click', (e) => {
     }
     SelectSender(CurrentRoomID, click, isSenderSelf);
 });
+
 //メッセージ送信
-let Form = document.getElementById('js-form');
-Form.addEventListener('submit', (e) => {
+Send = (e) => {
     e.preventDefault();
     let messageText = TextBody.value;
     isSenderSelf ? messagePosition = 'right' : messagePosition = 'left';
     messageAnime(messageText, messagePosition, CurrentRoomID, CurrentSenderID);
+}
+let Form = document.getElementById('js-form');
+document.send.addEventListener('submit', (e) => {
+    Send(e);
 });
+
+//キーボード操作
+TextBody.addEventListener('keydown', (e) => {
+    if (e.ctrlKey) {
+        if (e.keyCode == 13) {
+            Send(e);
+        }
+    }
+})
+
 
 //メニュー開閉
 MenuToggle = () => {
@@ -535,9 +558,9 @@ MenuToggle = () => {
             ChatArea[i].classList.toggle('menu-close');
         }
         if (CurrentRoomID < CharaData.length) {
-            isGroup = false;
+            isGroupTab = false;
         } else {
-            isGroup = true;
+            isGroupTab = true;
         }
         TabBtn();
         document.getElementById("js-chara-list").scrollTop = document.getElementById("id" + CurrentRoomID).scrollHeight * CurrentRoomID;

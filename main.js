@@ -2,32 +2,32 @@
 
 let CharaData = [
     { id: "0", name: "自分", username: "機能説明", color: "#808080", scenario: { 0: "スタマイに登場するチャットアプリ『LIME』風webアプリです", 1: "【ルーム選択】\n左の▶ボタンを押すと表示されるリストからチャットルームを選択できます", 2: "【メッセージ送信・編集・削除】\nフォーム横のボタンでメッセージの送信者を選択できます\n送信済のメッセージをクリックすると編集できます。\nメッセージが空の状態でOKボタンを押すと、メッセージの削除ができます", 3: "【時刻・日付変更】\n表示部分をクリックすると編集できます。空の状態でOKボタンを押すとデフォルトに戻ります", 4: "【通話画面・ロック画面】\n右上のアイコンからそれぞれ画面が開きます。\nロック画面では対象ルームの未読メッセージのみ表示されます", 5: "画面をリロードすると全ルームの会話がリセットされます" } },
-    { id: "1", name: "青山樹", username: "青山樹", cate: "マトリ", icon: "img/icon_default_aoyama.png", color: "#2390FF", scenario: { 0: "青山樹です。登録よろしくお願いします。" } },
-    { id: "2", name: "由井孝太郎", username: "Kotaro.Y", cate: "マトリ", icon: "img/icon_default_yui.png", color: "#FFAEC0", scenario: { 0: "いつでも連絡してくれ", 1: "キミからの頼みとあらばどこへでも駆けつけよう" } },
-    { id: "3", name: "関大輔", username: "関", cate: "マトリ", icon: "img/icon_default_seki.png", color: "#F95240", scenario: { 0: "これで送れているか？" } },
-    { id: "4", name: "夏目春", username: "hal", cate: "マトリ", icon: "img/icon_default_natsume.png", color: "#59D9A5", scenario: { 0: "あ" } },
-    { id: "5", name: "今大路峻", username: "shun", cate: "マトリ", icon: "img/icon_default_imaoji.png", color: "#F9CD00", scenario: { 0: "今大路です。これからよろしくお願いします" } },
-    { id: "6", name: "渡部悟", username: "ワタベ", cate: "マトリ", icon: "img/icon_default_watabe.png", color: "#9173E7", scenario: { 0: "登録したよ、これから好きな時に連絡してね" } },
-    { id: "7", name: "朝霧司", username: "朝霧 司", cate: "警視庁", icon: "img/icon_default_asagiri.png", color: "#FF864A", scenario: { 0: "朝霧司です", 1: "登録しましたので、早めに返事がほしい時はこちらにお願いします" } },
-    { id: "8", name: "菅野夏樹", username: "夏樹", cate: "警視庁", icon: "img/icon_default_sugano.png", color: "#98DF00", scenario: { 0: "送れてる？" } },
-    { id: "9", name: "荒木田蒼生", username: "荒木田", cate: "警視庁", icon: "img/icon_default_arakida.png", color: "#8FDAC6", scenario: { 0: "登録した。" } },
-    { id: "10", name: "服部耀", username: "服部", cate: "警視庁", icon: "img/icon_default_hattori.png", color: "#D43767", scenario: { 0: "夏樹から資料受け取った？" } },
-    { id: "11", name: "桧山貴臣", username: "桧山", cate: "Revel", icon: "img/icon_default_hiyama.png", color: "#E3CC96", scenario: { 0: "先ほどは手間をかけたな。", 1: "急ぎの要件があれば、今後はこちらに連絡してくれ。" } },
-    { id: "12", name: "大谷羽鳥", username: "hatori", cate: "Revel", icon: "img/icon_default_otani.png", color: "#F76796", scenario: { 0: "LIME教えてくれてありがとう。", 1: "気軽に連絡してね。" } },
-    { id: "13", name: "神楽亜貴", username: "Aki Kagura", cate: "Revel", icon: "img/icon_default_kagura.png", color: "#76b6ed", scenario: { 0: "登録したから。", 1: "金曜仕事終わったらアトリエ集合ね。", 2: "分かった？", 3: "ねえ、" } },
-    { id: "14", name: "槙慶太", username: "槙慶太", cate: "Revel", icon: "img/icon_default_maki.png", color: "#5bcd38", scenario: { 0: "登録した、よろしく。" } },
-    { id: "15", name: "都築誠", username: "都築", cate: "都築兄弟", icon: "img/icon_default_makoto.png", color: "#4c835b", scenario: { 0: "先日は、取材の申し込みに応じてもらい助かった。", 1: "改めて礼を言う" } },
-    { id: "16", name: "都築京介", username: "きょーすけ", cate: "都築兄弟", icon: "img/icon_default_kyosuke.png", color: "#b9b3f4", scenario: { 0: "登録したよ、よろしく！" } },
-    { id: "17", name: "新堂清志", username: "新堂", cate: "九条家", icon: "img/icon_default_shindo.png", color: "#a481c8", scenario: { 0: "新堂だ" } },
-    { id: "18", name: "山崎カナメ", username: "kaname", cate: "九条家", icon: "img/icon_default_kaname.png", color: "#addbe3", scenario: { 0: "連絡先、もらってから時間経っちゃってごめん。" } },
-    { id: "19", name: "桐嶋宏弥", username: "キリシマ", cate: "九条家", icon: "img/icon_default_kirishima.png", color: "#ffa126", scenario: { 0: "とどいてるか？" } },
-    { id: "20", name: "九条壮馬", username: "九条", cate: "九条家", icon: "img/icon_default_kujo.png", color: "#d22d38", scenario: { 0: "無事に登録できているだろうか。" } },
-    { id: "21", name: "宮瀬豪", username: "宮瀬", cate: "九条家", icon: "img/icon_default_miyase.png", color: "#f8a9f2", scenario: { 0: "夜ご飯お願いします。", 1: "あれ", 2: "よろしくと打つつもりが『よ』で勝手に変換が……" } },
-    { id: "22", name: "可愛ひかる", username: "かわいひかる", cate: "瀬尾研究室", icon: "img/icon_default_kawai.png", color: "#ff9ab5", scenario: { 0: "玲さん、ひかるんだよ～", 1: "早速登録させてね♪" } },
-    { id: "23", name: "宝生潔", username: "宝生潔", cate: "瀬尾研究室", icon: "img/icon_default_hosho.png", color: "#aeb227", scenario: { 0: "突然連絡してしまってすみません", 1: "淑央大学2年の宝生潔です" } },
-    { id: "24", name: "日向志音", username: "しー", cate: "瀬尾研究室", icon: "img/icon_default_hinata.png", color: "#36dbf3", scenario: { 0: "さっき貰ったお菓子、おいしかった", 1: "ありがとう" } },
-    { id: "25", name: "早乙女郁人", username: "早乙女郁人【淑央大】", cate: "瀬尾研究室", icon: "img/icon_default_saotome.png", color: "#3553af", scenario: { 0: "これが俺のアカウントだ、\nきちんと登録しとけ", 1: "おい", 2: "おい、見てないのか。" } },
-    { id: "26", name: "瀬尾鳴海", username: "NARUMI SEO", cate: "瀬尾研究室", icon: "img/icon_default_seo.png", color: "#218379", scenario: { 0: "これで登録できているかな？" } }
+    { id: "1", name: "青山樹", username: "青山樹", cate: "マトリ", icon: "img/icon/lime_icons_aoyama_01.png", color: "#2390FF", scenario: { 0: "青山樹です。登録よろしくお願いします。" } },
+    { id: "2", name: "由井孝太郎", username: "Kotaro.Y", cate: "マトリ", icon: "img/icon/lime_icons_yui_01.png", color: "#FFAEC0", scenario: { 0: "いつでも連絡してくれ", 1: "キミからの頼みとあらばどこへでも駆けつけよう" } },
+    { id: "3", name: "関大輔", username: "関", cate: "マトリ", icon: "img/icon/lime_icons_seki_01.png", color: "#F95240", scenario: { 0: "これで送れているか？" } },
+    { id: "4", name: "夏目春", username: "hal", cate: "マトリ", icon: "img/icon/lime_icons_natsume_01.png", color: "#59D9A5", scenario: { 0: "あ" } },
+    { id: "5", name: "今大路峻", username: "shun", cate: "マトリ", icon: "img/icon/lime_icons_imaoji_01.png", color: "#F9CD00", scenario: { 0: "今大路です。これからよろしくお願いします" } },
+    { id: "6", name: "渡部悟", username: "ワタベ", cate: "マトリ", icon: "img/icon/lime_icons_watabe_01.png", color: "#9173E7", scenario: { 0: "登録したよ、これから好きな時に連絡してね" } },
+    { id: "7", name: "朝霧司", username: "朝霧 司", cate: "警視庁", icon: "img/icon/lime_icons_asagiri_01.png", color: "#FF864A", scenario: { 0: "朝霧司です", 1: "登録しましたので、早めに返事がほしい時はこちらにお願いします" } },
+    { id: "8", name: "菅野夏樹", username: "夏樹", cate: "警視庁", icon: "img/icon/lime_icons_sugano_01.png", color: "#98DF00", scenario: { 0: "送れてる？" } },
+    { id: "9", name: "荒木田蒼生", username: "荒木田", cate: "警視庁", icon: "img/icon/lime_icons_arakida_01.png", color: "#8FDAC6", scenario: { 0: "登録した。" } },
+    { id: "10", name: "服部耀", username: "服部", cate: "警視庁", icon: "img/icon/lime_icons_hattori_01.png", color: "#D43767", scenario: { 0: "夏樹から資料受け取った？" } },
+    { id: "11", name: "桧山貴臣", username: "桧山", cate: "Revel", icon: "img/icon/lime_icons_hiyama_01.png", color: "#E3CC96", scenario: { 0: "先ほどは手間をかけたな。", 1: "急ぎの要件があれば、今後はこちらに連絡してくれ。" } },
+    { id: "12", name: "大谷羽鳥", username: "hatori", cate: "Revel", icon: "img/icon/lime_icons_otani_01.png", color: "#F76796", scenario: { 0: "LIME教えてくれてありがとう。", 1: "気軽に連絡してね。" } },
+    { id: "13", name: "神楽亜貴", username: "Aki Kagura", cate: "Revel", icon: "img/icon/lime_icons_kagura_01.png", color: "#76b6ed", scenario: { 0: "登録したから。", 1: "金曜仕事終わったらアトリエ集合ね。", 2: "分かった？", 3: "ねえ、" } },
+    { id: "14", name: "槙慶太", username: "槙慶太", cate: "Revel", icon: "img/icon/lime_icons_maki_01.png", color: "#5bcd38", scenario: { 0: "登録した、よろしく。" } },
+    { id: "15", name: "都築誠", username: "都築", cate: "都築兄弟", icon: "img/icon/lime_icons_makoto_01.png", color: "#4c835b", scenario: { 0: "先日は、取材の申し込みに応じてもらい助かった。", 1: "改めて礼を言う" } },
+    { id: "16", name: "都築京介", username: "きょーすけ", cate: "都築兄弟", icon: "img/icon/lime_icons_kyosuke_01.png", color: "#b9b3f4", scenario: { 0: "登録したよ、よろしく！" } },
+    { id: "17", name: "新堂清志", username: "新堂", cate: "九条家", icon: "img/icon/lime_icons_shindo_01.png", color: "#a481c8", scenario: { 0: "新堂だ" } },
+    { id: "18", name: "山崎カナメ", username: "kaname", cate: "九条家", icon: "img/icon/lime_icons_kaname_01.png", color: "#addbe3", scenario: { 0: "連絡先、もらってから時間経っちゃってごめん。" } },
+    { id: "19", name: "桐嶋宏弥", username: "キリシマ", cate: "九条家", icon: "img/icon/lime_icons_kirishima_01.png", color: "#ffa126", scenario: { 0: "とどいてるか？" } },
+    { id: "20", name: "九条壮馬", username: "九条", cate: "九条家", icon: "img/icon/lime_icons_kujo_01.png", color: "#d22d38", scenario: { 0: "無事に登録できているだろうか。" } },
+    { id: "21", name: "宮瀬豪", username: "宮瀬", cate: "九条家", icon: "img/icon/lime_icons_miyase_01.png", color: "#f8a9f2", scenario: { 0: "夜ご飯お願いします。", 1: "あれ", 2: "よろしくと打つつもりが『よ』で勝手に変換が……" } },
+    { id: "22", name: "可愛ひかる", username: "かわいひかる", cate: "瀬尾研究室", icon: "img/icon/lime_icons_kawai_01.png", color: "#ff9ab5", scenario: { 0: "玲さん、ひかるんだよ～", 1: "早速登録させてね♪" } },
+    { id: "23", name: "宝生潔", username: "宝生潔", cate: "瀬尾研究室", icon: "img/icon/lime_icons_isagi_01.png", color: "#aeb227", scenario: { 0: "突然連絡してしまってすみません", 1: "淑央大学2年の宝生潔です" } },
+    { id: "24", name: "日向志音", username: "しー", cate: "瀬尾研究室", icon: "img/icon/lime_icons_hinata_01.png", color: "#36dbf3", scenario: { 0: "さっき貰ったお菓子、おいしかった", 1: "ありがとう" } },
+    { id: "25", name: "早乙女郁人", username: "早乙女郁人【淑央大】", cate: "瀬尾研究室", icon: "img/icon/lime_icons_saotome_01.png", color: "#3553af", scenario: { 0: "これが俺のアカウントだ、\nきちんと登録しとけ", 1: "おい", 2: "おい、見てないのか。" } },
+    { id: "26", name: "瀬尾鳴海", username: "NARUMI SEO", cate: "瀬尾研究室", icon: "img/icon/lime_icons_seo_01.png", color: "#218379", scenario: { 0: "これで登録できているかな？" } }
 ];
 
 let GroupData = CharaData.reduce((group, key) => {
@@ -692,7 +692,7 @@ const GetTime = () => {
     CurrentTime = String(hours) + ':' + String(minutes);
     Day.textContent = String(dayOfWeekStr[dayOfWeek]) + ' ' + day + ' ' + String(monthStr[month]);
     Day.textContent.replace(/\s|&nbsp;/g, '')
-    timeTimer = setTimeout(SetTime, (60 - now.getSeconds()) * 1000);
+    timeTimer = setTimeout(GetTime, (60 - now.getSeconds()) * 1000);
 };
 
 SetTime = () => {

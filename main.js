@@ -683,7 +683,7 @@ const GetTime = () => {
     if (hours.length == 1) hours = '0' + hours;
     let minutes = now.getMinutes().toString();
     if (minutes.length == 1) minutes = '0' + minutes;
-    let month = now.getMonth() + 1;
+    let month = now.getMonth();
     let monthStr = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     let day = now.getDate();
     if (day.length == 1) day = '0' + day;

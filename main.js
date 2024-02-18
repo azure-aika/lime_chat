@@ -34,12 +34,6 @@ let GroupData = CharaData.reduce((group, key) => {
     (group[key.cate] = group[key.cate] || []).push(key);
     return group;
 }, {});
-/*
-GroupData["捜査企画課"] = GroupData["マトリ"];
-delete GroupData["マトリ"];
-GroupData["服部班"] = GroupData["警視庁"];
-delete GroupData["警視庁"];
-*/
 
 //キャラデータからメニューとチャットタブを生成
 CurrentRoomID = 0;
@@ -77,8 +71,7 @@ AddList = (i) => {
         CharaList.appendChild(MenuListItem);
     } else if (i >= CharaData.length && i < RoomLength) {
         RoomNameText.textContent = Object.keys(GroupData)[i - CharaData.length + 1];
-        //if (RoomNameText.textContent == "マトリ") RoomNameText.textContent = "捜査企画課";
-        //if (RoomNameText.textContent == "警視庁") RoomNameText.textContent = "服部班";
+        MenuListItemIcon.style.backgroundImage = "url(img/icon/icon_group_" + RoomNameText.textContent + ".png)";
         GroupList.appendChild(MenuListItem);
     } else if (i >= RoomLength) {
         RoomNameText.textContent = "";
@@ -693,13 +686,9 @@ const GetTime = () => {
     Day.textContent = String(dayOfWeekStr[dayOfWeek]) + ' ' + day + ' ' + String(monthStr[month]);
     Day.textContent.replace(/\s|&nbsp;/g, '')
     timeTimer = setTimeout(GetTime, (60 - now.getSeconds()) * 1000);
-};
-
-SetTime = () => {
-    GetTime();
     Time.textContent = CurrentTime;
     Clock.textContent = CurrentTime;
-}
+};
 
 Time.addEventListener('click', (e) => {
     ResetTime(e);
@@ -717,7 +706,7 @@ ResetTime = (e) => {
         return;
     } else if (new_text == "") {
         if (window.confirm('現在時刻に変更しますか？')) {
-            SetTime();
+            GetTime();
         }
         return;
     } else if (new_text.length) {
@@ -736,7 +725,7 @@ Day.addEventListener('click', (e) => {
         return;
     } else if (new_text == "") {
         if (window.confirm('現在の日付に変更しますか？')) {
-            SetTime();
+            GetTime();
         }
         return;
     } else if (new_text.length) {
@@ -787,7 +776,7 @@ window.onresize = function () {
 
 
 //実行
-SetTime();
+GetTime();
 AddGroup();
 MenuToggle();
 TelephoneToggle();
